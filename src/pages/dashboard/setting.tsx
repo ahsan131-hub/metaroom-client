@@ -61,7 +61,7 @@ const SettingPage = () => {
         <SearchBar />
       </div>
       <div className="w-full ml-10">
-      <h1 className="text-2xl mt-14">Settings</h1>
+        <h1 className="text-2xl mt-14">Settings</h1>
         <div className="w-full flex flex-row space-x-14 mt-7 border-b-2 border-gray-800">
           <a
             href="#"
