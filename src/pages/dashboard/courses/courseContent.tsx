@@ -2,7 +2,7 @@ import { PaperClipIcon } from '@heroicons/react/20/solid';
 
 export default function CourseContent({ data }: any) {
   return (
-    <div className="border-t border-gray-200">
+    <div className="">
       <div className={'m-2 ml-10 pt-5 font-semibold sm:rounded-lg '}>
         <span>{data.uploadDate}</span>
       </div>

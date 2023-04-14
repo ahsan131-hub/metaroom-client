@@ -6,10 +6,11 @@ import CoursesOverView from '@/components/postlogin/homePage/CoursesOverView';
 import SearchBar from '@/components/postlogin/homePage/searchbar';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
+import JoinCourse from '../../../components/postlogin/forms/JoinCourse';
 
 const CoursePage = () => {
   const [showcourseForm, setShowcourseForm] = useState(false);
-  const [showEnrollcourseForm, setEnrollcourseForm] = useState(false);
+  const [showEnrollcourseForm, setShowEnrollCourseForm] = useState(false);
   const courses = [
     { name: 'Machine Learning', teacher: 'Dr. Sher' },
     { name: 'Machine Learning', teacher: 'Dr. Sher' },
@@ -43,20 +44,13 @@ const CoursePage = () => {
           <button
             className={`${DEFAULT_BUTTON('w-40')}`}
             onClick={() => {
-              if (!showEnrollcourseForm) {
-                setEnrollcourseForm(!showEnrollcourseForm);
-                if (showcourseForm) {
-                  setShowcourseForm(!showcourseForm);
-                }
-              } else {
-                setEnrollcourseForm(!setShowcourseForm);
-              }
+              setShowEnrollCourseForm(!showEnrollcourseForm);
             }}
           >
             Join Course
           </button>
         </div>
-
+        <JoinCourse showAnimation={showEnrollcourseForm} />
         <CreateCourse showAnimation={showcourseForm} />
         <JoinCourse showAnimation={showEnrollcourseForm} />
         <CoursesOverView courses={courses} label="My Courses" />

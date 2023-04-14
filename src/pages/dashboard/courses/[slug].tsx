@@ -1,14 +1,20 @@
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import courseIcon from '@/components/postlogin/icons/courseIcon';
 import Layout from '@/components/postlogin/Layouts/Layout';
+import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
+import CreateAssignment from '../../../components/postlogin/forms/CreateAssignment';
 import CourseContent from './courseContent';
 import CourseInfo from './courseInfo';
 
 const CoursePage = () => {
   const router = useRouter();
   const { slug } = router.query;
+  const [showQuizForm, setShowQuizForm] = useState(false);
+  const [showAssignmentForm, setShowAssignmentForm] = useState(false);
+
   const data = {
     courseIcon,
     courseName: 'Machine Learning',
@@ -72,6 +78,28 @@ const CoursePage = () => {
               <h3 className="text-base font-semibold leading-6 text-gray-900">
                 Course Content
               </h3>
+            </div>
+            <div className="border-gray-200 p-6 border-t">
+              <button
+                className={`${DEFAULT_BUTTON('w-40')}`}
+                onClick={() => {
+                  setShowAssignmentForm(!showAssignmentForm);
+                }}
+              >
+                Create Assigment
+              </button>
+              <button
+                className={`${DEFAULT_BUTTON('w-40')}`}
+                onClick={() => {
+                  setShowQuizForm(!showQuizForm);
+                }}
+              >
+                Create Quiz
+              </button>
+            </div>
+
+            <div>
+              <CreateAssignment showAnimation={showAssignmentForm} />
             </div>
             {contents.map((content, index) => (
               <CourseContent key={index} data={content} />
