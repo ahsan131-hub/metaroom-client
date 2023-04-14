@@ -6,8 +6,11 @@ import SearchBar from '@/components/postlogin/homePage/searchbar';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
+import JoinCourse from '../../../components/postlogin/forms/JoinCourse';
+
 const CoursePage = () => {
   const [showcourseForm, setShowcourseForm] = useState(false);
+  const [showEnrollcourseForm, setShowEnrollCourseForm] = useState(false);
   const courses = [
     { name: 'Machine Learning', teacher: 'Dr. Sher' },
     { name: 'Machine Learning', teacher: 'Dr. Sher' },
@@ -31,8 +34,16 @@ const CoursePage = () => {
           >
             Create Course
           </button>
+          <button
+            className={`${DEFAULT_BUTTON('w-40')}`}
+            onClick={() => {
+              setShowEnrollCourseForm(!showEnrollcourseForm);
+            }}
+          >
+            Join Course
+          </button>
         </div>
-
+        <JoinCourse showAnimation={showEnrollcourseForm} />
         <CreateCourse showAnimation={showcourseForm} />
         <CoursesOverView courses={courses} label="My Courses" />
       </div>
