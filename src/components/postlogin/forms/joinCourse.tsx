@@ -6,22 +6,12 @@ export default function JoinCourse({
 }: {
   showAnimation: boolean;
 }) {
-  const [dates] = useState<{ startDate: Date; endDate: Date }>({
-    startDate: new Date(),
-    endDate: new Date(),
-  });
-
-  const [time] = useState({ hour: '00', minute: '00', period: 'PM' });
   const [courseData, setCourseData] = useState({
     courseId: '',
     courseLink: '',
   });
   const onSubmit = (e: any) => {
     e.preventDefault();
-    // setCourseData(...courseData,sessionTime:time)
-    console.log(courseData);
-    console.log(time);
-    console.log(dates);
   };
   return (
     <Transition
@@ -38,7 +28,7 @@ export default function JoinCourse({
           Course
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
-          Create courses and Share Link with Students for Joining.
+          Join courses with id or Link.
         </p>
       </div>
       <form
