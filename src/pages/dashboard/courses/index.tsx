@@ -6,6 +6,7 @@ import CoursesOverView from '@/components/postlogin/homePage/CoursesOverView';
 import SearchBar from '@/components/postlogin/homePage/searchbar';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
+import JoinCourse from '../../../components/postlogin/forms/JoinCourse';
 
 
 import JoinCourse from '../../../components/postlogin/forms/JoinCourse';
