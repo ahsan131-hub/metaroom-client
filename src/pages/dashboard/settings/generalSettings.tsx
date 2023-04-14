@@ -15,14 +15,14 @@ const General = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center">
-        <div className="w-48 h-48 rounded-full overflow-hidden">
+      <div className="flex flex-col items-center mt-10 mb-10">
+        <div className="w-48 h-48 rounded-full overflow-hidden mb-10">
           <Image
             className="object-cover w-full h-full"
             width={300}
             height={300}
             alt="Profile Image"
-            src={'/profile.jpg'}
+            src={'/assets/default-photos/profile.png'}
           />
         </div>
         <form onSubmit={handleSubmit}>
