@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 
 import CreateCourse from '@/components/postlogin/forms/CreateCourse';
-import JoinCourse from '@/components/postlogin/forms/joinCourse';
+import JoinCourse from '@/components/postlogin/forms/JoinCourse';
 import CoursesOverView from '@/components/postlogin/homePage/CoursesOverView';
 import SearchBar from '@/components/postlogin/homePage/searchbar';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
-import JoinCourse from '../../../components/postlogin/forms/JoinCourse';
-
-
-import JoinCourse from '../../../components/postlogin/forms/JoinCourse';
 
 const CoursePage = () => {
   const [showcourseForm, setShowcourseForm] = useState(false);
@@ -32,14 +28,7 @@ const CoursePage = () => {
           <button
             className={`${DEFAULT_BUTTON('w-40')}`}
             onClick={() => {
-              if (!showcourseForm) {
-                setShowcourseForm(!showcourseForm);
-                if (showEnrollcourseForm) {
-                  setEnrollcourseForm(!showEnrollcourseForm);
-                }
-              } else {
-                setShowcourseForm(!showcourseForm);
-              }
+              setShowcourseForm(!showcourseForm);
             }}
           >
             Create Course
@@ -55,7 +44,6 @@ const CoursePage = () => {
         </div>
         <JoinCourse showAnimation={showEnrollcourseForm} />
         <CreateCourse showAnimation={showcourseForm} />
-        <JoinCourse showAnimation={showEnrollcourseForm} />
         <CoursesOverView courses={courses} label="My Courses" />
       </div>
     </Layout>
