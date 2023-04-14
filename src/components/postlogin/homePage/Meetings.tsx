@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const meetings = [
@@ -11,6 +12,8 @@ const meetings = [
   { name: 'Machine Learning', link: 'Dr. Sher' },
 ];
 const Meetings = () => {
+  const router = useRouter();
+
   return (
     <div className="h-3/4 mt-2 ">
       <span className="text-2xl m-2 font-semibold leading-7 text-gray-900">
@@ -34,7 +37,15 @@ const Meetings = () => {
               </div>
             </div>
             <div className="bg-slate-300 rounded-md p-2 text-center hover:bg-slate-100">
-              <button className="text-center text-xl ">Join </button>
+              <button
+                className="text-center text-xl"
+                onClick={() => {
+                  console.log('joing meeting');
+                  router.push('meet');
+                }}
+              >
+                Join
+              </button>
             </div>
           </div>
         ))}
