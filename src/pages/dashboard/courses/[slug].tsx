@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import CreateQuiz from '@/components/postlogin/forms/CreateQuiz';
 import courseIcon from '@/components/postlogin/icons/courseIcon';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
@@ -100,6 +101,7 @@ const CoursePage = () => {
 
             <div>
               <CreateAssignment showAnimation={showAssignmentForm} />
+              <CreateQuiz showAnimation={showQuizForm} />
             </div>
             {contents.map((content, index) => (
               <CourseContent key={index} data={content} />
