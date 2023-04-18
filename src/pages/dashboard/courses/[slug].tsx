@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import CreateQuiz from '@/components/postlogin/forms/CreateQuiz';
 import courseIcon from '@/components/postlogin/icons/courseIcon';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
@@ -8,7 +9,6 @@ import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 import CreateAssignment from '../../../components/postlogin/forms/CreateAssignment';
 import CourseContent from './courseContent';
 import CourseInfo from './courseInfo';
-import CreateQuiz from '@/components/postlogin/forms/CreateQuize';
 
 const CoursePage = () => {
   const router = useRouter();
