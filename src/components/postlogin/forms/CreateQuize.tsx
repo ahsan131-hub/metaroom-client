@@ -4,13 +4,19 @@ import React, { useState } from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
 
 function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
-  const [dates, setDates] = useState<{ startDate: Date; endDate: Date }>({
-    startDate: new Date(),
-    endDate: new Date(),
-  });
+  const [data, setData]= useState({
+    quizName:'',
+    duration:'',
+    deadline:'',
+    questions:{
+      title:'',
+      options:[]
+    }
+  })
   const handleValueChange = (newValue: any) => {
-    setDates(newValue);
+    setData({...data, deadline:newValue})
   };
+  console.log(JSON.stringify(data.questions.title))
   return (
     <Transition
       show={showAnimation}
@@ -43,7 +49,7 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <label
-                    htmlFor="course-key"
+                    htmlFor="quiz-name"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Quiz Name
@@ -51,8 +57,9 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
                   <div className="mt-2">
                     <input
                       type="text"
-                      name="course-key"
-                      id="course-key"
+                      name="quiz-name"
+                      id="quiz-name"
+                      onChange={(e)=>{setData({...data,quizName:e.target.value})}}
                       className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -65,10 +72,93 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
                 </label>
                 <Datepicker
                   primaryColor="indigo"
-                  value={dates}
-                  onChange={handleValueChange}
-                />
+                  onChange={handleValueChange} value={null}                />
               </div>
+              <div className="sm:col-span-3">
+                  <label
+                    htmlFor="question-title"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Question title
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="question-title"
+                      id="question-title"
+                      onChange={(e)=>{setData({...data,questions:{...data.questions,title:e.target.value}})}}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div className="w-2/5">
+                  <label
+                    htmlFor="option1"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    option 1
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="option1"
+                      id="option1"
+                      onChange={(e)=>{setData({...data,quizName:e.target.value})}}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div className="w-2/5">
+                  <label
+                    htmlFor="option2"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    option2
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="option2"
+                      id="option2"
+                      onChange={(e)=>{setData({...data,quizName:e.target.value})}}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div className="w-2/5">
+                  <label
+                    htmlFor="option3"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    option3
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="option3"
+                      id="option3"
+                      onChange={(e)=>{setData({...data,quizName:e.target.value})}}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div className="w-2/5">
+                  <label
+                    htmlFor="option4"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    option4
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="option4"
+                      id="option4"
+                      onChange={(e)=>{setData({...data,quizName:e.target.value})}}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
               {/* attached file */}
               <div className="col-span-full">
                 <label

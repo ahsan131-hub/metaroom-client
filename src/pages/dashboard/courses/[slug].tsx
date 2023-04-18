@@ -8,6 +8,7 @@ import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 import CreateAssignment from '../../../components/postlogin/forms/CreateAssignment';
 import CourseContent from './courseContent';
 import CourseInfo from './courseInfo';
+import CreateQuiz from '@/components/postlogin/forms/CreateQuize';
 
 const CoursePage = () => {
   const router = useRouter();
@@ -100,6 +101,7 @@ const CoursePage = () => {
 
             <div>
               <CreateAssignment showAnimation={showAssignmentForm} />
+              <CreateQuiz showAnimation={showQuizForm} />
             </div>
             {contents.map((content, index) => (
               <CourseContent key={index} data={content} />
