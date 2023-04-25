@@ -4,7 +4,7 @@ import { BiLogOut } from 'react-icons/bi';
 const LogoutIcon = () => {
   return (
     <div>
-      <BiLogOut size={35} />
+      <BiLogOut size={20} />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { FiSettings } from 'react-icons/fi';
 const SettingIcon = () => {
   return (
     <div>
-      <FiSettings size={35} />
+      <FiSettings size={20} />
     </div>
   );
 };

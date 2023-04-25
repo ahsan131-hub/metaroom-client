@@ -4,7 +4,7 @@ import { AiOutlineHome } from 'react-icons/ai';
 const HomeIcon = () => {
   return (
     <div>
-      <AiOutlineHome size={35} />
+      <AiOutlineHome size={20} />
     </div>
   );
 };
