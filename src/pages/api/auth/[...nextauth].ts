@@ -1,5 +1,8 @@
+import jwt from 'jsonwebtoken';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+
+import createUserByFetchAPICall from '@/utils/callGraphqlApi';
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -22,16 +25,20 @@ export const authOptions = {
     async session({ session, token }: any) {
       // Send properties to the client, like an access_token from a provider.
       // eslint-disable-next-line no-param-reassign
-      console.log('printing token', token);
       // eslint-disable-next-line no-param-reassign
-      // session.infraToken = jwt.sign(
-      //   { data: { _id: token.id, name: token.name, email: token.email } },
-      //   process.env.JWT_SECRET || ''
-      // );
-
+      session.infraToken = jwt.sign(
+        { data: { _id: token.id, name: token.name, email: token.email } },
+        process.env.NEXTAUTH_SECRET || ''
+      );
+      // create user here.
+      await createUserByFetchAPICall(
+        session.user.email,
+        session.user.name,
+        session.infraToken
+      );
       // eslint-disable-next-line no-param-reassign
       session.accessToken = token.accessToken;
-      console.log(session);
+      console.log('print ting sessiong token', session);
       return session;
     },
   },

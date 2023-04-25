@@ -4,7 +4,7 @@ import { MdOutlineClass } from 'react-icons/md';
 const courseIcon = () => {
   return (
     <div>
-      <MdOutlineClass size={35} />
+      <MdOutlineClass size={20} />
     </div>
   );
 };

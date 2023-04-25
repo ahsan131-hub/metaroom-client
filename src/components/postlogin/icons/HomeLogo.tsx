@@ -4,7 +4,7 @@ import { TbBrandMeta } from 'react-icons/tb';
 const HomeLogo = () => {
   return (
     <div>
-      <TbBrandMeta size={35} />
+      <TbBrandMeta size={20} />
     </div>
   );
 };

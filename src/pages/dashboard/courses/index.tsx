@@ -29,6 +29,7 @@ const CoursePage = () => {
             className={`${DEFAULT_BUTTON('w-40')}`}
             onClick={() => {
               setShowcourseForm(!showcourseForm);
+              setShowEnrollCourseForm(false);
             }}
           >
             Create Course
@@ -37,6 +38,7 @@ const CoursePage = () => {
             className={`${DEFAULT_BUTTON('w-40')}`}
             onClick={() => {
               setShowEnrollCourseForm(!showEnrollcourseForm);
+              setShowcourseForm(false);
             }}
           >
             Join Course

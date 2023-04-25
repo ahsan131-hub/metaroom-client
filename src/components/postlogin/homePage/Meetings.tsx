@@ -41,7 +41,7 @@ const Meetings = () => {
                 className="text-center text-xl"
                 onClick={() => {
                   console.log('joing meeting');
-                  router.push('meet');
+                  router.push('meetings/meet');
                 }}
               >
                 Join

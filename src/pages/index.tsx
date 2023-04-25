@@ -1,14 +1,12 @@
-import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
+import { useSession } from 'next-auth/react';
+
+import WelcomePage from '@/components/prelogin/landingpage/WelcomePage';
+
+import User from './user';
 
 const Index = () => {
-  return (
-    <Main
-      meta={<Meta title="Meta Room" description="Organize your Class rooms" />}
-    >
-      <h1>Meta Room</h1>
-    </Main>
-  );
+  const { status } = useSession();
+  return <>{status !== 'authenticated' ? <WelcomePage /> : <User />}</>;
 };
 
 export default Index;
