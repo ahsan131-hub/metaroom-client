@@ -15,6 +15,7 @@ import UserIcon from '../icons/UserIcon';
 
 export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
   const { data: session } = useSession();
+  
   const sidebarcontext = useSideBarContext();
   const toggleSidebarcontext = useToggleSideBarContext();
   const wrapperClassNames = classNames(
