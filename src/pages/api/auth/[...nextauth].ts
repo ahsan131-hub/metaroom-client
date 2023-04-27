@@ -38,7 +38,6 @@ export const authOptions = {
       );
       // eslint-disable-next-line no-param-reassign
       session.accessToken = token.accessToken;
-      console.log('print ting sessiong token', session);
       return session;
     },
   },

@@ -46,9 +46,6 @@ const User = () => {
     return <p>Error! {error.message}</p>;
   }
 
-  // if (userData?.registrationCompleted) {
-  //   return <UserInfo data={userData} />;
-  // }
   return (
     <Layout>
       <div className="w-full px-1 text-gray-700 justify-end text-right ">
@@ -61,8 +58,24 @@ const User = () => {
           Edit User
         </button>
       </div>
-      {(!userData?.getUserByEmail?.user.registrationCompleted || editMode) && (
-        <UserUpdate />
+      {!userData?.getUserByEmail?.user.registrationCompleted && (
+        <UserUpdate
+          showRoleInput={true}
+          prevUserData={{
+            fName: '',
+            lName: '',
+            phone: '',
+            dateOfBirth: '',
+            timezone: '',
+            role: '',
+          }}
+        />
+      )}
+      {editMode && (
+        <UserUpdate
+          showRoleInput={false}
+          prevUserData={userData?.getUserByEmail?.user}
+        />
       )}
       {userData?.getUserByEmail?.user.registrationCompleted && (
         <UserInfo data={userData?.getUserByEmail?.user} />

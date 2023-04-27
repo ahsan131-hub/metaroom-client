@@ -6,6 +6,8 @@ import User from './user';
 
 const Index = () => {
   const { status } = useSession();
+  // wrap tthis component in user data.
+
   return <>{status !== 'authenticated' ? <WelcomePage /> : <User />}</>;
 };
 

@@ -12,16 +12,22 @@ import DateInput from './form-components/DateInput';
 import SelectInput from './form-components/SelectInput';
 import TextInput from './form-components/TextInput';
 
-export default function UpdateUser() {
+export default function UpdateUser({
+  showRoleInput,
+  prevUserData,
+}: {
+  showRoleInput: Boolean;
+  prevUserData: any;
+}) {
   const { data: session }: any = useSession();
   const [updateUser, { data, loading, error }] = useMutation(UPDATE_USER);
   const [userData, setUserData] = useState({
-    fName: '',
-    lName: '',
-    phone: '',
-    dateOfBirth: '',
-    timezone: '',
-    role: '',
+    fName: prevUserData.fName,
+    lName: prevUserData.lName,
+    phone: prevUserData.phone,
+    dateOfBirth: prevUserData.dateOfBirth,
+    timezone: prevUserData.timezone,
+    role: prevUserData.role,
   });
   const [dob, setDob] = useState('');
 
@@ -35,12 +41,20 @@ export default function UpdateUser() {
         },
       },
     });
-    if (res.data === 200) {
+    if (res.data.updateUser.status === 200) {
       notify({
         type: 'SUCCESS',
         position: 'bottom-right',
         message: 'User Updated',
         description: 'User has been updated successfully',
+      });
+    }
+    if (res.data.updateUser.status !== 200) {
+      notify({
+        type: 'ERROR',
+        position: 'bottom-right',
+        message: 'User update failed',
+        description: res.data.updateUser.message,
       });
     }
   };
@@ -127,15 +141,17 @@ export default function UpdateUser() {
                     placeholder={'Select Timezone'}
                     options={['Asia/Karachi', 'Asia/Kolkata']}
                   />
-                  <SelectInput
-                    classNames={'sm:col-span-3'}
-                    fieldName={'role'}
-                    userData={userData}
-                    setUserData={setUserData}
-                    label={'Role'}
-                    placeholder={'Select Role'}
-                    options={['STUDENT', 'INSTRUCTOR']}
-                  />
+                  {showRoleInput && (
+                    <SelectInput
+                      classNames={'sm:col-span-3'}
+                      fieldName={'role'}
+                      userData={userData}
+                      setUserData={setUserData}
+                      label={'Role'}
+                      placeholder={'Select Role'}
+                      options={['STUDENT', 'INSTRUCTOR']}
+                    />
+                  )}
                 </div>
               </div>
             </div>

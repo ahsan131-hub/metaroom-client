@@ -1,3 +1,5 @@
+import { useQuery } from '@apollo/client';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 
 import CreateCourse from '@/components/postlogin/forms/CreateCourse';
@@ -5,49 +7,76 @@ import JoinCourse from '@/components/postlogin/forms/JoinCourse';
 import CoursesOverView from '@/components/postlogin/homePage/CoursesOverView';
 import SearchBar from '@/components/postlogin/homePage/searchbar';
 import Layout from '@/components/postlogin/Layouts/Layout';
+import Loading from '@/components/postlogin/shared/Loading';
+import { useUser } from '@/context/UserDataProvider';
+import { GET_COURSES } from '@/graphql/Queries/course';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
 const CoursePage = () => {
+  const user = useUser();
+  const { data: session, status }: any = useSession();
+  const student = user?.role === 'STUDENT';
   const [showcourseForm, setShowcourseForm] = useState(false);
+  const {
+    data: courses,
+    loading,
+    error,
+  } = useQuery(GET_COURSES, {
+    context: {
+      headers: {
+        Authorization: session ? session.infraToken : '',
+      },
+    },
+  });
+
   const [showEnrollcourseForm, setShowEnrollCourseForm] = useState(false);
-  const courses = [
-    { name: 'Machine Learning', teacher: 'Dr. Sher' },
-    { name: 'Machine Learning', teacher: 'Dr. Sher' },
-    { name: 'Machine Learning', teacher: 'Dr. Sher' },
-    { name: 'Machine Learning', teacher: 'Dr. Sher' },
-    { name: 'Machine Learning', teacher: 'Dr. Sher' },
-    { name: 'Machine Learning', teacher: 'Dr. Sher' },
-    { name: 'Machine Learning', teacher: 'Dr. Sher' },
-    { name: 'Machine Learning', teacher: 'Dr. Sher' },
-  ];
+
+  if (!user) {
+    return <p>Please logg in first</p>;
+  }
+
   return (
     <Layout>
-      <div className="m-2  w-full p-2 pr-2">
-        <div className="flex mt-2 ">
-          <SearchBar />
-          <button
-            className={`${DEFAULT_BUTTON('w-40')}`}
-            onClick={() => {
-              setShowcourseForm(!showcourseForm);
-              setShowEnrollCourseForm(false);
-            }}
-          >
-            Create Course
-          </button>
-          <button
-            className={`${DEFAULT_BUTTON('w-40')}`}
-            onClick={() => {
-              setShowEnrollCourseForm(!showEnrollcourseForm);
-              setShowcourseForm(false);
-            }}
-          >
-            Join Course
-          </button>
+      {loading || status !== 'authenticated' ? (
+        <Loading />
+      ) : (
+        <div className="m-2  w-full p-2 pr-2">
+          <div className="flex mt-2 ">
+            <SearchBar />
+            {!student && (
+              <button
+                className={`${DEFAULT_BUTTON('w-40')}`}
+                onClick={() => {
+                  setShowcourseForm(!showcourseForm);
+                  setShowEnrollCourseForm(false);
+                }}
+              >
+                Create Course
+              </button>
+            )}
+            <button
+              className={`${DEFAULT_BUTTON('w-40')}`}
+              onClick={() => {
+                setShowEnrollCourseForm(!showEnrollcourseForm);
+                setShowcourseForm(false);
+              }}
+            >
+              Join Course
+            </button>
+          </div>
+          <JoinCourse showAnimation={showEnrollcourseForm} />
+          {!student && (
+            <CreateCourse
+              showAnimation={showcourseForm}
+              setShowcourseForm={setShowcourseForm}
+            />
+          )}
+          <CoursesOverView
+            courses={courses.getCourses.courses}
+            label="My Courses"
+          />
         </div>
-        <JoinCourse showAnimation={showEnrollcourseForm} />
-        <CreateCourse showAnimation={showcourseForm} />
-        <CoursesOverView courses={courses} label="My Courses" />
-      </div>
+      )}
     </Layout>
   );
 };

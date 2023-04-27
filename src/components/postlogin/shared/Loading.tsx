@@ -1,9 +1,11 @@
-export default function Loading() {
-  // Or a custom loading skeleton component
+import React from 'react';
+
+const Loading = () => {
   return (
-    <div className="flex">
-      <svg className=" animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>
-      Loading...
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-75 z-50">
+      <div className="w-16 h-16 rounded-full border-4 border-t-4 border-gray-600 animate-spin"></div>
     </div>
   );
-}
+};
+
+export default Loading;

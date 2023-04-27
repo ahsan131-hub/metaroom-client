@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
+import UserDataProvider from '@/context/UserDataProvider';
 import client from '@/graphql';
 
 import SideBarProvider from '../context/SideBarProvider';
@@ -17,9 +18,11 @@ const MyApp = ({
   <ApolloProvider client={client}>
     <SessionProvider session={session}>
       <Toaster />
-      <SideBarProvider>
-        <Component {...pageProps} />
-      </SideBarProvider>
+      <UserDataProvider>
+        <SideBarProvider>
+          <Component {...pageProps} />
+        </SideBarProvider>
+      </UserDataProvider>
     </SessionProvider>
   </ApolloProvider>
 );
