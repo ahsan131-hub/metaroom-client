@@ -1,42 +1,84 @@
+import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import dayjs from 'dayjs';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
-import Datepicker from 'react-tailwindcss-datepicker';
 
+import notify from '@/components/toasts/toast';
+import { CREATE_COURSE } from '@/graphql/mutations/course';
+
+import Loading from '../shared/Loading';
 import TimePicker from '../shared/TimePicker';
+import DateInput from './form-components/DateInput';
 
 export default function CreateCourse({
   showAnimation,
+  setShowcourseForm,
 }: {
   showAnimation: boolean;
+  setShowcourseForm: any;
 }) {
-  const [dates, setDates] = useState<{ startDate: Date; endDate: Date }>({
-    startDate: new Date(),
-    endDate: new Date(),
-  });
-  const handleValueChange = (newValue: any) => {
-    setDates(newValue);
-  };
-
   const [time, setTime] = useState({ hour: '00', minute: '00', period: 'PM' });
+  const [createCourse, { data, loading, error }] = useMutation(CREATE_COURSE);
+  const { data: session, status } = useSession();
+  const [endDate, setEndDate] = useState(
+    dayjs().add(90, 'day').format('YYYY-MM-DD')
+  );
   const [courseData, setCourseData] = useState({
-    courseName: '',
+    name: '',
     subject: '',
     durationOfCourse: '',
     studentLimit: 0,
     sessionTime: '',
-    sessionId: '',
+
     about: '',
     coverPhoto: '',
     courseOutline: '',
   });
-  const onSubmit = (e: any) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault();
     // setCourseData(...courseData,sessionTime:time)
-    console.log(courseData);
-    console.log(time);
-    console.log(dates);
+    const course = {
+      ...courseData,
+      durationOfCourse: parseInt(courseData.durationOfCourse, 10),
+      sessionTime: dayjs()
+        .set('hour', parseInt(time.hour, 10))
+        .set('minute', parseInt(time.minute, 10))
+        .set('second', 0)
+        .format('HH:mm:ss'),
+      courseEndDate: endDate,
+    };
+    const res = await createCourse({
+      variables: {
+        course,
+      },
+      context: {
+        headers: {
+          Authorization: status === 'authenticated' ? session.infraToken : '',
+        },
+      },
+    });
+    if (res.data.createCourse.status === 200) {
+      notify({
+        type: 'SUCCESS',
+        position: 'bottom-right',
+        message: 'Course Created',
+        description: 'Course has been created successfully',
+      });
+      setShowcourseForm(false);
+    }
+    if (res.data.createCourse.status !== 200) {
+      notify({
+        type: 'ERROR',
+        position: 'bottom-right',
+        message: 'Course Creation failed',
+        description: res.data.createCourse.message,
+      });
+    }
+    console.log(course);
   };
+  if (loading) return <Loading />;
   return (
     <Transition
       show={showAnimation}
@@ -78,10 +120,10 @@ export default function CreateCourse({
                       onChange={(e) => {
                         setCourseData({
                           ...courseData,
-                          courseName: e.target.value,
+                          name: e.target.value,
                         });
                       }}
-                      value={courseData.courseName}
+                      value={courseData.name}
                       className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -155,11 +197,13 @@ export default function CreateCourse({
                   >
                     Course Duration
                   </label>
+
                   <div className="mt-2">
-                    <Datepicker
-                      primaryColor="indigo"
-                      value={dates}
-                      onChange={handleValueChange}
+                    <DateInput
+                      classNames={'sm:col-span-3'}
+                      selectedDate={endDate}
+                      selectedDateChange={setEndDate}
+                      label={''}
                     />
                   </div>
                 </div>
@@ -167,37 +211,6 @@ export default function CreateCourse({
             </div>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Link
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                    <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-                      MetaRoom.edu/
-                    </span>
-                    <input
-                      type="text"
-                      name="courseId"
-                      id="courseId"
-                      autoComplete="courseId"
-                      value={courseData.sessionId}
-                      onChange={(e) =>
-                        setCourseData({
-                          ...courseData,
-                          sessionId: e.target.value,
-                        })
-                      }
-                      className="block flex-1 border-0 bg-transparent  pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                      placeholder="CS-101-IBA"
-                    />
-                  </div>
-                </div>
-              </div>
-
               <div className="col-span-full">
                 <label
                   htmlFor="about"

@@ -4,8 +4,6 @@
 
 const createUserByFetchAPICall = async (email: any, name: any, token: any) => {
   try {
-    console.log(email);
-    console.log('in create user');
     if (!email) {
       return;
     }

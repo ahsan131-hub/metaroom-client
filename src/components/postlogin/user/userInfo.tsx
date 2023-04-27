@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 
 const UserInfo = ({ data }: any) => {
-  console.log(data);
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:px-6">
@@ -26,7 +25,7 @@ const UserInfo = ({ data }: any) => {
           <div className="bg-gray-50  px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">User Name</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              {data.phone}
+              {data.userName}
             </dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
