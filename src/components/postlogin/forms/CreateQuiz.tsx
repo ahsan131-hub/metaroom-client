@@ -49,7 +49,7 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
   const handleValueChange = (newValue: any) => {
     setData({ ...data, deadline: newValue });
   };
-  // console.log(JSON.stringify(data.questions.title));
+  console.log(JSON.stringify(questions));
   return (
     <Transition
       show={showAnimation}
@@ -189,7 +189,6 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
                       Answer:
                       <select
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        value={question.answer}
                         onChange={(event) => handleQuestionChange(event, index)}
                         required
                       >
