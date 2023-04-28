@@ -1,7 +1,14 @@
 import { PaperClipIcon } from '@heroicons/react/20/solid';
+import React, { useState } from 'react';
 
 export default function CourseContent({ data }: any) {
-  return (
+  const [selectedFile, setSelectedFile] = useState();
+  function handleFileSelect(event) {
+    const { files } = event.target;
+    if (files && files.length > 0) {
+      setSelectedFile(files[0]);
+    }
+  }  return (
     <div className="">
       <div className={'m-2 ml-10 pt-5 font-semibold sm:rounded-lg '}>
         <span>{data.uploadDate}</span>
@@ -22,6 +29,30 @@ export default function CourseContent({ data }: any) {
                   <span className="ml-2 w-0 flex-1 truncate">
                     Machine Learning Basics.pdf
                   </span>
+                </div>
+                <div className="ml-4 shrink-0">
+                  <label className="flex flex-col items-center w-full border-4 border-dashed border-gray-400 py-2 px-2 bg-white text-gray-600 rounded-md hover:bg-gray-50">
+                    <input
+                      type="file"
+                      className="hidden"
+                      onChange={handleFileSelect}
+                    />
+                    <svg
+                      className="w-8 h-8"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 2c.513 0 1.024.195 1.414.586l3.172 3.172c.781.781.781 2.047 0 2.828l-1.414 1.414-2.828-2.828v7.586c0 1.106-.894 2-2 2s-2-.894-2-2v-7.586l-2.828 2.828-1.414-1.414c-.781-.781-.781-2.047 0-2.828l3.172-3.172c.39-.39.901-.586 1.414-.586zM5 13v-1h10v1h-2v2h-2v-2h-2z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span className="mt-2 text-base leading-normal">
+                      Select a file
+                    </span>
+                  </label>
                 </div>
                 <div className="ml-4 shrink-0">
                   <a
