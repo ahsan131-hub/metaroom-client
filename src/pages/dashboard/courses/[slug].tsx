@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import AttemptQuiz from '@/components/postlogin/forms/AttemptQuiz';
 import CreateQuiz from '@/components/postlogin/forms/CreateQuiz';
 import courseIcon from '@/components/postlogin/icons/courseIcon';
-import AttemptQuiz from '@/components/postlogin/forms/AttemptQuiz';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
@@ -16,8 +16,7 @@ const CoursePage = () => {
   const { slug } = router.query;
   const [showQuizForm, setShowQuizForm] = useState(false);
   const [showAssignmentForm, setShowAssignmentForm] = useState(false);
-  const [showAttemptQuiz, setShowAttemptQuiz]= useState(false);
-
+  const [showAttemptQuiz, setShowAttemptQuiz] = useState(false);
   const data = {
     courseIcon,
     courseName: 'Machine Learning',
@@ -111,8 +110,11 @@ const CoursePage = () => {
 
             <div>
               <AttemptQuiz showAnimation={showAttemptQuiz} />
-              <CreateAssignment showAnimation={showAssignmentForm} />
-              <CreateQuiz showAnimation={showQuizForm} />
+              <CreateAssignment
+                showAnimation={showAssignmentForm}
+                setX={setShowAssignmentForm}
+              />
+              <CreateQuiz showAnimation={showQuizForm} setX={setShowQuizForm} />
             </div>
             {contents.map((content, index) => (
               <CourseContent key={index} data={content} />

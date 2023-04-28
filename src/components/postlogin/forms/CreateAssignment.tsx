@@ -3,7 +3,7 @@ import { PhotoIcon } from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
 
-function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
+function CreateAssignment(props) {
   const [dates, setDates] = useState<{ startDate: Date; endDate: Date }>({
     startDate: new Date(),
     endDate: new Date(),
@@ -13,7 +13,7 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
   };
   return (
     <Transition
-      show={showAnimation}
+      show={props.showAnimation}
       enter="transition-all ease-in-out duration-500 delay-[500ms]"
       enterFrom="opacity-0 translate-y-6"
       enterTo="opacity-100 translate-y-0"
@@ -132,6 +132,9 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
           <button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
+            onClick={() => {
+              props.setX(false);
+            }}
           >
             Cancel
           </button>

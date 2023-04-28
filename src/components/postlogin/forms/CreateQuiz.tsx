@@ -5,7 +5,7 @@ import Datepicker from 'react-tailwindcss-datepicker';
 
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
-function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
+function CreateQuiz(props) {
   const [data, setData] = useState({
     quizName: '',
     duration: '',
@@ -50,9 +50,12 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
     setData({ ...data, deadline: newValue });
   };
   console.log(JSON.stringify(questions));
+  function handleData(){
+    props.onDataReceived(false);
+  }
   return (
     <Transition
-      show={showAnimation}
+      show={props.showAnimation}
       enter="transition-all ease-in-out duration-500 delay-[500ms]"
       enterFrom="opacity-0 translate-y-6"
       enterTo="opacity-100 translate-y-0"
@@ -285,6 +288,9 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
           <button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
+            onClick={() => {
+              props.setX(false);
+            }}
           >
             Cancel
           </button>
