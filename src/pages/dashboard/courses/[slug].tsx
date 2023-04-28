@@ -102,14 +102,6 @@ const CoursePage = () => {
               <button
                 className={`${DEFAULT_BUTTON('w-40')}`}
                 onClick={() => {
-                  setShowAssignmentForm(!showAssignmentForm);
-                }}
-              >
-                Attempt Assignment
-              </button>
-              <button
-                className={`${DEFAULT_BUTTON('w-40')}`}
-                onClick={() => {
                   setShowAttemptQuiz(!showAttemptQuiz);
                 }}
               >
