@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import CreateQuiz from '@/components/postlogin/forms/CreateQuiz';
 import courseIcon from '@/components/postlogin/icons/courseIcon';
+import AttemptQuiz from '@/components/postlogin/forms/AttemptQuiz';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
@@ -15,6 +16,7 @@ const CoursePage = () => {
   const { slug } = router.query;
   const [showQuizForm, setShowQuizForm] = useState(false);
   const [showAssignmentForm, setShowAssignmentForm] = useState(false);
+  const [showAttemptQuiz, setShowAttemptQuiz]= useState(false);
 
   const data = {
     courseIcon,
@@ -87,7 +89,7 @@ const CoursePage = () => {
                   setShowAssignmentForm(!showAssignmentForm);
                 }}
               >
-                Create Assigment
+                Create Assignment
               </button>
               <button
                 className={`${DEFAULT_BUTTON('w-40')}`}
@@ -97,9 +99,26 @@ const CoursePage = () => {
               >
                 Create Quiz
               </button>
+              <button
+                className={`${DEFAULT_BUTTON('w-40')}`}
+                onClick={() => {
+                  setShowAssignmentForm(!showAssignmentForm);
+                }}
+              >
+                Attempt Assignment
+              </button>
+              <button
+                className={`${DEFAULT_BUTTON('w-40')}`}
+                onClick={() => {
+                  setShowAttemptQuiz(!showAttemptQuiz);
+                }}
+              >
+                Attempt Quiz
+              </button>
             </div>
 
             <div>
+              <AttemptQuiz showAnimation={showAttemptQuiz} />
               <CreateAssignment showAnimation={showAssignmentForm} />
               <CreateQuiz showAnimation={showQuizForm} />
             </div>
