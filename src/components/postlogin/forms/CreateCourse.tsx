@@ -1,12 +1,14 @@
 import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import axios from 'axios';
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 
 import notify from '@/components/toasts/toast';
 import { CREATE_COURSE } from '@/graphql/mutations/course';
+import { BUCKET_URL } from '@/utils/S3';
 
 import Loading from '../shared/Loading';
 import TimePicker from '../shared/TimePicker';
@@ -23,7 +25,10 @@ export default function CreateCourse({
 }) {
   const [time, setTime] = useState({ hour: '00', minute: '00', period: 'PM' });
   const [createCourse, { data, loading, error }] = useMutation(CREATE_COURSE);
+  const [coverPhoto, setCoverPhoto] = useState<any>();
+  const [courseOutline, setCourseOutline] = useState<any>();
   const { data: session, status } = useSession();
+
   const [endDate, setEndDate] = useState(
     dayjs().add(90, 'day').format('YYYY-MM-DD')
   );
@@ -38,48 +43,112 @@ export default function CreateCourse({
     coverPhoto: '',
     courseOutline: '',
   });
+  const selectCoverPhoto = (e: any) => {
+    setCoverPhoto(e.target.files[0]);
+  };
+  const selectCourseOutline = (e: any) => {
+    setCourseOutline(e.target.files[0]);
+  };
   const onSubmit = async (e: any) => {
     e.preventDefault();
-    // setCourseData(...courseData,sessionTime:time)
-    const course = {
-      ...courseData,
-      durationOfCourse: parseInt(courseData.durationOfCourse, 10),
-      sessionTime: dayjs()
-        .set('hour', parseInt(time.hour, 10))
-        .set('minute', parseInt(time.minute, 10))
-        .set('second', 0)
-        .format('HH:mm:ss'),
-      courseEndDate: endDate,
-    };
-    const res = await createCourse({
-      variables: {
-        course,
-      },
-      context: {
-        headers: {
-          Authorization: status === 'authenticated' ? session.infraToken : '',
+    try {
+      let coverRes: any = {};
+      let outlineRes: any = {};
+      if (!coverPhoto || !courseOutline) {
+        notify({
+          type: 'ERROR',
+          message: 'Upload Error!',
+          position: 'bottom-right',
+          description: 'Please uplaod cover photo and course outline.',
+        });
+        return;
+      }
+
+      if (coverPhoto) {
+        // upload cover photo
+        const { data: uploadedData }: { data: any } = await axios.post(
+          '/api/s3/upload',
+          {
+            name: coverPhoto?.name,
+            type: coverPhoto?.type,
+          }
+        );
+        const { url } = uploadedData;
+        console.log(url);
+        coverRes = axios.put(url, coverPhoto, {
+          headers: {
+            'Content-type': coverPhoto.type,
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
+        console.log(coverRes);
+      }
+      if (courseOutline) {
+        // upload course outline
+        const { data: uploadedData }: { data: any } = await axios.post(
+          '/api/s3/upload',
+          {
+            name: courseOutline?.name,
+            type: courseOutline?.type,
+          }
+        );
+        const { url } = uploadedData;
+        console.log(url);
+        outlineRes = axios.put(url, courseOutline, {
+          headers: {
+            'Content-type': courseOutline.type,
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
+      }
+      [coverRes, outlineRes] = await Promise.all([coverRes, outlineRes]);
+      const course = {
+        ...courseData,
+        durationOfCourse: parseInt(courseData.durationOfCourse, 10),
+        sessionTime: dayjs()
+          .set('hour', parseInt(time.hour, 10))
+          .set('minute', parseInt(time.minute, 10))
+          .set('second', 0)
+          .format('HH:mm:ss'),
+        courseEndDate: endDate,
+        coverPhoto:
+          BUCKET_URL.concat(coverRes?.config?.data?.name as string) || '',
+        courseOutline:
+          BUCKET_URL.concat(outlineRes?.config?.data?.name as string) || '',
+      };
+      const res = await createCourse({
+        variables: {
+          course,
         },
-      },
-    });
-    if (res.data.createCourse.status === 200) {
-      notify({
-        type: 'SUCCESS',
-        position: 'bottom-right',
-        message: 'Course Created',
-        description: 'Course has been created successfully',
+        context: {
+          headers: {
+            Authorization:
+              status === 'authenticated' ? session!.infraToken : '',
+          },
+        },
       });
-      refetch();
-      setShowcourseForm(false);
-    }
-    if (res.data.createCourse.status !== 200) {
+      if (res.data.createCourse.status === 200) {
+        notify({
+          type: 'SUCCESS',
+          position: 'bottom-right',
+          message: 'Course Created',
+          description: 'Course has been created successfully',
+        });
+        refetch();
+        setShowcourseForm(false);
+      }
+      if (res.data.createCourse.status !== 200) {
+        throw new Error(res.data.createCourse.message);
+      }
+    } catch (err: any) {
+      console.log(err);
       notify({
         type: 'ERROR',
         position: 'bottom-right',
         message: 'Course Creation failed',
-        description: res.data.createCourse.message,
+        description: err.message,
       });
     }
-    console.log(course);
   };
   if (loading) return <Loading />;
   return (
@@ -250,12 +319,11 @@ export default function CreateCourse({
                     className="h-12 w-12 text-gray-300"
                     aria-hidden="true"
                   />
-                  <button
-                    type="button"
+                  <input
                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  >
-                    Change
-                  </button>
+                    type="file"
+                    onChange={(e) => selectCoverPhoto(e)}
+                  />
                 </div>
               </div>
 
@@ -277,22 +345,24 @@ export default function CreateCourse({
                         htmlFor="file-upload"
                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
-                        <span>Course Outline</span>
+                        <span>
+                          {!courseOutline
+                            ? 'Course Outline'
+                            : courseOutline.name}
+                        </span>
                         <input
                           id="file-upload"
                           name="file-upload"
                           type="file"
-                          value={courseData.courseOutline}
-                          onChange={() => {
-                            setCourseData({
-                              ...courseData,
-                              courseOutline: 'e.target',
-                            });
+                          onChange={(e) => {
+                            selectCourseOutline(e);
                           }}
                           className="sr-only"
                         />
                       </label>
-                      <p className="pl-1">or drag and drop</p>
+                      {!courseOutline && (
+                        <p className="pl-1">or drag and drop</p>
+                      )}
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
                       PNG, JPG, GIF up to 10MB

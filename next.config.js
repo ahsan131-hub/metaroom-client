@@ -7,6 +7,17 @@ module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ['.'],
   },
+  swcMinify: true,
+  optimizeFonts: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'metaroom.s3.ap-south-1.amazonaws.com',
+      },
+    ],
+    minimumCacheTTL: 15000000,
+  },
   poweredByHeader: false,
   trailingSlash: true,
   basePath: '',

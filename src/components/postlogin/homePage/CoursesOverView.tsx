@@ -18,19 +18,17 @@ const CoursesOverView = ({ courses, label }: any) => {
             className=" h-48 bg-slate-100 w-80  text-center hover:bg-transparent rounded-md  m-5 p-3"
           >
             <Image
-              src="/assets/default-photos/cover.jpg"
+              src={course.coverPhoto || '/assets/default-photos/cover.jpg'}
               alt="profile"
-              className="rounded-t-md"
+              className="h-32 rounded-t-md"
               width={1000}
-              height={150}
+              height={190}
             />
             <div className="text-center">
               <div className="text-start">
                 <span className="text-xl">{course.name}</span>
               </div>
-              <div className="text-start">
-                <span>Dr: Sher</span>
-              </div>
+              <div className="text-start"></div>
             </div>
           </div>
         ))}
