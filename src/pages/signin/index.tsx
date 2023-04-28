@@ -29,7 +29,7 @@ const Login = () => {
           <Inputs />
         </div>
         <div className="mt-8 space-y-6">
-          <div className="-space-y-px rounded-md shadow-sm">
+          <div className="-space-y-px w-full rounded-md shadow-sm">
             <div>
               <button
                 onClick={() => {

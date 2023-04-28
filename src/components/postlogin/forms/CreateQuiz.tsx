@@ -1,9 +1,12 @@
 import { Transition } from '@headlessui/react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
+import dayjs from 'dayjs';
 import React, { useState } from 'react';
-import Datepicker from 'react-tailwindcss-datepicker';
 
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
+
+import TimePicker from '../shared/TimePicker';
+import DateInput from './form-components/DateInput';
 
 function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
   const [data, setData] = useState({
@@ -11,18 +14,29 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
     duration: '',
     deadline: '',
   });
-  const [questions, setQuestions] = useState([
+  const [quizDate, setQuizDate] = useState(dayjs().format('YYYY-MM-DD'));
+  const [time, setTime] = useState('');
+  const [questions, setQuestions] = useState<any>([
     { question: '', options: ['', '', '', ''], answer: '' },
   ]);
 
-  const handleQuestionChange = (event, index) => {
+  const handleQuestionChange = (
+    event:
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const { name, value } = event.target;
     const newQuestions = [...questions];
     newQuestions[index][name] = value;
     setQuestions(newQuestions);
   };
 
-  const handleOptionChange = (event, questionIndex, optionIndex) => {
+  const handleOptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    questionIndex: number,
+    optionIndex: number
+  ) => {
     const { value } = event.target;
     const newQuestions = [...questions];
     newQuestions[questionIndex].options[optionIndex] = value;
@@ -36,14 +50,15 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
     ]);
   };
 
-  const handleRemoveQuestion = (index) => {
+  const handleRemoveQuestion = (index: number) => {
     const newQuestions = [...questions];
     newQuestions.splice(index, 1);
     setQuestions(newQuestions);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+
     onSubmit(questions);
   };
   const handleValueChange = (newValue: any) => {
@@ -73,14 +88,16 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
           e.preventDefault();
           console.log('this is submitted form');
           console.log({ ...data, ...questions });
+          console.log(quizDate);
+          console.log(time);
         }}
-        className=" items-center pl-5  justify-center align-middle"
+        className=" items-center pl-5 w-full justify-center align-middle"
       >
-        <div className="scrollbar-hide w-3/4 overflow-y-scroll space-y-12 p-5">
+        <div className="scrollbar-hide overflow-y-scroll space-y-12 p-5">
           <div className="border-b border-gray-900/10 pb-12">
             <div className=" pb-6">
               {/* assignment  */}
-              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
+              <div className="mt-10 grid  gap-x-6 gap-y-8 sm:grid-cols-6 ">
                 <div className="sm:col-span-3">
                   <label
                     htmlFor="quiz-name"
@@ -88,7 +105,7 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
                   >
                     Quiz Name
                   </label>
-                  <div className="mt-2">
+                  <div className="mt-2 ">
                     <input
                       type="text"
                       name="quiz-name"
@@ -101,16 +118,21 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
                   </div>
                 </div>
               </div>
-              {/* deade line */}
-              <div className="mt-2 w-1/2">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Deadline
-                </label>
-                <Datepicker
-                  primaryColor="indigo"
-                  onChange={handleValueChange}
-                  value={null}
-                />
+              <div className={'flex '}>
+                <div className="mt-2 mr-2 w-1/4 ">
+                  <DateInput
+                    classNames={'col-span-4'}
+                    selectedDate={quizDate}
+                    selectedDateChange={setQuizDate}
+                    label={'Quiz Date'}
+                  />
+                </div>
+                <div className="mt-2 w-1/4 ">
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    Quiz Time
+                  </label>
+                  <TimePicker value={time} setValue={setTime} />
+                </div>
               </div>
               <div className="h-96 overflow-y-scroll">
                 {questions.map((question, index) => (
@@ -281,7 +303,7 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
           </div>
         </div>
 
-        <div className="mt-6 flex items-center w-3/4 justify-end gap-x-6 mr-10">
+        <div className="mt-6 flex items-center  justify-end gap-x-6 mr-10">
           <button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"

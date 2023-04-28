@@ -14,7 +14,7 @@ const CoursesOverView = ({ courses, label }: any) => {
         {courses.map((course: any, index: number) => (
           <div
             key={index}
-            onClick={() => router.push('courses/56789876')}
+            onClick={() => router.push(`courses/${course.id}`)}
             className=" h-48 bg-slate-100 w-80  text-center hover:bg-transparent rounded-md  m-5 p-3"
           >
             <Image

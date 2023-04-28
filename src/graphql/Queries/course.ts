@@ -22,9 +22,36 @@ const GET_COURSES = gql`
         about
         coverPhoto
         courseOutline
+        id
       }
     }
   }
 `;
-
-export { GET_COURSES };
+const GET_COURSE = gql`
+  query GetCourse($getCourseId: String) {
+    getCourse(id: $getCourseId) {
+      response {
+        status
+        message
+      }
+      course {
+        id
+        name
+        durationOfCourse
+        courseContent
+        sessionTime
+        sessionMeetingId
+        instructorId
+        studentsEnrolled
+        courseEndDate
+        quizes
+        ratings
+        studentLimit
+        about
+        coverPhoto
+        courseOutline
+      }
+    }
+  }
+`;
+export { GET_COURSE, GET_COURSES };

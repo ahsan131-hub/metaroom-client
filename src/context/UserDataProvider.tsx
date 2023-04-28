@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 
@@ -14,7 +14,7 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
 
   const { data: session, status } = useSession();
 
-  const { loading, error, data } = useQuery(GET_USER, {
+  const [getUser, { loading, error, data }] = useLazyQuery(GET_USER, {
     variables: { email: session?.user?.email },
     context: {
       headers: {
@@ -24,7 +24,17 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
   });
   useEffect(() => {
     if (data) {
+      getUser({
+        variables: { email: session?.user?.email },
+        context: {
+          headers: {
+            Authorization:
+              status === 'authenticated' ? session?.infraToken : '',
+          },
+        },
+      });
       setUserData(data.getUserByEmail.user);
+      console.log('got user data here now ', data.getUserByEmail.user);
     }
   }, [data]);
 

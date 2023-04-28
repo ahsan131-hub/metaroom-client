@@ -14,9 +14,11 @@ import DateInput from './form-components/DateInput';
 
 export default function CreateCourse({
   showAnimation,
+  refetch,
   setShowcourseForm,
 }: {
   showAnimation: boolean;
+  refetch: any;
   setShowcourseForm: any;
 }) {
   const [time, setTime] = useState({ hour: '00', minute: '00', period: 'PM' });
@@ -66,6 +68,7 @@ export default function CreateCourse({
         message: 'Course Created',
         description: 'Course has been created successfully',
       });
+      refetch();
       setShowcourseForm(false);
     }
     if (res.data.createCourse.status !== 200) {
@@ -195,7 +198,7 @@ export default function CreateCourse({
                     htmlFor="duration"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Course Duration
+                    Course End Date
                   </label>
 
                   <div className="mt-2">

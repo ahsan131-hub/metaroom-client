@@ -21,6 +21,7 @@ const CoursePage = () => {
     data: courses,
     loading,
     error,
+    refetch,
   } = useQuery(GET_COURSES, {
     context: {
       headers: {
@@ -69,6 +70,7 @@ const CoursePage = () => {
             <CreateCourse
               showAnimation={showcourseForm}
               setShowcourseForm={setShowcourseForm}
+              refetch={refetch}
             />
           )}
           <CoursesOverView
