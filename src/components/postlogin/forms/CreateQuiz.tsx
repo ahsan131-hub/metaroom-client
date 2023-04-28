@@ -299,5 +299,4 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
     </Transition>
   );
 }
-
 export default CreateQuiz;

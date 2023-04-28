@@ -29,6 +29,7 @@
     "dayjs": "^1.11.7",
     "graphql": "^16.6.0",
     "jsonwebtoken": "^8.5.1",
+    "mui": "^0.0.1",
     "next": "^13.0.0",
     "next-auth": "^4.17.0",
     "next-seo": "^5.8.0",
