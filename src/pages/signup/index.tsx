@@ -48,7 +48,7 @@ const Signup: React.FC = () => {
                   type="text"
                   id="first_name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="e.g Naveed"
+                  placeholder="i.e. John"
                   required
                   onChange={(e) => setFirstName(e.target.value)}
                 />
@@ -64,7 +64,7 @@ const Signup: React.FC = () => {
                   type="text"
                   id="last_name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="e.g Ahmed"
+                  placeholder="i.e. Smith"
                   required
                 />
               </div>
@@ -81,7 +81,7 @@ const Signup: React.FC = () => {
                   type="tel"
                   id="phone"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="e.g 034-6123-2345"
+                  placeholder="i.e. 03XXXXXXXXX"
                   required
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -98,7 +98,7 @@ const Signup: React.FC = () => {
                   id="email"
                   // eslint-disable-next-line tailwindcss/no-custom-classname
                   className="text-black-900 bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="e.g john.doe@company.com"
+                  placeholder="i.e. john.smith@xyz.com"
                   required
                   onChange={(e) => setEmail(e.target.value)}
                 />
