@@ -7,7 +7,7 @@ import {
 
 const features = [
   {
-    name: 'Attend a class from your work desk',
+    name: 'Access class content from your work desk',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
     icon: GlobeAltIcon,
@@ -25,7 +25,7 @@ const features = [
     icon: BoltIcon,
   },
   {
-    name: 'Attend real-time online lectures',
+    name: 'Host real-time online lectures',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
     icon: DevicePhoneMobileIcon,
