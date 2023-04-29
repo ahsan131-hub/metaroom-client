@@ -131,12 +131,10 @@ const Intro: React.FC = () => {
               </div>
               <div>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
-                  Organize your remote course professionally
+                  Organize your remote learning seamlessly
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                  qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                  occaecat fugiat aliqua.
+                  Eliminate the need of switiching platforms to conduct a remote classroom, when we are providing everything under one platform.
                 </p>
                 <div className="mt-8 flex gap-x-4 sm:justify-center">
                   <a
