@@ -130,8 +130,14 @@ const CoursePage = () => {
 
               <div>
                 <AttemptQuiz showAnimation={showAttemptQuiz} />
-                <CreateAssignment showAnimation={showAssignmentForm} />
-                <CreateQuiz showAnimation={showQuizForm} />
+                <CreateAssignment
+                  showAnimation={showAssignmentForm}
+                  setX={setShowAssignmentForm}
+                />
+                <CreateQuiz
+                  showAnimation={showQuizForm}
+                  setX={setShowQuizForm}
+                />
               </div>
               {contents.map((content, index) => (
                 <CourseContent key={index} data={content} />
