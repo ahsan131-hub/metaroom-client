@@ -1,8 +1,8 @@
 import {
-  BoltIcon,
-  DevicePhoneMobileIcon,
   GlobeAltIcon,
-  ScaleIcon,
+  SquaresPlusIcon,
+  UsersIcon,
+  VideoCameraIcon,
 } from '@heroicons/react/24/outline';
 
 const features = [
@@ -16,19 +16,19 @@ const features = [
     name: 'Communicate with your teachers one-to-one',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: ScaleIcon,
+    icon: UsersIcon,
   },
   {
     name: 'Manage your course content under one platform',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: BoltIcon,
+    icon: SquaresPlusIcon,
   },
   {
-    name: 'Host real-time online lectures',
+    name: 'Host real-time video lectures',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: DevicePhoneMobileIcon,
+    icon: VideoCameraIcon,
   },
 ];
 
@@ -44,8 +44,9 @@ export default function Aboutus() {
             A better way to learn
           </p>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-            <i>Meta</i> where everything you ever need for remote learning is provided, <i>Room</i> where you can 
-            interact with your teachers with no hurdles. <i>MetaRoom</i>, where remote learning meets comfort.
+            <i>Meta</i> where everything you ever need for remote learning is
+            provided, <i>Room</i> where you can interact with your teachers with
+            no hurdles. <i>MetaRoom</i>, where remote learning meets comfort.
           </p>
         </div>
 
