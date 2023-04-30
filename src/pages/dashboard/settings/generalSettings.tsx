@@ -2,17 +2,18 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 const General = () => {
-  const [fName, setFName] = useState('');
-  const [lName, setLName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [about, setAbout] = useState('');
-
+  const [data, setData]= useState({
+    fName:'',
+    lName:'',
+    email:'',
+    phone:'',
+    about:'',
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
     // Here you can handle the form submission
   };
-
+  console.log(JSON.stringify(data))
   return (
     <div>
       <div className="flex flex-col items-center mt-10 mb-10">
@@ -32,16 +33,16 @@ const General = () => {
               id="first-name"
               className="p-3 rounded-lg"
               placeholder="First Name"
-              value={fName}
-              onChange={(e) => setFName(e.target.value)}
+              value={data.fName}
+              onChange={(e) => setData({...data,fName:e.target.value})}
             />
             <input
               type="text"
               id="last-name"
               className="p-3 rounded-lg"
               placeholder="Last Name"
-              value={lName}
-              onChange={(e) => setLName(e.target.value)}
+              value={data.lName}
+              onChange={(e) => setData({...data,lName:e.target.value})}
             />
           </div>
           <div className="flex flex-row items-center space-x-7 mt-4">
@@ -50,16 +51,16 @@ const General = () => {
               id="phone"
               className="p-3 rounded-lg"
               placeholder="Mobile"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={data.phone}
+              onChange={(e) => setData({...data,phone:e.target.value})}
             />
             <input
               type="email"
               id="email"
               className="p-4 rounded-lg"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={data.email}
+              onChange={(e) => setData({...data,email:e.target.value})}
             />
           </div>
           <div className="flex flex-col items-center mt-6 w-full">
@@ -69,8 +70,8 @@ const General = () => {
               className="p-4 rounded-lg"
               placeholder="About"
               rows={4}
-              value={about}
-              onChange={(e) => setAbout(e.target.value)}
+              value={data.about}
+              onChange={(e) => setData({...data,about:e.target.value})}
             ></textarea>
           </div>
           <div className="flex flex-col items-center">
