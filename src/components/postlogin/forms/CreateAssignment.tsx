@@ -23,7 +23,7 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
     >
       <div className="m-2 ">
         <h2 className="text-2xl font-semibold leading-7 text-gray-900">
-          Create Assingment
+          Create Assignment
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
           Create Assignment for better Assesments.
@@ -46,7 +46,7 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
                     htmlFor="course-key"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Assingment Name
+                    Assignment Name
                   </label>
                   <div className="mt-2">
                     <input
@@ -99,7 +99,7 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
                       <p className="pl-1">or drag and drop</p>
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
-                      Any file upto 1000MB.
+                      Any file upto 10MB.
                     </p>
                   </div>
                 </div>

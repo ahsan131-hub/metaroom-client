@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { DocumentArrowUpIcon, PhotoIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
@@ -248,6 +248,7 @@ export default function CreateCourse({
                     <div className="mt-2">
                       <input
                         type="number"
+                        min="1"
                         name="limit"
                         placeholder="15"
                         value={courseData.studentLimit}
@@ -294,6 +295,7 @@ export default function CreateCourse({
                   <textarea
                     id="about"
                     name="about"
+                    placeholder="Description of this course."
                     rows={3}
                     className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
                     value={courseData.about}
@@ -302,9 +304,6 @@ export default function CreateCourse({
                     }}
                   />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Write a few sentences about this course.
-                </p>
               </div>
 
               <div className="col-span-full">
@@ -315,8 +314,8 @@ export default function CreateCourse({
                   Course Cover Photo
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
-                  <UserCircleIcon
-                    className="h-12 w-12 text-gray-300"
+                  <PhotoIcon
+                    className="h-12 w-10 text-gray-300"
                     aria-hidden="true"
                   />
                   <input
@@ -336,8 +335,8 @@ export default function CreateCourse({
                 </label>
                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 ">
                   <div className="text-center">
-                    <PhotoIcon
-                      className="mx-auto h-12 w-12 text-gray-300"
+                    <DocumentArrowUpIcon
+                      className="mx-auto h-12 w-10 text-gray-300"
                       aria-hidden="true"
                     />
                     <div className="mt-4 flex text-sm leading-6 text-gray-600">
@@ -346,9 +345,7 @@ export default function CreateCourse({
                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
                         <span>
-                          {!courseOutline
-                            ? 'Course Outline'
-                            : courseOutline.name}
+                          {!courseOutline ? 'Choose file' : courseOutline.name}
                         </span>
                         <input
                           id="file-upload"
