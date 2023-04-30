@@ -134,7 +134,9 @@ const Intro: React.FC = () => {
                   Organize your remote learning seamlessly
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
-                  Eliminate the need of switiching platforms to conduct a remote classroom, when we are providing everything under one platform.
+                  Eliminate the need of switiching platforms to conduct a remote
+                  classroom, when we are providing everything under one
+                  platform.
                 </p>
                 <div className="mt-8 flex gap-x-4 sm:justify-center">
                   <a
