@@ -2,21 +2,20 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 const General = () => {
-  const [data, setData]= useState({
-    fName:'',
-    lName:'',
-    email:'',
-    phone:'',
-    about:'',
+  const [data, setData] = useState({
+    fName: '',
+    lName: '',
+    email: '',
+    phone: '',
+    about: '',
   });
   const handleSubmit = (event) => {
     event.preventDefault();
     // Here you can handle the form submission
   };
-  console.log(JSON.stringify(data))
   return (
     <div>
-      <div className="flex flex-col items-center mt-10 mb-10">
+      <div className="flex flex-col items-center my-10">
         <div className="w-48 h-48 rounded-full overflow-hidden mb-10">
           <Image
             className="object-cover w-full h-full"
@@ -34,7 +33,7 @@ const General = () => {
               className="p-3 rounded-lg"
               placeholder="First Name"
               value={data.fName}
-              onChange={(e) => setData({...data,fName:e.target.value})}
+              onChange={(e) => setData({ ...data, fName: e.target.value })}
             />
             <input
               type="text"
@@ -42,7 +41,7 @@ const General = () => {
               className="p-3 rounded-lg"
               placeholder="Last Name"
               value={data.lName}
-              onChange={(e) => setData({...data,lName:e.target.value})}
+              onChange={(e) => setData({ ...data, lName: e.target.value })}
             />
           </div>
           <div className="flex flex-row items-center space-x-7 mt-4">
@@ -52,7 +51,7 @@ const General = () => {
               className="p-3 rounded-lg"
               placeholder="Mobile"
               value={data.phone}
-              onChange={(e) => setData({...data,phone:e.target.value})}
+              onChange={(e) => setData({ ...data, phone: e.target.value })}
             />
             <input
               type="email"
@@ -60,7 +59,7 @@ const General = () => {
               className="p-4 rounded-lg"
               placeholder="Email"
               value={data.email}
-              onChange={(e) => setData({...data,email:e.target.value})}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
             />
           </div>
           <div className="flex flex-col items-center mt-6 w-full">
@@ -71,7 +70,7 @@ const General = () => {
               placeholder="About"
               rows={4}
               value={data.about}
-              onChange={(e) => setData({...data,about:e.target.value})}
+              onChange={(e) => setData({ ...data, about: e.target.value })}
             ></textarea>
           </div>
           <div className="flex flex-col items-center">

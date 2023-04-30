@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
-const plan=()=> {
-  const [plan,setPlan]= useState({
-    personal:false,
-    professional:false,
-    bussiness:false,
-  })
-  console.log(JSON.stringify(plan))
+const plan = () => {
+  const [plan, setPlan] = useState({
+    personal: false,
+    professional: false,
+    bussiness: false,
+  });
   return (
     <div className="w-4/5 flex flex-col items-center ml-20 relative z-20 overflow-hidden bg-white pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
       <div className="container mx-auto">
@@ -52,7 +51,14 @@ const plan=()=> {
                 </p>
               </div>
               <a
-                onClick={() => setPlan({...plan, personal: true,professional:false,bussiness:false})}
+                onClick={() =>
+                  setPlan({
+                    ...plan,
+                    personal: true,
+                    professional: false,
+                    bussiness: false,
+                  })
+                }
                 href="#"
                 className=" block w-full rounded-md border border-[#D4DEFF] bg-transparent p-4 text-center text-base font-semibold transition hover:text-black"
               >
@@ -351,7 +357,14 @@ const plan=()=> {
                 </p>
               </div>
               <a
-                onClick={() => setPlan({...plan, personal: false,professional:false,bussiness:true})}
+                onClick={() =>
+                  setPlan({
+                    ...plan,
+                    personal: false,
+                    professional: false,
+                    bussiness: true,
+                  })
+                }
                 href="#"
                 className="block w-full rounded-md border p-4 text-center text-base font-semibold hover:text-black transition"
               >
@@ -646,7 +659,14 @@ const plan=()=> {
                 <p className="mb-1 text-base leading-loose">1 Months support</p>
               </div>
               <a
-                onClick={() => setPlan({...plan, personal: false,professional:true,bussiness:false})}
+                onClick={() =>
+                  setPlan({
+                    ...plan,
+                    personal: false,
+                    professional: true,
+                    bussiness: false,
+                  })
+                }
                 href="#"
                 className="block w-full rounded-md border border-[#D4DEFF] bg-transparent p-4 text-center text-base font-semibold transition hover:text-black"
               >
@@ -922,6 +942,6 @@ const plan=()=> {
       </div>
     </div>
   );
-}
+};
 
 export default plan;
