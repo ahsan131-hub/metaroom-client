@@ -79,9 +79,6 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
         <h2 className="text-2xl font-semibold leading-7 text-gray-900">
           Create Quiz
         </h2>
-        <p className="mt-1 text-sm leading-6 text-gray-600">
-          Create Assignment for better Assesments.
-        </p>
       </div>
       <form
         onSubmit={(e) => {
@@ -291,13 +288,11 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
                   <textarea
                     id="about"
                     name="about"
+                    placeholder="Guidelines for attempting (if any)."
                     rows={3}
                     className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
                   />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Description of the quiz.
-                </p>
               </div>
             </div>
           </div>

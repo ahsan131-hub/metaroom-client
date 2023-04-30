@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { PhotoIcon } from '@heroicons/react/24/solid';
+import { DocumentArrowUpIcon } from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
 
@@ -79,8 +79,8 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
                 </label>
                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 ">
                   <div className="text-center">
-                    <PhotoIcon
-                      className="mx-auto h-12 w-12 text-gray-300"
+                    <DocumentArrowUpIcon
+                      className="mx-auto h-12 w-10 text-gray-300"
                       aria-hidden="true"
                     />
                     <div className="mt-4 flex text-sm leading-6 text-gray-600">
@@ -116,13 +116,11 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
                   <textarea
                     id="about"
                     name="about"
+                    placeholder="Deliverables of the assignment."
                     rows={3}
                     className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
                   />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Description of assignment.
-                </p>
               </div>
             </div>
           </div>
