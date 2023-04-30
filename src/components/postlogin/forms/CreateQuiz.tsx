@@ -273,7 +273,7 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
                       <p className="pl-1">or drag and drop</p>
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
-                      PNG, JPG, GIF up to 10MB
+                      Any file upto 10MB.
                     </p>
                   </div>
                 </div>
@@ -296,7 +296,7 @@ function CreateQuiz({ showAnimation }: { showAnimation: boolean }) {
                   />
                 </div>
                 <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Write a few sentences about yourself.
+                  Description of the quiz.
                 </p>
               </div>
             </div>

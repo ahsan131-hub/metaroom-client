@@ -19,7 +19,7 @@ const features = [
     icon: UsersIcon,
   },
   {
-    name: 'Manage your course content under one platform',
+    name: 'Manage your courses under one platform',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
     icon: SquaresPlusIcon,

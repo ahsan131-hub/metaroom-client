@@ -88,7 +88,7 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
                         htmlFor="file-upload"
                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
-                        <span>Course Outline</span>
+                        <span>Choose file</span>
                         <input
                           id="file-upload"
                           name="file-upload"
@@ -99,7 +99,7 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
                       <p className="pl-1">or drag and drop</p>
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
-                      PNG, JPG, GIF up to 10MB
+                      Any file upto 1000MB.
                     </p>
                   </div>
                 </div>
@@ -121,7 +121,7 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
                   />
                 </div>
                 <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Write a few sentences about yourself.
+                  Description of assignment.
                 </p>
               </div>
             </div>

@@ -54,7 +54,7 @@ const Inputs = () => {
                 Login
               </button>
               <p className="mt-2 mb-0 pt-1 text-sm font-semibold">
-                Do not have an account?
+                Do not have an account?&nbsp;
                 <a
                   href="#!"
                   className="text-danger hover:text-danger-600 focus:text-danger-600 active:text-danger-700 transition duration-150 ease-in-out"

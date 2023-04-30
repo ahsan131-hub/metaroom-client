@@ -166,7 +166,7 @@ export default function CreateCourse({
           Course
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
-          Create courses and Share Link with Students for Joining.
+          Create a course and share its link with students for joining.
         </p>
       </div>
       <form
@@ -303,7 +303,7 @@ export default function CreateCourse({
                   />
                 </div>
                 <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Write a few sentences about yourself.
+                  Write a few sentences about this course.
                 </p>
               </div>
 
@@ -365,7 +365,7 @@ export default function CreateCourse({
                       )}
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
-                      PNG, JPG, GIF up to 10MB
+                      Any file upto 10MB.
                     </p>
                   </div>
                 </div>
