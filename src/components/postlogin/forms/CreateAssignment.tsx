@@ -1,5 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
+
+import { DocumentArrowUpIcon } from '@heroicons/react/24/solid';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -121,7 +123,7 @@ function CreateAssignment({
     >
       <div className="m-2 ">
         <h2 className="text-2xl font-semibold leading-7 text-gray-900">
-          Create Assingment
+          Create Assignment
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
           Create Assignment for better Assesments.
@@ -136,6 +138,7 @@ function CreateAssignment({
             <div className=" pb-6">
               {/* assignment  */}
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
                 <TextInput
                   classNames={'sm:col-span-3'}
                   fieldName={'name'}
@@ -177,8 +180,8 @@ function CreateAssignment({
                 </label>
                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 ">
                   <div className="text-center">
-                    <PhotoIcon
-                      className="mx-auto h-12 w-12 text-gray-300"
+                    <DocumentArrowUpIcon
+                      className="mx-auto h-12 w-10 text-gray-300"
                       aria-hidden="true"
                     />
                     <div className="mt-4 flex text-sm leading-6 text-gray-600">
@@ -186,7 +189,9 @@ function CreateAssignment({
                         htmlFor="file-upload"
                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
+
                         <span>{!file ? 'Course Outline' : file.name}</span>
+
                         <input
                           id="file-upload"
                           name="file-upload"
@@ -200,12 +205,13 @@ function CreateAssignment({
                       {!file && <p className="pl-1">or drag and drop</p>}
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
-                      PNG, JPG, GIF up to 10MB
+                      Any file upto 10MB.
                     </p>
                   </div>
                 </div>
               </div>
               {/* assignment description */}
+
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="col-span-full">
                   <label

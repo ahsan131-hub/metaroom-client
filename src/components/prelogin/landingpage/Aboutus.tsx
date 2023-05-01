@@ -1,34 +1,34 @@
 import {
-  BoltIcon,
-  DevicePhoneMobileIcon,
   GlobeAltIcon,
-  ScaleIcon,
+  SquaresPlusIcon,
+  UsersIcon,
+  VideoCameraIcon,
 } from '@heroicons/react/24/outline';
 
 const features = [
   {
-    name: 'Competitive exchange rates',
+    name: 'Access class content from your work desk',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
     icon: GlobeAltIcon,
   },
   {
-    name: 'No hidden fees',
+    name: 'Communicate with your teachers one-to-one',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: ScaleIcon,
+    icon: UsersIcon,
   },
   {
-    name: 'Transfers are instant',
+    name: 'Manage your courses under one platform',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: BoltIcon,
+    icon: SquaresPlusIcon,
   },
   {
-    name: 'Mobile notifications',
+    name: 'Host real-time video lectures',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: DevicePhoneMobileIcon,
+    icon: VideoCameraIcon,
   },
 ];
 
@@ -38,14 +38,15 @@ export default function Aboutus() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="sm:text-center">
           <h2 className="text-lg font-semibold leading-8 text-indigo-600">
-            Transactions
+            MetaRoom
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            A better way to send money
+            A better way to learn
           </p>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-            Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam
-            voluptatum cupiditate veritatis in accusamus quisquam.
+            <i>Meta</i> where everything you ever need for remote learning is
+            provided, <i>Room</i> where you can interact with your teachers with
+            no hurdles. <i>MetaRoom</i>, where remote learning meets comfort.
           </p>
         </div>
 
