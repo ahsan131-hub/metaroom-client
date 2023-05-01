@@ -8,7 +8,7 @@ import CreateQuiz from '@/components/postlogin/forms/CreateQuiz';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import Loading from '@/components/postlogin/shared/Loading';
 import notify from '@/components/toasts/toast';
-import { GET_COURSE } from '@/graphql/Queries/course';
+import { GET_COURSE, GET_COURSE_CONTENTS } from '@/graphql/Queries/course';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
 import CreateAssignment from '../../../components/postlogin/forms/CreateAssignment';
@@ -30,45 +30,53 @@ const CoursePage = () => {
       },
     },
   });
-
-  useEffect(() => {
-    if (slug) {
-      if (status === 'authenticated') {
-        console.log('res');
-      }
-    }
-  }, [session]);
+  const {
+    data: contents,
+    loading: contentLoading,
+    error: contentError,
+    refetch,
+  } = useQuery(GET_COURSE_CONTENTS, {
+    variables: {
+      courseId: slug,
+    },
+    context: {
+      headers: {
+        Authorization: session ? session?.infraToken : '',
+      },
+    },
+  });
 
   const [showQuizForm, setShowQuizForm] = useState(false);
   const [showAssignmentForm, setShowAssignmentForm] = useState(false);
   const [showAttemptQuiz, setShowAttemptQuiz] = useState(false);
+  const [refetchContents, setRefetchContents] = useState(false);
 
-  const contents = [
-    {
-      fileName: 'Assignment#01',
-      type: 'ASSIGNMENT',
-      uploadDate: '01/03/2000',
-      fileExtension: '.docx',
-      downloadLink: 'http://google.com/',
-    },
-    {
-      fileName: 'Assignment#02',
-      type: 'ASSIGNMENT',
-      uploadDate: '01/03/2000',
-      fileExtension: '.docx',
-      downloadLink: 'http://google.com/',
-    },
-    {
-      fileName: 'Book: Power of machine Learning',
-      type: 'NOTES',
-      uploadDate: '01/03/2000',
-      fileExtension: '.docx',
-      downloadLink: 'http://google.com/',
-    },
-  ];
-  if (status !== 'authenticated') {
-    return <Loading />;
-  }
+  // const contents = [
+  //   {
+  //     fileName: 'Assignment#01',
+  //     type: 'ASSIGNMENT',
+  //     uploadDate: '01/03/2000',
+  //     fileExtension: '.docx',
+  //     downloadLink: 'http://google.com/',
+  //   },
+  //   {
+  //     fileName: 'Assignment#02',
+  //     type: 'ASSIGNMENT',
+  //     uploadDate: '01/03/2000',
+  //     fileExtension: '.docx',
+  //     downloadLink: 'http://google.com/',
+  //   },
+  //   {
+  //     fileName: 'Book: Power of machine Learning',
+  //     type: 'NOTES',
+  //     uploadDate: '01/03/2000',
+  //     fileExtension: '.docx',
+  //     downloadLink: 'http://google.com/',
+  //   },
+  // ];
+  useEffect(() => {
+    refetch();
+  }, [refetchContents]);
   if (!slug) {
     return (
       <div className="w-full justify-center flex">Page Not Found: 404</div>
@@ -85,7 +93,7 @@ const CoursePage = () => {
       position: 'bottom-right',
     });
   }
-
+  console.log(contents);
   return (
     <Layout>
       {loading && <Loading />}
@@ -133,15 +141,24 @@ const CoursePage = () => {
                 <CreateAssignment
                   showAnimation={showAssignmentForm}
                   setX={setShowAssignmentForm}
+                  courseId={data.getCourse.course?.id}
+                  instructorId={data.getCourse.course?.instructorId}
+                  setRefetchContent={setRefetchContents}
                 />
                 <CreateQuiz
                   showAnimation={showQuizForm}
                   setX={setShowQuizForm}
                 />
               </div>
-              {contents.map((content, index) => (
-                <CourseContent key={index} data={content} />
-              ))}
+              {contentLoading && <Loading />}
+              {!contentLoading && !contentError
+                ? contents.getCourseContents.contents.map(
+                    (content: any, index: any) => (
+                      <CourseContent key={index} data={content} />
+                    )
+                  )
+                : ''}
+              {contentError && <p>{contentError.message}</p>}
             </div>
           </div>
         </div>

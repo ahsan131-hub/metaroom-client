@@ -1,20 +1,22 @@
 import { PaperClipIcon } from '@heroicons/react/20/solid';
+import dayjs from 'dayjs';
 import React, { useState } from 'react';
 
-export default function CourseContent({ data }: any) {
+export default function CourseContent({ data,  }: any) {
   const [selectedFile, setSelectedFile] = useState();
   function handleFileSelect(event) {
     const { files } = event.target;
     if (files && files.length > 0) {
       setSelectedFile(files[0]);
     }
-  }  return (
+  }
+  return (
     <div className="">
-      <div className={'m-2 ml-10 pt-5 font-semibold sm:rounded-lg '}>
-        <span>{data.uploadDate}</span>
+      <div className={' ml-10 pt-5 font-semibold sm:rounded-lg '}>
+        <span>{data.contentType}</span>
       </div>
       <dl>
-        <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <div className="bg-white px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dd className="mt-1 text-sm text-gray-900 sm:col-span-3 sm:mt-0">
             <ul
               role="list"
@@ -22,16 +24,39 @@ export default function CourseContent({ data }: any) {
             >
               <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
                 <div className="flex w-0 flex-1 items-center">
-                  <PaperClipIcon
-                    className="h-5 w-5 shrink-0 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  <span className="ml-2 w-0 flex-1 truncate">
-                    Machine Learning Basics.pdf
-                  </span>
+                  <div>
+                    <div className="flex">
+                      <PaperClipIcon
+                        className="h-5 w-5 shrink-0 text-gray-400"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 truncate">{data.name}</span>
+                    </div>
+                    <div className="flex">
+                      <PaperClipIcon
+                        className="h-5 w-5 shrink-0 text-gray-400"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 truncate">
+                        description :{data.description}
+                      </span>
+                    </div>
+                    <div className="flex">
+                      <PaperClipIcon
+                        className="h-5 w-5 shrink-0 text-gray-400"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 truncate">
+                        deadline :
+                        {dayjs(data.deadline || '03-19-2023').format(
+                          'DD/MM/YYYY'
+                        )}
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <div className="ml-4 shrink-0">
-                  <label className="flex flex-col items-center w-full border-4 border-dashed border-gray-400 py-2 px-2 bg-white text-gray-600 rounded-md hover:bg-gray-50">
+                  <label className="flex flex-col items-center w-full border-4 border-dashed border-gray-400 p-2 bg-white text-gray-600 rounded-md hover:bg-gray-50">
                     <input
                       type="file"
                       className="hidden"
@@ -59,7 +84,7 @@ export default function CourseContent({ data }: any) {
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    Download
+                    download[ {data.contentFiles.length} ]
                   </a>
                 </div>
               </li>

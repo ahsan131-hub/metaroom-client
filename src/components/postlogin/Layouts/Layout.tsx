@@ -1,12 +1,18 @@
+import { useSession } from 'next-auth/react';
 import type { ReactNode } from 'react';
 import React from 'react';
 
+import NotLoggedIn from '@/components/utils/NotLoggedIn';
 import { SideBarItem } from '@/constants';
 
 import MainCoverPage from '../homePage/MainCoverPage';
 import { Sidebar } from './Sidebar';
 
 const Layout = ({ children }: { children: ReactNode }) => {
+  const { status }: any = useSession();
+  if (status !== 'authenticated') {
+    return <NotLoggedIn />;
+  }
   return (
     <div className="flex h-screen ">
       <div>

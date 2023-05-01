@@ -1,19 +1,117 @@
+import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
-import Datepicker from 'react-tailwindcss-datepicker';
 
-function CreateAssignment(props) {
-  const [dates, setDates] = useState<{ startDate: Date; endDate: Date }>({
-    startDate: new Date(),
-    endDate: new Date(),
+import notify from '@/components/toasts/toast';
+import { CREATE_CONTENT } from '@/graphql/mutations/content';
+import { BUCKET_URL } from '@/utils/S3';
+
+import Loading from '../shared/Loading';
+import DateInput from './form-components/DateInput';
+import SelectInput from './form-components/SelectInput';
+import TextInput from './form-components/TextInput';
+
+function CreateAssignment({
+  courseId,
+  instructorId,
+  showAnimation,
+  setRefetchContent,
+}: any) {
+  const { data: session }: any = useSession();
+  const [createContent, { data, loading, error }] = useMutation(CREATE_CONTENT);
+  const [deadline, setDeadline] = useState(dayjs().format('YYYY-MM-DD'));
+  const [contentData, setContentData] = useState<any>({
+    name: '',
+    description: '',
+    contentFiles: '',
+    contentType: '',
   });
-  const handleValueChange = (newValue: any) => {
-    setDates(newValue);
+  const [file, setFile] = useState<any>(null);
+  let fileRes: any = null;
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      if (file) {
+        // upload cover photo
+        const { data: uploadedData }: { data: any } = await axios.post(
+          '/api/s3/upload',
+          {
+            name: file?.name,
+            type: file?.type,
+          }
+        );
+        const { url } = uploadedData;
+        fileRes = await axios.put(url, file, {
+          headers: {
+            'Content-type': file.type,
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
+      }
+      // console.log({
+      //   ...contentData,
+      //   contentFiles: [
+      //     ...contentData.contentFiles,
+      //     BUCKET_URL.concat(fileRes?.config?.data?.name as string),
+      //   ],
+      // });
+      const response = await createContent({
+        variables: {
+          content: {
+            ...contentData,
+            contentFiles: [
+              ...contentData.contentFiles,
+              BUCKET_URL.concat(fileRes?.config?.data?.name as string),
+            ],
+            deadline,
+          },
+          courseId,
+          instructorId,
+        },
+        context: {
+          headers: {
+            Authorization: session ? session.infraToken : '',
+          },
+        },
+      });
+      console.log(response);
+      if (response.data.createContent?.status === 200) {
+        notify({
+          type: 'SUCCESS',
+          position: 'bottom-right',
+          message: 'Assignment Created',
+          description: 'Assignment has been created successfully',
+        });
+        setRefetchContent(true);
+        return;
+      }
+      console.log(data);
+      if (response.data?.createContent?.status !== 200) {
+        throw new Error(data?.createContent?.message);
+      }
+    } catch (err: any) {
+      console.log(err);
+      notify({
+        type: 'ERROR',
+        position: 'bottom-right',
+        message: 'Assingment creation failed',
+        description: err.message,
+      });
+    }
+  };
+  if (loading) {
+    return <Loading />;
+  }
+  const selectfile = (e: any) => {
+    setFile(e.target.files[0]);
   };
   return (
     <Transition
-      show={props.showAnimation}
+      show={showAnimation}
       enter="transition-all ease-in-out duration-500 delay-[500ms]"
       enterFrom="opacity-0 translate-y-6"
       enterTo="opacity-100 translate-y-0"
@@ -30,10 +128,7 @@ function CreateAssignment(props) {
         </p>
       </div>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          // console.log(courseId);
-        }}
+        onSubmit={onSubmit}
         className=" items-center pl-5  justify-center    align-middle "
       >
         <div className="scrollbar-hide w-3/4 overflow-y-scroll space-y-12 p-5">
@@ -41,32 +136,35 @@ function CreateAssignment(props) {
             <div className=" pb-6">
               {/* assignment  */}
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="course-key"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Assingment Name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="course-key"
-                      id="course-key"
-                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                </div>
+                <TextInput
+                  classNames={'sm:col-span-3'}
+                  fieldName={'name'}
+                  data={contentData}
+                  setData={setContentData}
+                  label={'Content Name'}
+                  placeholder={'Introduction to Python'}
+                />
+
+                <SelectInput
+                  classNames={'sm:col-span-3'}
+                  fieldName={'contentType'}
+                  data={contentData}
+                  setData={setContentData}
+                  label={'Content Type'}
+                  placeholder={'Select Content Type'}
+                  options={['ASSIGNMENT', 'CONTENT']}
+                />
               </div>
               {/* deade line */}
               <div className="mt-2">
                 <label className="block text-sm font-medium leading-6 text-gray-900">
                   Deadline
                 </label>
-                <Datepicker
-                  primaryColor="indigo"
-                  value={dates}
-                  onChange={handleValueChange}
+                <DateInput
+                  selectedDate={deadline}
+                  selectedDateChange={setDeadline}
+                  classNames={'col-span-2'}
+                  label={''}
                 />
               </div>
               {/* attached file */}
@@ -75,7 +173,7 @@ function CreateAssignment(props) {
                   htmlFor="cover-photo"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Resources
+                  Course Outline
                 </label>
                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 ">
                   <div className="text-center">
@@ -88,15 +186,18 @@ function CreateAssignment(props) {
                         htmlFor="file-upload"
                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
-                        <span>Course Outline</span>
+                        <span>{!file ? 'Course Outline' : file.name}</span>
                         <input
                           id="file-upload"
                           name="file-upload"
                           type="file"
+                          onChange={(e) => {
+                            selectfile(e);
+                          }}
                           className="sr-only"
                         />
                       </label>
-                      <p className="pl-1">or drag and drop</p>
+                      {!file && <p className="pl-1">or drag and drop</p>}
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
                       PNG, JPG, GIF up to 10MB
@@ -105,24 +206,33 @@ function CreateAssignment(props) {
                 </div>
               </div>
               {/* assignment description */}
-              <div className="col-span-full">
-                <label
-                  htmlFor="about"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Description
-                </label>
-                <div className="mt-2">
-                  <textarea
-                    id="about"
-                    name="about"
-                    rows={3}
-                    className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                  />
+              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="col-span-full">
+                  <label
+                    htmlFor="Description"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Description (minimum 10 characters)
+                  </label>
+                  <div className="mt-2">
+                    <textarea
+                      id="Description"
+                      name="Description"
+                      rows={3}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
+                      value={contentData.description}
+                      onChange={(e) => {
+                        setContentData({
+                          ...contentData,
+                          description: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-gray-600">
+                    Write a few sentences about Content.
+                  </p>
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Write a few sentences about yourself.
-                </p>
               </div>
             </div>
           </div>
