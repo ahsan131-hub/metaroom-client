@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const navigation = [
-  { name: 'Product', href: '#' },
+  { name: 'Why MetaRoom?', href: '#' },
   { name: 'Features', href: '#' },
   { name: 'Marketplace', href: '#' },
   { name: 'About Us', href: '#' },
@@ -25,8 +25,8 @@ const Intro: React.FC = () => {
                 <span className="sr-only">Your Company</span>
                 <img
                   className="h-8"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                  alt=""
+                  src="../../../../logo.jpeg"
+                  alt="MetaRoom Logo"
                 />
               </a>
             </div>
@@ -71,8 +71,8 @@ const Intro: React.FC = () => {
                     <span className="sr-only">Your Company</span>
                     <img
                       className="h-8"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                      alt=""
+                      src="../../../../logo.jpeg"
+                      alt="MetaRoom Logo"
                     />
                   </a>
                 </div>
@@ -121,10 +121,10 @@ const Intro: React.FC = () => {
               <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                 <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                   <span className="text-gray-600">
-                    Announcing our next round of funding.{' '}
+                    More about us.{' '}
                     <a href="#" className="font-semibold text-indigo-600">
                       <span className="absolute inset-0" aria-hidden="true" />
-                      Read more <span aria-hidden="true">&rarr;</span>
+                      Read here <span aria-hidden="true">&rarr;</span>
                     </a>
                   </span>
                 </div>

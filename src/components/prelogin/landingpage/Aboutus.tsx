@@ -9,26 +9,26 @@ const features = [
   {
     name: 'Access class content from your work desk',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'Whatever goes on in a traditional classroom, assignments, quizzes, lecture notes, you get everything under one page at MetaRoom',
     icon: GlobeAltIcon,
-  },
-  {
-    name: 'Communicate with your teachers one-to-one',
-    description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: UsersIcon,
   },
   {
     name: 'Manage your courses under one platform',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'If you are a teacher, you get all your courses you are teaching under one single platfrom.',
     icon: SquaresPlusIcon,
   },
   {
     name: 'Host real-time video lectures',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'Host video sessions at MetaRoom where your students can join and take a remote class.',
     icon: VideoCameraIcon,
+  },
+  {
+    name: 'Communicate with your teachers one-to-one',
+    description:
+      'Apart from the video sessions, students can book a one-on-one session with their teachers.',
+    icon: UsersIcon,
   },
 ];
 
