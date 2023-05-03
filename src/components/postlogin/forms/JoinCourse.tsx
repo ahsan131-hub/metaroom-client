@@ -1,9 +1,57 @@
+import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 
-function JoinCourse({ showAnimation }: { showAnimation: boolean }) {
-  const [courseId, setCourseId] = useState<string>('');
+import notify from '@/components/toasts/toast';
+import { useUser } from '@/context/UserDataProvider';
+import { ENROLL_COURSE } from '@/graphql/mutations/course';
 
+import Loading from '../shared/Loading';
+
+function JoinCourse({
+  showAnimation,
+  setShowAnimation,
+}: {
+  showAnimation: boolean;
+  setShowAnimation: any;
+}) {
+  const [courseId, setCourseId] = useState<string>('');
+  const user = useUser();
+  const { data: session } = useSession();
+  const [enrollCourse, { loading, error, data }] = useMutation(ENROLL_COURSE);
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    console.log(courseId);
+    const enroll = await enrollCourse({
+      variables: { courseId, studentEmail: user.email },
+      context: {
+        headers: {
+          Authorization: session?.infraToken,
+        },
+      },
+    });
+    console.log(enroll);
+    if (enroll.data.enrollInCourse.status === 200) {
+      notify({
+        type: 'SUCCESS',
+        message: 'Enrollment successful',
+        description: 'Enrollment successfully completed',
+        position: 'bottom-right',
+      });
+      setShowAnimation(!showAnimation);
+    }
+
+    if (enroll.data.enrollInCourse.status !== 200) {
+      notify({
+        type: 'ERROR',
+        message: 'Enrollment failed',
+        description: enroll.data.enrollInCourse.message,
+        position: 'bottom-right',
+      });
+    }
+    setCourseId('');
+  };
   return (
     <Transition
       show={showAnimation}
@@ -22,57 +70,59 @@ function JoinCourse({ showAnimation }: { showAnimation: boolean }) {
           Create courses and Share Link with Students for Joining.
         </p>
       </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log(courseId);
-        }}
-        className=" items-center pl-5  justify-center    align-middle "
-      >
-        <div className="scrollbar-hide w-3/4 overflow-y-scroll space-y-12 p-5">
-          <div className="border-b border-gray-900/10 pb-12">
-            <div className=" pb-6">
-              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="course-key"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Course Key
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="course-key"
-                      id="course-key"
-                      value={courseId}
-                      onChange={(e) => {
-                        setCourseId(e.target.value);
-                      }}
-                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <form
+          onSubmit={handleSubmit}
+          className=" items-center pl-5  justify-center    align-middle "
+        >
+          <div className="scrollbar-hide w-3/4 overflow-y-scroll space-y-12 p-5">
+            <div className="border-b border-gray-900/10 pb-12">
+              <div className=" pb-6">
+                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor="course-key"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Course Key
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        name="course-key"
+                        id="course-key"
+                        value={courseId}
+                        onChange={(e) => {
+                          setCourseId(e.target.value);
+                        }}
+                        className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-6 flex items-center w-3/4 justify-end gap-x-6 mr-10">
-          <button
-            type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Save
-          </button>
-        </div>
-      </form>
+          <div className="mt-6 flex items-center w-3/4 justify-end gap-x-6 mr-10">
+            <button
+              type="button"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      )}
     </Transition>
   );
 }

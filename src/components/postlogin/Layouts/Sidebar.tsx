@@ -15,7 +15,7 @@ import UserIcon from '../icons/UserIcon';
 
 export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
   const { data: session } = useSession();
-  
+
   const sidebarcontext = useSideBarContext();
   const toggleSidebarcontext = useToggleSideBarContext();
   const wrapperClassNames = classNames(
@@ -33,7 +33,15 @@ export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
       <div className="">
         <div className="h-20 flex flex-row p-2 justify-between mb-5">
           {!sidebarcontext && (
-            <h1 className="text-center text-xl  ">MetaRoom</h1>
+            <div className="h-10 text-center justify-center w-10 pt-2 pl-3 ">
+              <img
+                src="https://flowBite.com/docs/images/logo.svg"
+                className="mr-3 h-8"
+                height={300}
+                width={300}
+                alt="MetaRoom Logo"
+              />
+            </div>
           )}
           {
             <div

@@ -3,6 +3,7 @@ import { PhotoIcon } from '@heroicons/react/24/solid';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 
+import notify from '@/components/toasts/toast';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
 import TimePicker from '../shared/TimePicker';
@@ -90,6 +91,12 @@ function CreateQuiz(props) {
           console.log({ ...data, ...questions });
           console.log(quizDate);
           console.log(time);
+          notify({
+            type: 'SUCCESS',
+            position: 'bottom-right',
+            message: 'Assignment Created',
+            description: 'Assignment has been created successfully',
+          });
         }}
         className=" items-center pl-5 w-full justify-center align-middle"
       >

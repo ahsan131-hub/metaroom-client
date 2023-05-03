@@ -12,7 +12,6 @@ import { Sidebar } from './Sidebar';
 const Layout = ({ children }: { children: ReactNode }) => {
   const { status }: any = useSession();
   const user = useUser();
-  console.log(user);
   if (status !== 'authenticated') {
     return <NotLoggedIn />;
   }

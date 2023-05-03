@@ -8,5 +8,13 @@ const CREATE_COURSE = gql`
     }
   }
 `;
+const ENROLL_COURSE = gql`
+  mutation EnrollInCourse($studentEmail: String, $courseId: String) {
+    enrollInCourse(studentEmail: $studentEmail, courseId: $courseId) {
+      status
+      message
+    }
+  }
+`;
 
-export { CREATE_COURSE };
+export { CREATE_COURSE, ENROLL_COURSE };

@@ -17,7 +17,7 @@ const CoursePage = () => {
   const { data: session }: any = useSession();
   const student = user?.role === 'STUDENT';
   const [showcourseForm, setShowcourseForm] = useState(false);
-
+  const queryName = student ? GET_COURSES : GET_COURSES;
   const {
     data: courses,
     loading,
@@ -62,7 +62,10 @@ const CoursePage = () => {
               Join Course
             </button>
           </div>
-          <JoinCourse showAnimation={showEnrollcourseForm} />
+          <JoinCourse
+            showAnimation={showEnrollcourseForm}
+            setShowAnimation={setShowEnrollCourseForm}
+          />
           {!student && (
             <CreateCourse
               showAnimation={showcourseForm}
