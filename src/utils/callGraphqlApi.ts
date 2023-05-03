@@ -2,7 +2,12 @@
 
 // import email from 'next-auth/providers/email';
 
-const createUserByFetchAPICall = async (email: any, name: any, token: any) => {
+const createUserByFetchAPICall = async (
+  email: any,
+  name: any,
+  token: any,
+  image: string
+) => {
   try {
     if (!email) {
       return;
@@ -20,7 +25,7 @@ const createUserByFetchAPICall = async (email: any, name: any, token: any) => {
           message
         }
       }`,
-      variables: { user: { email, fName: name } },
+      variables: { user: { email, fName: name, image } },
     };
     const options = {
       method: 'POST',

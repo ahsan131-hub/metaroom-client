@@ -17,7 +17,6 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
   const [getUser, { loading }] = useLazyQuery(GET_USER);
   useEffect(() => {
     const getUserData = async () => {
-      console.log(session?.user?.email);
       const res = await getUser({
         variables: { email: session?.user?.email },
         context: {
@@ -28,12 +27,13 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
         },
       });
       if (res?.data?.getUserByEmail?.user) {
+        console.log('got user data');
         setUserData(res.data.getUserByEmail.user);
       }
     };
 
-    getUserData().then((res) => res);
-  }, []);
+    if (status === 'authenticated') getUserData().then((res) => res);
+  }, [session]);
 
   if (loading) {
     return <Loading />;
