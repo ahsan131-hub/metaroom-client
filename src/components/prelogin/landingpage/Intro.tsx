@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const navigation = [
+
   { name: 'Why MetaRoom?', href: '#' },
   { name: 'Features', href: '#' },
   { name: 'Marketplace', href: '#' },
+
   { name: 'About Us', href: '#' },
 ];
 const Intro: React.FC = () => {

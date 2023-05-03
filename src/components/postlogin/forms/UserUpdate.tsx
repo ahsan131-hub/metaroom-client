@@ -97,33 +97,33 @@ export default function UpdateUser({
                   <TextInput
                     classNames={'sm:col-span-3'}
                     fieldName={'userName'}
-                    userData={userData}
-                    setUserData={setUserData}
+                    data={userData}
+                    setData={setUserData}
                     label={'User Name'}
                     placeholder={'johnsmith'}
                   />
                   <TextInput
                     classNames={'sm:col-span-3'}
                     fieldName={'fName'}
-                    userData={userData}
-                    setUserData={setUserData}
+                    data={userData}
+                    setData={setUserData}
                     label={'First Name'}
                     placeholder={'John'}
                   />
                   <TextInput
                     classNames={'sm:col-span-3'}
                     fieldName={'lName'}
-                    userData={userData}
-                    setUserData={setUserData}
+                    data={userData}
+                    setData={setUserData}
                     label={'Last Name'}
                     placeholder={'Smith'}
                   />
                   <TextInput
                     classNames={'sm:col-span-3'}
                     fieldName={'phone'}
-                    userData={userData}
+                    data={userData}
                     placeholder={'(123) 456-7890'}
-                    setUserData={setUserData}
+                    setData={setUserData}
                     label={'Phone Name'}
                   />
                   <DateInput
@@ -135,8 +135,8 @@ export default function UpdateUser({
                   <SelectInput
                     classNames={'sm:col-span-3'}
                     fieldName={'timezone'}
-                    userData={userData}
-                    setUserData={setUserData}
+                    data={userData}
+                    setData={setUserData}
                     label={'Timezone'}
                     placeholder={'Select Timezone'}
                     options={['Asia/Karachi', 'Asia/Kolkata']}
@@ -145,8 +145,8 @@ export default function UpdateUser({
                     <SelectInput
                       classNames={'sm:col-span-3'}
                       fieldName={'role'}
-                      userData={userData}
-                      setUserData={setUserData}
+                      data={userData}
+                      setData={setUserData}
                       label={'Role'}
                       placeholder={'Select Role'}
                       options={['STUDENT', 'INSTRUCTOR']}

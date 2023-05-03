@@ -14,17 +14,10 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
 
   const { data: session, status } = useSession();
 
-  const [getUser, { loading, error, data }] = useLazyQuery(GET_USER, {
-    variables: { email: session?.user?.email },
-    context: {
-      headers: {
-        Authorization: status === 'authenticated' ? session?.infraToken : '',
-      },
-    },
-  });
+  const [getUser, { loading }] = useLazyQuery(GET_USER);
   useEffect(() => {
-    if (data) {
-      getUser({
+    const getUserData = async () => {
+      const res = await getUser({
         variables: { email: session?.user?.email },
         context: {
           headers: {
@@ -33,10 +26,14 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
           },
         },
       });
-      setUserData(data.getUserByEmail.user);
-      console.log('got user data here now ', data.getUserByEmail.user);
-    }
-  }, [data]);
+      if (res?.data?.getUserByEmail?.user) {
+        console.log('got user data');
+        setUserData(res.data.getUserByEmail.user);
+      }
+    };
+
+    if (status === 'authenticated') getUserData().then((res) => res);
+  }, [session]);
 
   if (loading) {
     return <Loading />;

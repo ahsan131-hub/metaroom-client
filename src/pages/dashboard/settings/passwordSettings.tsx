@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function passwordSettings() {
+const passwordSettings = () => {
+  const [password, setPassword] = useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
   return (
     <div className="">
       <div className="flex flex-col items-center mt-10 px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -23,6 +28,9 @@ function passwordSettings() {
                 className="p-3 rounded-lg w-full"
                 placeholder="••••••••"
                 required
+                onChange={(e) => {
+                  setPassword({ ...password, oldPassword: e.target.value });
+                }}
               />
             </div>
             <div>
@@ -39,6 +47,9 @@ function passwordSettings() {
                 placeholder="••••••••"
                 className="p-3 rounded-lg w-full"
                 required
+                onChange={(e) => {
+                  setPassword({ ...password, newPassword: e.target.value });
+                }}
               />
             </div>
             <div>
@@ -46,7 +57,7 @@ function passwordSettings() {
                 htmlFor="confim_password"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                New Password
+                Confirm Password
               </label>
               <input
                 type="password"
@@ -55,6 +66,9 @@ function passwordSettings() {
                 placeholder="••••••••"
                 className="p-3 rounded-lg w-full"
                 required
+                onChange={(e) => {
+                  setPassword({ ...password, confirmPassword: e.target.value });
+                }}
               />
             </div>
             <div className="flex items-start">
@@ -95,5 +109,5 @@ function passwordSettings() {
       </div>
     </div>
   );
-}
+};
 export default passwordSettings;

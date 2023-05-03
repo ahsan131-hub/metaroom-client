@@ -14,9 +14,10 @@ import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
 const CoursePage = () => {
   const user = useUser();
-  const { data: session, status }: any = useSession();
+  const { data: session }: any = useSession();
   const student = user?.role === 'STUDENT';
   const [showcourseForm, setShowcourseForm] = useState(false);
+
   const {
     data: courses,
     loading,
@@ -25,22 +26,18 @@ const CoursePage = () => {
   } = useQuery(GET_COURSES, {
     context: {
       headers: {
-        Authorization: session ? session.infraToken : '',
+        Authorization: session?.infraToken,
       },
     },
   });
-
   const [showEnrollcourseForm, setShowEnrollCourseForm] = useState(false);
-
-  if (!user) {
-    return <p>Please logg in first</p>;
-  }
 
   return (
     <Layout>
-      {loading || status !== 'authenticated' ? (
-        <Loading />
-      ) : (
+      {error && <p>{error.message}</p>}
+      {loading && <Loading />}
+
+      {courses && (
         <div className="m-2  w-full p-2 pr-2">
           <div className="flex mt-2 ">
             <SearchBar />

@@ -54,4 +54,24 @@ const GET_COURSE = gql`
     }
   }
 `;
-export { GET_COURSE, GET_COURSES };
+const GET_COURSE_CONTENTS = gql`
+  query GetCourseContents($courseId: String) {
+    getCourseContents(courseId: $courseId) {
+      response {
+        status
+        message
+      }
+      contents {
+        id
+        name
+        deadline
+        description
+        contentFiles
+        instructorId
+        contentType
+        contentSubmissions
+      }
+    }
+  }
+`;
+export { GET_COURSE, GET_COURSE_CONTENTS, GET_COURSES };

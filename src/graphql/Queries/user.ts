@@ -13,6 +13,7 @@ const GET_USER = gql`
         lName
         userName
         phone
+        image
         gender
         dateOfBirth
         isEmailVerified

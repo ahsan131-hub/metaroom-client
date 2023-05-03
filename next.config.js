@@ -15,6 +15,10 @@ module.exports = withBundleAnalyzer({
         protocol: 'https',
         hostname: 'metaroom.s3.ap-south-1.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
     minimumCacheTTL: 15000000,
   },
