@@ -2,7 +2,7 @@ import { PaperClipIcon } from '@heroicons/react/20/solid';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 
-export default function CourseContent({ data,  }: any) {
+export default function CourseContent({ data }: any) {
   const [selectedFile, setSelectedFile] = useState();
   function handleFileSelect(event) {
     const { files } = event.target;

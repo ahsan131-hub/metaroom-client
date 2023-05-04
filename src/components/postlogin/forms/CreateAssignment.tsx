@@ -1,8 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
-
 import { DocumentArrowUpIcon } from '@heroicons/react/24/solid';
-import { PhotoIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
@@ -20,6 +18,7 @@ import TextInput from './form-components/TextInput';
 function CreateAssignment({
   courseId,
   instructorId,
+  setX,
   showAnimation,
   setRefetchContent,
 }: any) {
@@ -121,7 +120,7 @@ function CreateAssignment({
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
-      <div className="m-2 ">
+      <div className="m-2">
         <h2 className="text-2xl font-semibold leading-7 text-gray-900">
           Create Assignment
         </h2>
@@ -131,14 +130,13 @@ function CreateAssignment({
       </div>
       <form
         onSubmit={onSubmit}
-        className=" items-center pl-5  justify-center    align-middle "
+        className="items-center pl-5 justify-center align-middle"
       >
         <div className="scrollbar-hide w-3/4 overflow-y-scroll space-y-12 p-5">
           <div className="border-b border-gray-900/10 pb-12">
             <div className=" pb-6">
               {/* assignment  */}
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
                 <TextInput
                   classNames={'sm:col-span-3'}
                   fieldName={'name'}
@@ -189,7 +187,6 @@ function CreateAssignment({
                         htmlFor="file-upload"
                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
-
                         <span>{!file ? 'Course Outline' : file.name}</span>
 
                         <input
@@ -249,7 +246,7 @@ function CreateAssignment({
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
             onClick={() => {
-              props.setX(false);
+              setX(false);
             }}
           >
             Cancel

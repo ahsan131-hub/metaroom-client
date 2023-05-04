@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
+import Enrollments from '@/components/postlogin/enrollments/Enrollments';
 import AttemptQuiz from '@/components/postlogin/forms/AttemptQuiz';
 import CreateQuiz from '@/components/postlogin/forms/CreateQuiz';
 import Layout from '@/components/postlogin/Layouts/Layout';
@@ -47,6 +48,7 @@ const CoursePage = () => {
   });
 
   const [showQuizForm, setShowQuizForm] = useState(false);
+  const [showEnrollments, setShowEnrollments] = useState(false);
   const [showAssignmentForm, setShowAssignmentForm] = useState(false);
   const [showAttemptQuiz, setShowAttemptQuiz] = useState(false);
   const [refetchContents, setRefetchContents] = useState(false);
@@ -74,6 +76,7 @@ const CoursePage = () => {
   //     downloadLink: 'http://google.com/',
   //   },
   // ];
+
   useEffect(() => {
     refetch();
   }, [refetchContents]);
@@ -134,6 +137,14 @@ const CoursePage = () => {
                 >
                   Attempt Quiz
                 </button>
+                <button
+                  className={`${DEFAULT_BUTTON('w-40')}`}
+                  onClick={() => {
+                    setShowEnrollments(!showEnrollments);
+                  }}
+                >
+                  Show Enrollments
+                </button>
               </div>
 
               <div>
@@ -149,7 +160,13 @@ const CoursePage = () => {
                   showAnimation={showQuizForm}
                   setX={setShowQuizForm}
                 />
+                <Enrollments
+                  showAnimation={showEnrollments}
+                  courseId={data.getCourse.course?.id}
+                  setX={setShowEnrollments}
+                />
               </div>
+
               {contentLoading && <Loading />}
               {!contentLoading && !contentError
                 ? contents.getCourseContents.contents.map(
