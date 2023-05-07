@@ -10,6 +10,7 @@ export default function CourseContent({ data }: any) {
       setSelectedFile(files[0]);
     }
   }
+  console.log(`type ${data.contentType}`);
   return (
     <div className="">
       <div className={' ml-10 pt-5 font-semibold sm:rounded-lg '}>

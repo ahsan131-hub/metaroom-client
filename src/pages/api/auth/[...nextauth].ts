@@ -30,6 +30,7 @@ export const authOptions = {
         { data: { _id: token.id, name: token.name, email: token.email } },
         process.env.NEXTAUTH_SECRET || ''
       );
+      console.log(session)
       // create user here.
       await createUserByFetchAPICall(
         session.user.email,
