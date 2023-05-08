@@ -12,15 +12,18 @@ import DateInput from './form-components/DateInput';
 function CreateQuiz(props) {
   const [data, setData] = useState({
     quizName: '',
-    duration: '',
-    deadline: '',
   });
   const [quizDate, setQuizDate] = useState(dayjs().format('YYYY-MM-DD'));
   const [time, setTime] = useState('');
   const [questions, setQuestions] = useState<any>([
     { question: '', options: ['', '', '', ''], answer: '' },
   ]);
-
+  const quizData = {
+    ...data,
+    quizDate,
+    time,
+    questions,
+  };
   const handleQuestionChange = (
     event:
       | React.ChangeEvent<HTMLSelectElement>
@@ -65,10 +68,11 @@ function CreateQuiz(props) {
   const handleValueChange = (newValue: any) => {
     setData({ ...data, deadline: newValue });
   };
-  console.log(JSON.stringify(questions));
+ 
   function handleData() {
     props.onDataReceived(false);
   }
+  console.log("answer "+JSON.stringify(quizData));
   return (
     <Transition
       show={props.showAnimation}
