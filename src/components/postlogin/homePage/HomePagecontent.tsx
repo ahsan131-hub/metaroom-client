@@ -20,7 +20,10 @@ function Homepagecontent() {
   } = useQuery(GET_ALL_COURSES, {
     context: {
       headers: {
-        Authorization: session?.infraToken,
+        Authorization:
+          session && (session as any).infraToken
+            ? (session as any).infraToken
+            : '',
       },
     },
   });

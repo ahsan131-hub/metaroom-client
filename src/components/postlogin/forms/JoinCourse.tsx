@@ -26,7 +26,10 @@ function JoinCourse({
       variables: { courseId, studentEmail: user.email },
       context: {
         headers: {
-          Authorization: session?.infraToken,
+          Authorization:
+            session && (session as any).infraToken
+              ? (session as any).infraToken
+              : '',
         },
       },
     });

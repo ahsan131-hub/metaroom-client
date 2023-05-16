@@ -20,7 +20,10 @@ const Admin = () => {
   } = useQuery(GET_STATS, {
     context: {
       headers: {
-        Authorization: session?.infraToken,
+        Authorization:
+          session && (session as any).infraToken
+            ? (session as any).infraToken
+            : '',
       },
     },
   });

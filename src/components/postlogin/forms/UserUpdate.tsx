@@ -40,7 +40,10 @@ export default function UpdateUser({
       variables: { user: { ...userData, dateOfBirth: dayjs().toISOString() } },
       context: {
         headers: {
-          Authorization: session ? session.infraToken : '',
+          Authorization:
+            session && (session as any).infraToken
+              ? (session as any).infraToken
+              : '',
         },
       },
     });

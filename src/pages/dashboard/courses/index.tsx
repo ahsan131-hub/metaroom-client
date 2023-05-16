@@ -26,7 +26,10 @@ const CoursePage = () => {
   } = useQuery(GET_COURSES, {
     context: {
       headers: {
-        Authorization: session?.infraToken,
+        Authorization:
+          session && (session as any).infraToken
+            ? (session as any).infraToken
+            : '',
       },
     },
   });

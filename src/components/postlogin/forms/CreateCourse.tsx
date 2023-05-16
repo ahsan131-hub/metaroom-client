@@ -28,7 +28,7 @@ export default function CreateCourse({
   const [createCourse, { loading }] = useMutation(CREATE_COURSE);
   const [coverPhoto, setCoverPhoto] = useState<any>();
   const [courseOutline, setCourseOutline] = useState<any>();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const [endDate, setEndDate] = useState(
     dayjs().add(90, 'day').format('YYYY-MM-DD')
@@ -123,7 +123,9 @@ export default function CreateCourse({
         context: {
           headers: {
             Authorization:
-              status === 'authenticated' ? session!.infraToken : '',
+              session && (session as any).infraToken
+                ? (session as any).infraToken
+                : '',
           },
         },
       });

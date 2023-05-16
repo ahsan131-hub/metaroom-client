@@ -22,7 +22,9 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
         context: {
           headers: {
             Authorization:
-              status === 'authenticated' ? session?.infraToken : '',
+              session && (session as any).infraToken
+                ? (session as any).infraToken
+                : '',
           },
         },
       });
