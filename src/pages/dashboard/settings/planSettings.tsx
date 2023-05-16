@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const plan = () => {
+const Plan = () => {
   const [plan, setPlan] = useState({
     personal: false,
     professional: false,
@@ -944,4 +944,4 @@ const plan = () => {
   );
 };
 
-export default plan;
+export default Plan;

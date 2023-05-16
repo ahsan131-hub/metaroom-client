@@ -4,14 +4,12 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 
-import { useUser } from '@/context/UserDataProvider';
 import { GET_ALL_ENROLLMENTS } from '@/graphql/Queries/enrollments';
 
 import Loading from '../shared/Loading';
 
 const Meetings = () => {
   const router = useRouter();
-  const user = useUser();
   const { data: session }: any = useSession();
 
   const { loading, data: meetings } = useQuery(GET_ALL_ENROLLMENTS, {

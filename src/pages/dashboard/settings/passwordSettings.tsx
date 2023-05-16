@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const passwordSettings = () => {
+const PasswordSettings = () => {
   const [password, setPassword] = useState({
     oldPassword: '',
     newPassword: '',
@@ -110,4 +110,4 @@ const passwordSettings = () => {
     </div>
   );
 };
-export default passwordSettings;
+export default PasswordSettings;
