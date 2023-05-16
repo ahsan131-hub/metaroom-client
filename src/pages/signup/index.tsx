@@ -2,9 +2,9 @@ import { signIn } from 'next-auth/react';
 import React, { useState } from 'react';
 
 import notify from '@/components/toasts/toast';
+import { validateEmail } from '@/utils';
 
 import PasswordErrorMessage from './passwordNotMatch';
-import { validateEmail } from './validateEmail';
 
 const Signup: React.FC = () => {
   const [password, setPassword] = useState('');
