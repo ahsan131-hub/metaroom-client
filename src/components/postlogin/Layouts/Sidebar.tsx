@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 import type { ISideBarItem } from '@/constants';
@@ -15,7 +15,6 @@ import Signout from '../icons/Signout';
 import UserIcon from '../icons/UserIcon';
 
 export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
-  const { data: session } = useSession();
   const user = useUser();
   const sidebarcontext = useSideBarContext();
   const toggleSidebarcontext = useToggleSideBarContext();

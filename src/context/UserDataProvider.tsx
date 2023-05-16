@@ -27,7 +27,6 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
         },
       });
       if (res?.data?.getUserByEmail?.user) {
-        console.log('got user data');
         setUserData(res.data.getUserByEmail.user);
       }
     };

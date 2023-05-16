@@ -11,11 +11,7 @@ import Loading from '../shared/Loading';
 const EnrolledCoursesOverView = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const {
-    loading,
-    error,
-    data: enrollments,
-  } = useQuery(GET_ALL_ENROLLMENTS, {
+  const { loading, data: enrollments } = useQuery(GET_ALL_ENROLLMENTS, {
     variables: {},
     context: {
       headers: {

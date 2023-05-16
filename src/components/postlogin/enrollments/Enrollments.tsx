@@ -65,18 +65,12 @@ import Loading from '../shared/Loading';
 export default function Enrollments({
   showAnimation,
   courseId,
-  setX,
 }: {
   showAnimation: boolean;
   courseId: string;
-  setX: (x: boolean) => void;
-}) {
+}): JSX.Element {
   const { data: session } = useSession();
-  const {
-    loading,
-    error,
-    data: students,
-  } = useQuery(GET_ALL_COURSE_ENROLLMENTS, {
+  const { loading, data: students } = useQuery(GET_ALL_COURSE_ENROLLMENTS, {
     variables: { courseId },
     context: {
       headers: {

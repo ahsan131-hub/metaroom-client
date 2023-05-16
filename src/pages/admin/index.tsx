@@ -16,8 +16,6 @@ const Admin = () => {
   const {
     data,
     loading,
-    error,
-    refetch,
     // eslint-disable-next-line react-hooks/rules-of-hooks
   } = useQuery(GET_STATS, {
     context: {

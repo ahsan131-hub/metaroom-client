@@ -1,9 +1,7 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 
 const NotLoggedIn = () => {
-  const router = useRouter();
   return (
     <div className="bg-white shadow-md rounded-md p-4">
       <p className="text-lg font-medium text-gray-800">

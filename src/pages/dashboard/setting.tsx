@@ -15,7 +15,7 @@ const SettingPage = () => {
   const [showPlan, setshowPlan] = useState(false);
   const [showBilling, setshowBilling] = useState(false);
   const [showTeamMembers, setshowTeamMembers] = useState(false);
-  const handleGeneral = (e) => {
+  const handleGeneral = (e: any) => {
     e.preventDefault();
     setShowGeneral(true);
     setshowPassword(false);
@@ -23,7 +23,7 @@ const SettingPage = () => {
     setshowBilling(false);
     setshowTeamMembers(false);
   };
-  const handlePlan = (e) => {
+  const handlePlan = (e: any) => {
     e.preventDefault();
     setShowGeneral(false);
     setshowPassword(false);
@@ -31,7 +31,7 @@ const SettingPage = () => {
     setshowBilling(false);
     setshowTeamMembers(false);
   };
-  const handleBilling = (e) => {
+  const handleBilling = (e: any) => {
     e.preventDefault();
     setShowGeneral(false);
     setshowPassword(false);
@@ -39,7 +39,7 @@ const SettingPage = () => {
     setshowBilling(true);
     setshowTeamMembers(false);
   };
-  const handlePassword = (e) => {
+  const handlePassword = (e: any) => {
     e.preventDefault();
     setShowGeneral(false);
     setshowPassword(true);
@@ -47,7 +47,7 @@ const SettingPage = () => {
     setshowBilling(false);
     setshowTeamMembers(false);
   };
-  const handleTeamMembers = (e) => {
+  const handleTeamMembers = (e: any) => {
     e.preventDefault();
     setShowGeneral(false);
     setshowPassword(false);

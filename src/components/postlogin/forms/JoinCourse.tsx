@@ -19,10 +19,9 @@ function JoinCourse({
   const [courseId, setCourseId] = useState<string>('');
   const user = useUser();
   const { data: session } = useSession();
-  const [enrollCourse, { loading, error, data }] = useMutation(ENROLL_COURSE);
+  const [enrollCourse, { loading }] = useMutation(ENROLL_COURSE);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(courseId);
     const enroll = await enrollCourse({
       variables: { courseId, studentEmail: user.email },
       context: {
@@ -31,7 +30,6 @@ function JoinCourse({
         },
       },
     });
-    console.log(enroll);
     if (enroll.data.enrollInCourse.status === 200) {
       notify({
         type: 'SUCCESS',

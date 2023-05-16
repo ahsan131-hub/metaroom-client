@@ -13,7 +13,7 @@ const MeetPage = () => {
 
   // GETTING ALL PARTICIPANTS
   const getParticipants = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve(api.getParticipantsInfo());
       }, 500);

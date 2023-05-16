@@ -17,7 +17,7 @@ import CourseContent from './courseContent';
 import CourseInfo from './courseInfo';
 
 const CoursePage = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const { slug } = router.query;
 
@@ -93,7 +93,7 @@ const CoursePage = () => {
       message: 'Course Not Found',
       description: 'Please check the url',
       type: 'ERROR',
-         position: 'bottom-right',
+      position: 'bottom-right',
     });
   }
   console.log(contents);
@@ -163,7 +163,7 @@ const CoursePage = () => {
                 <Enrollments
                   showAnimation={showEnrollments}
                   courseId={data.getCourse.course?.id}
-                  setX={setShowEnrollments}
+                  // setX={setShowEnrollments}
                 />
               </div>
 

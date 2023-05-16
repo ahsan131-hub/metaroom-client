@@ -9,7 +9,7 @@ import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 import TimePicker from '../shared/TimePicker';
 import DateInput from './form-components/DateInput';
 
-function CreateQuiz(props) {
+function CreateQuiz(props: any) {
   const [data, setData] = useState({
     quizName: '',
   });
@@ -18,12 +18,6 @@ function CreateQuiz(props) {
   const [questions, setQuestions] = useState<any>([
     { question: '', options: ['', '', '', ''], answer: '' },
   ]);
-  const quizData = {
-    ...data,
-    quizDate,
-    time,
-    questions,
-  };
   const handleQuestionChange = (
     event:
       | React.ChangeEvent<HTMLSelectElement>
@@ -60,19 +54,6 @@ function CreateQuiz(props) {
     setQuestions(newQuestions);
   };
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-
-    onSubmit(questions);
-  };
-  const handleValueChange = (newValue: any) => {
-    setData({ ...data, deadline: newValue });
-  };
- 
-  function handleData() {
-    props.onDataReceived(false);
-  }
-  console.log("answer "+JSON.stringify(quizData));
   return (
     <Transition
       show={props.showAnimation}
@@ -91,10 +72,7 @@ function CreateQuiz(props) {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log('this is submitted form');
-          console.log({ ...data, ...questions });
-          console.log(quizDate);
-          console.log(time);
+
           notify({
             type: 'SUCCESS',
             position: 'bottom-right',
@@ -146,7 +124,7 @@ function CreateQuiz(props) {
                 </div>
               </div>
               <div className="h-96 overflow-y-scroll">
-                {questions.map((question, index) => (
+                {questions.map((question: any, index: any) => (
                   <div key={index}>
                     <label>
                       Question {index + 1}:

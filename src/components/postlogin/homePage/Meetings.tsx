@@ -13,13 +13,8 @@ const Meetings = () => {
   const router = useRouter();
   const user = useUser();
   const { data: session }: any = useSession();
-  const student = user?.role === 'STUDENT';
 
-  const {
-    loading,
-    error,
-    data: meetings,
-  } = useQuery(GET_ALL_ENROLLMENTS, {
+  const { loading, data: meetings } = useQuery(GET_ALL_ENROLLMENTS, {
     variables: {},
     context: {
       headers: {

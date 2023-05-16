@@ -3,14 +3,13 @@ import dayjs from 'dayjs';
 import React, { useState } from 'react';
 
 export default function CourseContent({ data }: any) {
-  const [selectedFile, setSelectedFile] = useState();
-  function handleFileSelect(event) {
+  const [setSelectedFile] = useState<any>();
+  function handleFileSelect(event: any) {
     const { files } = event.target;
     if (files && files.length > 0) {
       setSelectedFile(files[0]);
     }
   }
-  console.log(`type ${data.contentType}`);
   return (
     <div className="">
       <div className={' ml-10 pt-5 font-semibold sm:rounded-lg '}>

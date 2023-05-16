@@ -7,7 +7,6 @@ const TextInput = ({
   placeholder,
 }: any) => {
   const handleInputChange = (event: any) => {
-    console.log(fieldName);
     setData({ ...data, [fieldName]: event.target.value });
   };
   return (

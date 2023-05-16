@@ -9,7 +9,7 @@ const General = () => {
     phone: '',
     about: '',
   });
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     // Here you can handle the form submission
   };

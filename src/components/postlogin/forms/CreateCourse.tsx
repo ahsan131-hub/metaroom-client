@@ -25,7 +25,7 @@ export default function CreateCourse({
   setShowcourseForm: any;
 }) {
   const [time, setTime] = useState({ hour: '00', minute: '00', period: 'PM' });
-  const [createCourse, { data, loading, error }] = useMutation(CREATE_COURSE);
+  const [createCourse, { loading }] = useMutation(CREATE_COURSE);
   const [coverPhoto, setCoverPhoto] = useState<any>();
   const [courseOutline, setCourseOutline] = useState<any>();
   const { data: session, status } = useSession();
@@ -75,14 +75,12 @@ export default function CreateCourse({
           }
         );
         const { url } = uploadedData;
-        console.log(url);
         coverRes = axios.put(url, coverPhoto, {
           headers: {
             'Content-type': coverPhoto.type,
             'Access-Control-Allow-Origin': '*',
           },
         });
-        console.log(coverRes);
       }
       if (courseOutline) {
         // upload course outline
@@ -103,7 +101,6 @@ export default function CreateCourse({
         });
       }
       [coverRes, outlineRes] = await Promise.all([coverRes, outlineRes]);
-      console.log(coverRes?.config?.data?.name);
       const course = {
         ...courseData,
         durationOfCourse: parseInt(courseData.durationOfCourse, 10),
@@ -144,7 +141,6 @@ export default function CreateCourse({
         throw new Error(res.data.createCourse.message);
       }
     } catch (err: any) {
-      console.log(err);
       notify({
         type: 'ERROR',
         position: 'bottom-right',

@@ -23,7 +23,7 @@ function CreateAssignment({
   setRefetchContent,
 }: any) {
   const { data: session }: any = useSession();
-  const [createContent, { data, loading, error }] = useMutation(CREATE_CONTENT);
+  const [createContent, { data, loading }] = useMutation(CREATE_CONTENT);
   const [deadline, setDeadline] = useState(dayjs().format('YYYY-MM-DD'));
   const [contentData, setContentData] = useState<any>({
     name: '',
@@ -79,7 +79,6 @@ function CreateAssignment({
           },
         },
       });
-      console.log(response);
       if (response.data.createContent?.status === 200) {
         notify({
           type: 'SUCCESS',
@@ -90,12 +89,10 @@ function CreateAssignment({
         setRefetchContent(true);
         return;
       }
-      console.log(data);
       if (response.data?.createContent?.status !== 200) {
         throw new Error(data?.createContent?.message);
       }
     } catch (err: any) {
-      console.log(err);
       notify({
         type: 'ERROR',
         position: 'bottom-right',

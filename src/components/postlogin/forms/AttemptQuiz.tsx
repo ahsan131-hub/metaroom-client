@@ -1,28 +1,28 @@
 import { Transition } from '@headlessui/react';
 import React, { useState } from 'react';
 
+const questions = [
+  {
+    id: 1,
+    question: 'What is the capital of Pakistan?',
+    options: ['Karachi', 'Islamabad', 'Madrid', 'Berlin'],
+    answer: 'Islamabad',
+  },
+  {
+    id: 2,
+    question: 'What is Capital of Sindh"?',
+    options: ['Karachi', 'Islamabad', 'Sukkur', 'Larkana'],
+    answer: 'Karachi',
+  },
+  // add more questions here...
+];
 function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
-  const questions = [
-    {
-      id: 1,
-      question: 'What is the capital of Pakistan?',
-      options: ['Karachi', 'Islamabad', 'Madrid', 'Berlin'],
-      answer: 'Islamabad',
-    },
-    {
-      id: 2,
-      question: 'What is Capital of Sindh"?',
-      options: ['Karachi', 'Islamabad', 'Sukkur', 'Larkana'],
-      answer: 'Karachi',
-    },
-    // add more questions here...
-  ];
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
 
   const handleAnswerOptionClick = (selectedAnswer: string) => {
-    if (selectedAnswer === questions[currentQuestion].answer) {
+    if (selectedAnswer === questions[currentQuestion]?.answer) {
       setScore(score + 1);
     }
 
@@ -69,10 +69,10 @@ function CreateAssignment({ showAnimation }: { showAnimation: boolean }) {
                 Question {currentQuestion + 1} of {questions.length}
               </div>
               <h2 className="text-xl font-bold text-gray-800 mt-4">
-                {questions[currentQuestion].question}
+                {questions[currentQuestion]?.question}
               </h2>
               <div className="options-grid mt-4">
-                {questions[currentQuestion].options.map((option) => (
+                {questions[currentQuestion]?.options.map((option) => (
                   <button
                     key={option}
                     className="option-button bg-gray-100 text-gray-800 py-3 px-6 rounded-md hover:bg-blue-500 hover:text-white transition-colors duration-300 ease-in-out"
