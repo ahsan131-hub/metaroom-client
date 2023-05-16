@@ -35,7 +35,6 @@ export default function UpdateUser({
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(userData);
     const res = await updateUser({
       variables: { user: { ...userData, dateOfBirth: dayjs().toISOString() } },
       context: {

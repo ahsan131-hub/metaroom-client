@@ -32,12 +32,10 @@ const createUserByFetchAPICall = async (
       headers,
       body: JSON.stringify(requestBody),
     };
-    const response = await (
-      await fetch(process.env.GRAPHQL_API as string, options)
-    ).json();
-    console.log('RESPONSE FROM FETCH REQUEST', response);
+    await (await fetch(process.env.GRAPHQL_API as string, options)).json();
+    // console.log('RESPONSE FROM FETCH REQUEST', response);
   } catch (err) {
-    console.log('ERROR DURING FETCH REQUEST', err);
+    // console.log('ERROR DURING FETCH REQUEST', err);
   }
 };
 export default createUserByFetchAPICall;

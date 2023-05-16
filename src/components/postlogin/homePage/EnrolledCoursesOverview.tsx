@@ -66,7 +66,6 @@ const EnrolledCoursesOverView = () => {
                   <button
                     className="text-center text-xl w-full"
                     onClick={() => {
-                      console.log('joing meeting');
                       router.push(
                         `/meet/${enrollment.courseId.sessionMeetingId}`
                       );

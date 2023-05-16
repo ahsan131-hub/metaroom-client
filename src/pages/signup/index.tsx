@@ -1,6 +1,8 @@
 import { signIn } from 'next-auth/react';
 import React, { useState } from 'react';
 
+import notify from '@/components/toasts/toast';
+
 import PasswordErrorMessage from './passwordNotMatch';
 import { validateEmail } from './validateEmail';
 
@@ -20,7 +22,12 @@ const Signup: React.FC = () => {
       agree &&
       validateEmail(email)
     ) {
-      alert('submitted');
+      notify({
+        type: 'SUCCESS',
+        message: 'Your account has been created successfully',
+        description: 'You can now login to your account',
+        position: 'bottom-right',
+      });
     }
   }
   return (

@@ -102,7 +102,6 @@ const CoursePage = () => {
       position: 'bottom-right',
     });
   }
-  console.log(contents);
   return (
     <Layout>
       {loading && <Loading />}

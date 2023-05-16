@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 
+import notify from '@/components/toasts/toast';
 import { useUser } from '@/context/UserDataProvider';
 
 const MeetPage = () => {
@@ -22,28 +23,22 @@ const MeetPage = () => {
 
   // ALL OUR HANDLERS
   const handleClose = () => {
-    console.log('handleClose');
     router.push('/dashboard');
   };
 
-  const handleParticipantLeft = async (participant: any) => {
-    console.log('handleParticipantLeft', participant);
+  const handleParticipantLeft = async () => {
     await getParticipants();
   };
 
-  const handleParticipantJoined = async (participant: any) => {
-    console.log('handleParticipantJoined', participant);
+  const handleParticipantJoined = async () => {
     await getParticipants();
   };
 
-  const handleVideoConferenceJoined = async (participant: any) => {
-    console.log('handleVideoConferenceJoined', participant);
+  const handleVideoConferenceJoined = async () => {
     await getParticipants();
   };
 
-  const handleVideoConferenceLeft = () => {
-    console.log('handleVideoConferenceLeft');
-  };
+  const handleVideoConferenceLeft = () => {};
 
   // THIS IS TO EXTRACT THE NAME WHICH WAS FILLED IN THE FIRST PAGE
   const { fName: name } = useUser();
@@ -107,8 +102,12 @@ const MeetPage = () => {
     if ((window as any).JitsiMeetExternalAPI) {
       startMeet();
     } else {
-      console.log('JitsiMeetExternalAPI not loaded yet');
-      alert('JitsiMeetExternalAPI not loaded yet');
+      notify({
+        type: 'ERROR',
+        message: 'Jitsi Meet API script not loaded',
+        description: 'Please check your internet connection and try again',
+        position: 'bottom-right',
+      });
     }
   }, [startMeet]);
 
