@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 import { AppConfig } from '@/utils/AppConfig';
@@ -9,6 +10,11 @@ class MyDocument extends Document {
     return (
       <Html lang={AppConfig.locale}>
         <Head />
+
+        <script
+          type="text/javascript"
+          src="https://meet.jit.si/external_api.js"
+        ></script>
         <body>
           <Main />
           <NextScript />

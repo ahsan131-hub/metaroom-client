@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import CreateCourse from '@/components/postlogin/forms/CreateCourse';
 import JoinCourse from '@/components/postlogin/forms/JoinCourse';
 import CoursesOverView from '@/components/postlogin/homePage/CoursesOverView';
+import EnrolledCoursesOverView from '@/components/postlogin/homePage/EnrolledCoursesOverview';
 import SearchBar from '@/components/postlogin/homePage/searchbar';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import Loading from '@/components/postlogin/shared/Loading';
@@ -17,7 +18,6 @@ const CoursePage = () => {
   const { data: session }: any = useSession();
   const student = user?.role === 'STUDENT';
   const [showcourseForm, setShowcourseForm] = useState(false);
-  const queryName = student ? GET_COURSES : GET_COURSES;
   const {
     data: courses,
     loading,
@@ -73,10 +73,13 @@ const CoursePage = () => {
               refetch={refetch}
             />
           )}
-          <CoursesOverView
-            courses={courses.getCourses.courses}
-            label="My Courses"
-          />
+          {!student && (
+            <CoursesOverView
+              courses={courses.getCourses.courses}
+              label="My Courses"
+            />
+          )}
+          {student && <EnrolledCoursesOverView />}
         </div>
       )}
     </Layout>

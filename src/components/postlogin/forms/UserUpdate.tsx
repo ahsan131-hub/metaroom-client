@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 
@@ -20,6 +21,7 @@ export default function UpdateUser({
   prevUserData: any;
 }) {
   const { data: session }: any = useSession();
+  const router = useRouter();
   const [updateUser, { data, loading, error }] = useMutation(UPDATE_USER);
   const [userData, setUserData] = useState({
     fName: prevUserData.fName,
@@ -33,6 +35,7 @@ export default function UpdateUser({
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
+    console.log(userData);
     const res = await updateUser({
       variables: { user: { ...userData, dateOfBirth: dayjs().toISOString() } },
       context: {
@@ -48,6 +51,7 @@ export default function UpdateUser({
         message: 'User Updated',
         description: 'User has been updated successfully',
       });
+      router.reload();
     }
     if (res.data.updateUser.status !== 200) {
       notify({

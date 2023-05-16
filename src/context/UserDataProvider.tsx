@@ -35,7 +35,7 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
     if (status === 'authenticated') getUserData().then((res) => res);
   }, [session]);
 
-  if (loading) {
+  if (loading || status === 'loading') {
     return <Loading />;
   }
 

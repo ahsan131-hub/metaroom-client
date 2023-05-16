@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 
 import notify from '@/components/toasts/toast';
 import { CREATE_COURSE } from '@/graphql/mutations/course';
+import { getCoverPhoto } from '@/utils';
 import { BUCKET_URL } from '@/utils/S3';
 
 import Loading from '../shared/Loading';
@@ -54,7 +55,7 @@ export default function CreateCourse({
     try {
       let coverRes: any = {};
       let outlineRes: any = {};
-      if (!coverPhoto || !courseOutline) {
+      if (!courseOutline) {
         notify({
           type: 'ERROR',
           message: 'Upload Error!',
@@ -102,6 +103,7 @@ export default function CreateCourse({
         });
       }
       [coverRes, outlineRes] = await Promise.all([coverRes, outlineRes]);
+      console.log(coverRes?.config?.data?.name);
       const course = {
         ...courseData,
         durationOfCourse: parseInt(courseData.durationOfCourse, 10),
@@ -111,8 +113,9 @@ export default function CreateCourse({
           .set('second', 0)
           .format('HH:mm:ss'),
         courseEndDate: endDate,
-        coverPhoto:
-          BUCKET_URL.concat(coverRes?.config?.data?.name as string) || '',
+        coverPhoto: coverRes?.config?.data?.name
+          ? BUCKET_URL.concat(coverRes?.config?.data?.name as string)
+          : getCoverPhoto(courseData.subject),
         courseOutline:
           BUCKET_URL.concat(outlineRes?.config?.data?.name as string) || '',
       };
@@ -206,7 +209,7 @@ export default function CreateCourse({
                     htmlFor="subject"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Subject
+                    Category
                   </label>
                   <div className="mt-2">
                     <select
@@ -221,9 +224,32 @@ export default function CreateCourse({
                       value={courseData.subject}
                       className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
-                      <option>Machine Learning </option>
-                      <option>Web Development </option>
-                      <option>Cyber Security </option>
+                      <option>Engineering </option>
+                      <option>Science </option>
+                      <option>Health </option>
+                      <option>Computer Science </option>
+                      <option>Mathematics </option>
+                      <option>Business</option>
+                      <option>Finance </option>
+                    </select>
+                  </div>
+                </div>
+                <div className="sm:col-span-3">
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Course Level
+                  </label>
+                  <div className="mt-2">
+                    <select
+                      id="subject"
+                      name="subject"
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    >
+                      <option>Beginner </option>
+                      <option>Intermediate </option>
+                      <option>Advanced</option>
                     </select>
                   </div>
                 </div>

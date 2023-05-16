@@ -27,4 +27,22 @@ const GET_USER = gql`
   }
 `;
 
-export { GET_USER };
+const GET_STATS = gql`
+  query GetStatistics {
+    getStatistics {
+      response {
+        status
+        message
+      }
+      statistics {
+        totalUsers
+        totalInstructors
+        totalStudents
+        totalCourses
+        totalEnrollments
+        totalRevenue
+      }
+    }
+  }
+`;
+export { GET_STATS, GET_USER };

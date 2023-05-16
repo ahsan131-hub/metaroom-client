@@ -8,6 +8,7 @@ import {
   useSideBarContext,
   useToggleSideBarContext,
 } from '@/context/SideBarProvider';
+import { useUser } from '@/context/UserDataProvider';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
 import Signout from '../icons/Signout';
@@ -15,7 +16,7 @@ import UserIcon from '../icons/UserIcon';
 
 export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
   const { data: session } = useSession();
-
+  const user = useUser();
   const sidebarcontext = useSideBarContext();
   const toggleSidebarcontext = useToggleSideBarContext();
   const wrapperClassNames = classNames(
@@ -34,18 +35,14 @@ export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
         <div className="h-20 flex flex-row p-2 justify-between mb-5">
           {!sidebarcontext && (
             <div className="h-10 text-center justify-center w-10 pt-2 pl-3 ">
-              <img
-                src="https://flowBite.com/docs/images/logo.svg"
-                className="mr-3 h-8"
-                height={300}
-                width={300}
-                alt="MetaRoom Logo"
-              />
+              <h1 className="text-indigo-600 font-bold text-3xl py-2 px-4 border-b-2">
+                Metaroom
+              </h1>
             </div>
           )}
           {
             <div
-              className="h-10 text-center justify-center w-10 pt-2 pl-3 "
+              className="h-10 text-center justify-center w-10 mt-5 pt-2 pl-5 "
               onClick={() => {
                 toggleSidebarcontext();
               }}
@@ -60,7 +57,7 @@ export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
         </div>
         {!sidebarcontext ? (
           <div className=" border-secondary-300 h-10 m-2  border bg-white rounded-md text-center p-2">
-            {session?.user?.name || 'John Wick'}
+            {user?.role}
           </div>
         ) : (
           <div className=" h-10 m-2 text-center p-2"></div>
@@ -94,6 +91,24 @@ export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
       </div>
 
       <div className="mx-auto w-full align-text-bottom">
+        <Link href={'/admin'}>
+          <div
+            className={
+              !sidebarcontext
+                ? DEFAULT_BUTTON(
+                    'm-5 mb-0 pl-5 pr-5 flex justify-items-center align-middle'
+                  )
+                : DEFAULT_BUTTON(
+                    ' pl-5  pr-5 flex justify-items-center align-middle'
+                  )
+            }
+          >
+            <span className={!sidebarcontext ? 'my-auto' : 'm-auto'}>
+              <UserIcon />
+            </span>
+            {!sidebarcontext && <span className="ml-3 my-auto">{'Admin'}</span>}
+          </div>
+        </Link>
         <Link href={'/'}>
           <div
             className={

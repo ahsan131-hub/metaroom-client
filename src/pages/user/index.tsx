@@ -58,7 +58,7 @@ const User = () => {
           Edit User
         </button>
       </div>
-      {!userData?.getUserByEmail?.user.registrationCompleted && (
+      {!userData?.getUserByEmail?.user?.registrationCompleted && (
         <UserUpdate
           showRoleInput={true}
           prevUserData={{
@@ -77,7 +77,7 @@ const User = () => {
           prevUserData={userData?.getUserByEmail?.user}
         />
       )}
-      {userData?.getUserByEmail?.user.registrationCompleted && (
+      {userData?.getUserByEmail?.user?.registrationCompleted && (
         <UserInfo data={userData?.getUserByEmail?.user} />
       )}
     </Layout>

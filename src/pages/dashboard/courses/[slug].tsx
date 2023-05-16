@@ -93,7 +93,7 @@ const CoursePage = () => {
       message: 'Course Not Found',
       description: 'Please check the url',
       type: 'ERROR',
-      position: 'bottom-right',
+         position: 'bottom-right',
     });
   }
   console.log(contents);

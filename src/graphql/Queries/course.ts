@@ -27,6 +27,33 @@ const GET_COURSES = gql`
     }
   }
 `;
+const GET_ALL_COURSES = gql`
+  query FindAllCourses {
+    findAllCourses {
+      response {
+        status
+        message
+      }
+      courses {
+        id
+        name
+        sessionTime
+        sessionMeetingId
+        instructorId
+        studentsEnrolled
+        quizes
+        ratings
+        studentLimit
+        about
+        courseContent
+        courseOutline
+        courseEndDate
+        coverPhoto
+        durationOfCourse
+      }
+    }
+  }
+`;
 const GET_COURSE = gql`
   query GetCourse($getCourseId: String) {
     getCourse(id: $getCourseId) {
@@ -74,4 +101,4 @@ const GET_COURSE_CONTENTS = gql`
     }
   }
 `;
-export { GET_COURSE, GET_COURSE_CONTENTS, GET_COURSES };
+export { GET_ALL_COURSES, GET_COURSE, GET_COURSE_CONTENTS, GET_COURSES };
