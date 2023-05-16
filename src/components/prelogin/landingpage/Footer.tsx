@@ -7,14 +7,11 @@ const Footer = () => {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <a href="#" className="flex items-center">
-              <img
-                src="../../../../logo.jpeg"
-                className="mr-3 h-8"
-                alt="MetaRoom Logo"
-              />
-              <span className="text-black self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                MetaRoom
-              </span>
+              <div className="h-10 text-center justify-center w-10 pt-2 pl-3 ">
+                <h1 className="text-indigo-600 font-bold text-3xl py-2 px-4 border-b-2">
+                  Metaroom
+                </h1>
+              </div>
             </a>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

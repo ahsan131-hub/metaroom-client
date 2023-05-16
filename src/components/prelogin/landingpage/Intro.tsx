@@ -23,12 +23,11 @@ const Intro: React.FC = () => {
           >
             <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img
-                  className="h-8"
-                  src="../../../../logo.jpeg"
-                  alt="MetaRoom Logo"
-                />
+                <div className="h-10 text-center justify-center w-10  pl-3 ">
+                  <h1 className="text-indigo-600 font-bold text-xl px-4 border-b-2">
+                    Metaroom
+                  </h1>
+                </div>
               </a>
             </div>
             <div className="flex lg:hidden">
@@ -69,12 +68,11 @@ const Intro: React.FC = () => {
               <div className="flex h-9 items-center justify-between">
                 <div className="flex">
                   <a href="#" className="-m-1.5 p-1.5">
-                    <span className="sr-only">Your Company</span>
-                    <img
-                      className="h-8"
-                      src="../../../../logo.jpeg"
-                      alt="MetaRoom Logo"
-                    />
+                    <div className="h-10 text-center justify-center w-10 pt-2 pl-3 ">
+                      <h1 className="text-indigo-600 font-bold text-xl py-2 px-4 border-b-2">
+                        Metaroom
+                      </h1>
+                    </div>
                   </a>
                 </div>
                 <div className="flex">
