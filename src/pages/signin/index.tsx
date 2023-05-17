@@ -16,7 +16,7 @@ const Login = () => {
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
-          <div className="h-10 text-center justify-center w-10 pt-2 pl-3 ">
+          <div className="h-10 text-center justify-center w-full pt-2 pl-3 ">
             <h1 className="text-indigo-600 font-bold text-3xl py-2 px-4 border-b-2">
               Metaroom
             </h1>

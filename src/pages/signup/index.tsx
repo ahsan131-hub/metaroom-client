@@ -34,11 +34,11 @@ const Signup: React.FC = () => {
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mt-0">
       <div className="w-full max-w-md space-y-8">
         <div>
-          <img
-            className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
+          <div className="h-10 text-center justify-center w-full pt-2 pl-3 ">
+            <h1 className="text-indigo-600 font-bold text-3xl py-2 px-4 border-b-2">
+              Metaroom
+            </h1>
+          </div>
           <h3 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             Sign up to your account
           </h3>
