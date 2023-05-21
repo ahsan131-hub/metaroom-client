@@ -1,9 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri:
-    process.env.GRAPHQL_API ||
-    'https://ec2-3-95-186-84.compute-1.amazonaws.com/',
+  uri: process.env.GRAPHQL_API || 'http://localhost:4000',
   // link: authLink.concat(httpLink),
   // headers: {
   //   authorization: authToken(),

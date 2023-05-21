@@ -35,7 +35,7 @@ function Homepagecontent() {
           <Meetings />
           <CoursesOverView
             courses={courses?.findAllCourses?.courses}
-            label="My Courses"
+            label="Courses"
           />
         </>
       ) : (

@@ -79,7 +79,7 @@ const CoursePage = () => {
           {!student && (
             <CoursesOverView
               courses={courses.getCourses.courses}
-              label="My Courses"
+              label="Courses"
             />
           )}
           {student && <EnrolledCoursesOverView />}

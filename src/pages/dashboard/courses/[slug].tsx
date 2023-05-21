@@ -59,30 +59,6 @@ const CoursePage = () => {
   const [showAttemptQuiz, setShowAttemptQuiz] = useState(false);
   const [refetchContents, setRefetchContents] = useState(false);
 
-  // const contents = [
-  //   {
-  //     fileName: 'Assignment#01',
-  //     type: 'ASSIGNMENT',
-  //     uploadDate: '01/03/2000',
-  //     fileExtension: '.docx',
-  //     downloadLink: 'http://google.com/',
-  //   },
-  //   {
-  //     fileName: 'Assignment#02',
-  //     type: 'ASSIGNMENT',
-  //     uploadDate: '01/03/2000',
-  //     fileExtension: '.docx',
-  //     downloadLink: 'http://google.com/',
-  //   },
-  //   {
-  //     fileName: 'Book: Power of machine Learning',
-  //     type: 'NOTES',
-  //     uploadDate: '01/03/2000',
-  //     fileExtension: '.docx',
-  //     downloadLink: 'http://google.com/',
-  //   },
-  // ];
-
   useEffect(() => {
     refetch();
   }, [refetchContents]);
@@ -176,7 +152,11 @@ const CoursePage = () => {
               {!contentLoading && !contentError
                 ? contents.getCourseContents.contents.map(
                     (content: any, index: any) => (
-                      <CourseContent key={index} data={content} />
+                      <CourseContent
+                        key={index}
+                        data={content}
+                        courseId={slug}
+                      />
                     )
                   )
                 : ''}
