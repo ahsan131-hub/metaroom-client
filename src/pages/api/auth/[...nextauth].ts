@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import process from 'process';
 
 import createUserByFetchAPICall from '@/utils/callGraphqlApi';
 
@@ -13,6 +14,7 @@ export const authOptions = {
       allowDangerousEmailAccountLinking: true,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }: any) {
       // Persist the OAuth access_token to the token right after signin

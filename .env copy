@@ -1,4 +1,4 @@
-NEXTAUTH_URL="https://metaroom-client-131.vercel.app"
+NEXTAUTH_URL="https://metaroom-client.vercel.app/"
 NEXTAUTH_SECRET="OSrZC9Vrgoaknp4D0fLMU8ao8mZCz4Xw57GPzFz8Tk4="
 
 GOOGLE_CLIENT_ID="58714254808-69hajvo6u1hglmrfnlfvkevupt3l9e0q.apps.googleusercontent.com"
@@ -12,7 +12,7 @@ redirect_uris="https://test123-a6512.firebaseapp.com/__/auth/handler"
 # javascript_origins="http://localhost","https://metaroom-client-131.vercel.app","https://test123-a6512.firebaseapp.com"]}}
 
 
-GRAPHQL_API="https://ec2-3-95-186-84.compute-1.amazonaws.com/"
+GRAPHQL_API="https://metaroom.store/"
 GRAPQL_API_KEY="bcb9b3638899f5fdb05f06fffd5d6b633e996deb"
 
 
