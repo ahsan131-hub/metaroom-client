@@ -14,17 +14,16 @@ const Login = () => {
 
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
-        <div>
-          <div className="h-10 text-center justify-center w-full pt-2 pl-3 ">
-            <h1 className="text-indigo-600 font-bold text-3xl py-2 px-4 border-b-2">
-              Metaroom
-            </h1>
+      <div className="w-full max-w-md space-y-8 justify-center text-center">
+        <div className="flex items-center justify-center text-center w-full">
+          <div className="bg-indigo-600 rounded-full text-white flex items-center justify-center h-12 w-12 mr-2">
+            <span className="text-xl font-bold italic">M</span>
           </div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
+          <h1 className="text-indigo-600 text-xl font-bold">Metaroom</h1>
         </div>
+        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+          Sign in to your account
+        </h2>
         <div>
           <Inputs />
         </div>

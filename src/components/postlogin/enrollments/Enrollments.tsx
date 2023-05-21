@@ -73,7 +73,7 @@ export default function Enrollments({
                       </p>
                     </div>
                   </div>
-                  
+
                   <div className="hidden sm:flex sm:flex-col sm:items-end">
                     <p className="text-sm leading-6 text-gray-900"></p>
                   </div>

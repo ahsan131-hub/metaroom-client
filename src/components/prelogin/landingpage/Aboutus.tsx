@@ -37,9 +37,12 @@ export default function Aboutus() {
     <div className="bg-white py-24 sm:py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="sm:text-center">
-          <h2 className="text-lg font-semibold leading-8 text-indigo-600">
-            MetaRoom
-          </h2>
+          <div className="flex items-center">
+            <div className="bg-indigo-600 rounded-full text-white flex items-center justify-center h-12 w-12 mr-2">
+              <span className="text-2xl font-bold italic">M</span>
+            </div>
+            <h1 className="text-indigo-600 text-2xl font-bold">Metaroom</h1>
+          </div>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             A better way to learn
           </p>

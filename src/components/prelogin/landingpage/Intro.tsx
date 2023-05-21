@@ -5,9 +5,6 @@ import { useState } from 'react';
 
 const navigation = [
   { name: 'Why MetaRoom?', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-
   { name: 'About Us', href: '#' },
 ];
 const Intro: React.FC = () => {
@@ -23,8 +20,11 @@ const Intro: React.FC = () => {
           >
             <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
               <a href="#" className="-m-1.5 p-1.5">
-                <div className="h-10 text-center justify-center w-10  pl-3 ">
-                  <h1 className="text-indigo-600 font-bold text-xl px-4 border-b-2">
+                <div className="flex items-center justify-center text-center w-full">
+                  <div className="bg-indigo-600 rounded-full text-white flex items-center justify-center h-12 w-12 mr-2">
+                    <span className="text-xl font-bold italic">M</span>
+                  </div>
+                  <h1 className="text-indigo-600 text-xl font-bold">
                     Metaroom
                   </h1>
                 </div>

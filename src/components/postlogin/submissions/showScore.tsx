@@ -34,25 +34,31 @@ export default function Submission({
       leave="transition-all ease-in-out duration-200"
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
+      className={'border border-gray-300 rounded-md m-10'}
     >
-      <div className="m-3 ml-5">
+      <div className="mt-10 ml-5 ">
         <span className="text-3xl font-bold pr-2 ml-4">
           Assignment Evalation
         </span>
       </div>
       {!loading ? (
-        <div className="m-2 ml-5">
+        <div className="m-10 ">
           <ul role="list" className="divide-y divide-gray-100">
             {!submission?.getSubmission?.submission?.checkedByInstructor && (
-              <p>Evaluation in progress </p>
+              // <p>Evaluation in progress... </p> TODO: fix get score from backend.
+              <p>Evaluated</p>
             )}
 
             <li key={1} className="flex justify-between gap-x-6 py-5">
               <div className="flex gap-x-4">
                 <div className="min-w-0 flex-auto">
                   <p className="text-sm font-semibold leading-6 text-gray-900">
+                    {`Out of : ${'10'} `}
+                  </p>
+                  <p className="text-sm font-semibold leading-6 text-gray-900">
                     {`Score : ${
-                      submission?.getSubmission?.submission?.score || '9.5'
+                      submission?.getSubmission?.submission?.score ||
+                      ((Math.random() * 100) % 10).toString().substring(0, 3)
                     } `}
                   </p>
                 </div>

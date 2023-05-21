@@ -33,10 +33,16 @@ export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
       <div className="">
         <div className="h-20 flex flex-row p-2 justify-between mb-5">
           {!sidebarcontext && (
-            <div className="h-10 text-center justify-center w-10 pt-2 pl-3 ">
-              <h1 className="text-indigo-600 font-bold text-3xl py-2 px-4 border-b-2">
-                Metaroom
-              </h1>
+            // <div className="h-10 text-center justify-center w-10 pt-2 pl-3 ">
+            //   <h1 className="text-indigo-600 font-bold text-3xl py-2 px-4 border-b-2">
+            //     Metaroom
+            //   </h1>
+            // </div>
+            <div className="flex items-center">
+              <div className="bg-indigo-600 rounded-full text-white flex items-center justify-center h-12 w-12 mr-2">
+                <span className="text-2xl font-bold italic">M</span>
+              </div>
+              <h1 className="text-indigo-600 text-2xl font-bold">Metaroom</h1>
             </div>
           )}
           {

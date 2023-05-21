@@ -21,9 +21,14 @@ const Footer = () => {
               </h2>
               <ul className="text-indigo-600">
                 <li className="mb-4">
-                  <a href="https://MetaRoom.com/" className="text-indigo-600">
-                    MetaRoom
-                  </a>
+                  <div className="flex items-center">
+                    <div className="bg-indigo-600 rounded-full text-white flex items-center justify-center h-12 w-12 mr-2">
+                      <span className="text-xl font-bold italic">M</span>
+                    </div>
+                    <h1 className="text-indigo-600 text-xl font-bold">
+                      Metaroom
+                    </h1>
+                  </div>
                 </li>
                 <li>
                   <a
