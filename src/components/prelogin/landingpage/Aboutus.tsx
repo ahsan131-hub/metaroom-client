@@ -37,7 +37,7 @@ export default function Aboutus() {
     <div className="bg-white py-24 sm:py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="sm:text-center">
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             <div className="bg-indigo-600 rounded-full text-white flex items-center justify-center h-12 w-12 mr-2">
               <span className="text-2xl font-bold italic">M</span>
             </div>
