@@ -43,7 +43,9 @@ export default function Submissions({
       {!loading ? (
         <div className="m-2 ml-5">
           <ul role="list" className="divide-y divide-gray-100">
-            {!submissions?.getSubmissions?.Submissions && <p>No Submissions</p>}
+            {!submissions?.getSubmissions?.submissions?.length && (
+              <p>No Submissions</p>
+            )}
             {submissions?.getSubmissions?.submissions?.map(
               (submission: any) => (
                 <li

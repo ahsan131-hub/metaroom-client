@@ -45,8 +45,9 @@ export default function Submission({
         <div className="m-10 ">
           <ul role="list" className="divide-y divide-gray-100">
             {!submission?.getSubmission?.submission?.checkedByInstructor && (
-              // <p>Evaluation in progress... </p> TODO: fix get score from backend.
-              <p>Evaluated</p>
+              <p>Evaluation in progress... </p> // TODO: fix get score from backend.
+
+              // <p>Evaluated</p>
             )}
 
             <li key={1} className="flex justify-between gap-x-6 py-5">

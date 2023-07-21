@@ -15,7 +15,7 @@ const CoursesOverView = ({ courses, label }: any) => {
           <div
             key={index}
             onClick={() => router.replace(`/dashboard/courses/${course.id}`)}
-            className=" h-48 bg-slate-100 w-60 justify-center text-center hover:bg-transparent rounded-md  m-3 "
+            className=" h-48 bg-indigo-50 w-60 justify-center text-center hover:bg-transparent rounded-md  m-3 "
           >
             <Image
               src={course.coverPhoto || '/assets/default-photos/cover.jpg'}

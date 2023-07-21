@@ -45,11 +45,12 @@ const Meetings = () => {
           (meet: any, index: number) => (
             <div
               key={index}
-              className=" bg-slate-100 w-60 justify-center text-center hover:bg-transparent rounded-md m-3"
+              className=" bg-indigo-50 w-60 justify-center text-center hover:bg-transparent rounded-md m-3"
             >
               <Image
                 src={
-                  meet.courseId.coverPhoto || '/assets/default-photos/cover.jpg'
+                  meet.courseId?.coverPhoto ||
+                  '/assets/default-photos/cover.jpg'
                 }
                 alt="profile"
                 className="h-36 rounded-t-md"
@@ -59,20 +60,20 @@ const Meetings = () => {
               <div className="items-center">
                 <div className="">
                   <h3 className="text-xl overflow-hidden">
-                    {`Course: ${meet.courseId.name}`}
+                    {`Course: ${meet.courseId?.name}`}
                   </h3>
                 </div>
 
                 <div className="text-xl overflow-hidden items-center">
                   Time:
-                  <span className="">{meet.courseId.sessionTime}</span>
+                  <span className="">{meet.courseId?.sessionTime}</span>
                 </div>
               </div>
-              <div className="bg-slate-300 rounded-md p-2 text-center hover:bg-slate-100">
+              <div className="bg-indigo-100 rounded-md p-2 text-center hover:bg-indigo-50">
                 <button
                   className="text-center text-xl"
                   onClick={() => {
-                    router.push(`/meet/${meet.courseId.sessionMeetingId}`);
+                    router.push(`/meet/${meet.courseId?.sessionMeetingId}`);
                   }}
                 >
                   Join Meeting

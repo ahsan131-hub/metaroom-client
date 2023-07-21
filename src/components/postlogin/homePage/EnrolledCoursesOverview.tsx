@@ -38,11 +38,11 @@ const EnrolledCoursesOverView = () => {
             (enrollment: any, index: number) => (
               <div
                 key={index}
-                className=" bg-slate-100 w-60 justify-center text-center hover:bg-transparent rounded-md m-3"
+                className=" bg-indigo-50 w-60 justify-center text-center hover:bg-transparent rounded-md m-3"
               >
                 <Image
                   src={
-                    enrollment.courseId.coverPhoto ||
+                    enrollment.courseId?.coverPhoto ||
                     '/assets/default-photos/cover.jpg'
                   }
                   alt="profile"
@@ -52,27 +52,27 @@ const EnrolledCoursesOverView = () => {
                 />
                 <div className="text-center">
                   <div className="text-center mt-2">
-                    <span className="text-xl">{enrollment.courseId.name}</span>
+                    <span className="text-xl">{enrollment.courseId?.name}</span>
                   </div>
                   <div className="text-start"></div>
                 </div>
 
-                <div className="bg-slate-300 rounded-md p-2 text-center hover:bg-slate-100 mb-2">
+                <div className="bg-indigo-100 rounded-md p-2 text-center hover:bg-indigo-50 mb-2">
                   <button
                     className="text-center text-xl w-full"
                     onClick={() =>
-                      router.push(`courses/${enrollment.courseId.id}`)
+                      router.push(`courses/${enrollment.courseId?.id}`)
                     }
                   >
                     View Course
                   </button>
                 </div>
-                <div className="bg-slate-300 rounded-md p-2 text-center hover:bg-slate-100">
+                <div className="bg-indigo-100 rounded-md p-2 text-center hover:bg-indigo-50">
                   <button
                     className="text-center text-xl w-full"
                     onClick={() => {
                       router.push(
-                        `/meet/${enrollment.courseId.sessionMeetingId}`
+                        `/meet/${enrollment.courseId?.sessionMeetingId}`
                       );
                     }}
                   >
