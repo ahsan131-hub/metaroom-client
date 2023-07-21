@@ -31,7 +31,7 @@ const Meetings = () => {
       <span className="text-4xl md:text-3xl font-bold tracking-tight text-gray-900 leading-tight mb-4">
         Sessions
       </span>
-      <hr className="border-1 border-gray-300" />
+      <hr className="border border-gray-300" />
       {/* {JSON.stringify(meetings)} */}
 
       <div className="flex flex-wrap">

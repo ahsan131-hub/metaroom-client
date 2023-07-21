@@ -53,7 +53,7 @@ export const authOptions = {
   },
   pages: {
     signIn: '/dashboard',
-    // signOut: '/signout',
+    signOut: '/',
     error: '/error', // Error code passed in query string as ?error=
   },
 };

@@ -103,7 +103,6 @@ export default function CourseContent({ data, courseId }: any) {
       </dl>
       <CreateSubmission
         courseId={courseId}
-
         submissionData={data}
         setX={setShowSubmissionForm}
         showAnimation={showSubmitionForm}
