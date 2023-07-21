@@ -11,20 +11,16 @@ export const useUser = () => React.useContext(UserDataContext);
 
 const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
   const [userData, setUserData] = useState({});
-
   const { data: session, status } = useSession();
-
   const [getUser, { loading }] = useLazyQuery(GET_USER);
+
   useEffect(() => {
     const getUserData = async () => {
       const res = await getUser({
         variables: { email: session?.user?.email },
         context: {
           headers: {
-            Authorization:
-              session && (session as any).infraToken
-                ? (session as any).infraToken
-                : '',
+            Authorization: (session as any)?.infraToken,
           },
         },
       });
@@ -33,7 +29,10 @@ const UserDataProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    if (status === 'authenticated') getUserData().then((res) => res);
+    // if (status === 'authenticated') {
+    //   console.log('session', session);
+    getUserData().then((res) => res);
+    // }
   }, [session]);
 
   if (loading || status === 'loading') {

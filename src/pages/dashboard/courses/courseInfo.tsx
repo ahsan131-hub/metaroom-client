@@ -1,7 +1,9 @@
 import { PaperClipIcon } from '@heroicons/react/20/solid';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
 
 export default function CourseInfo({ data }: any) {
+  const router = useRouter();
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:px-6">
@@ -13,6 +15,16 @@ export default function CourseInfo({ data }: any) {
         </p>
       </div>
       <div className="border-t border-gray-200">
+        <div className="bg-indigo-600 rounded-md p-2 text-center  hover:bg-indigo-500 ">
+          <button
+            className="rounded-md w-full h-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={() => {
+              router.push(`/meet/${data.sessionMeetingId}`);
+            }}
+          >
+            Join Meeting
+          </button>
+        </div>
         <dl>
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Course name</dt>

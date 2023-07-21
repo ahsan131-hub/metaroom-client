@@ -150,7 +150,7 @@ const CoursePage = () => {
 
               {contentLoading && <Loading />}
               {!contentLoading && !contentError
-                ? contents.getCourseContents.contents.map(
+                ? contents.getCourseContents.contents?.map(
                     (content: any, index: any) => (
                       <CourseContent
                         key={index}

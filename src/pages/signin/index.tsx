@@ -1,17 +1,9 @@
-import { useRouter } from 'next/router';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import React from 'react';
 
 import Inputs from './login';
 
 const Login = () => {
-  const { status } = useSession();
-  const router = useRouter();
-
-  if (status === 'authenticated') {
-    router.replace('/');
-  }
-
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8 justify-center text-center">
@@ -31,8 +23,9 @@ const Login = () => {
           <div className="-space-y-px w-full rounded-md shadow-sm">
             <div>
               <button
-                onClick={() => {
-                  signIn();
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn('google', { callbackUrl: '/' });
                 }}
                 className="group relative flex w-full justify-center rounded-md border border-red-600  py-2 px-4 text-sm font-medium text-red-600 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >

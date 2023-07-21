@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
+import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 
@@ -18,6 +19,7 @@ function JoinCourse({
 }) {
   const [courseId, setCourseId] = useState<string>('');
   const user = useUser();
+  const router = useRouter();
   const { data: session } = useSession();
   const [enrollCourse, { loading }] = useMutation(ENROLL_COURSE);
   const handleSubmit = async (e: any) => {
@@ -52,6 +54,7 @@ function JoinCourse({
       });
     }
     setCourseId('');
+    router.reload();
   };
   return (
     <Transition

@@ -58,7 +58,7 @@ export default function Submission({
                   <p className="text-sm font-semibold leading-6 text-gray-900">
                     {`Score : ${
                       submission?.getSubmission?.submission?.score ||
-                      ((Math.random() * 100) % 10).toString().substring(0, 3)
+                      'Evaluation in progress...'
                     } `}
                   </p>
                 </div>

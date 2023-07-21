@@ -9,15 +9,19 @@ export const authOptions = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      clientId: (process.env.GOOGLE_CLIENT_ID as string) || '',
+      clientSecret: (process.env.GOOGLE_CLIENT_SECRET as string) || '',
       allowDangerousEmailAccountLinking: true,
+      checks: 'none', // <-- THIS LINE
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret:
+    process.env.NEXTAUTH_SECRET ||
+    'OSrZC9Vrgoaknp4D0fLMU8ao8mZCz4Xw57GPzFz8Tk4=',
   callbacks: {
     async jwt({ token, account }: any) {
       // Persist the OAuth access_token to the token right after signin
+      console.log('acount information', account);
       if (account) {
         // eslint-disable-next-line no-param-reassign
         token.accessToken = account.access_token;
@@ -25,12 +29,15 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }: any) {
+      console.log('session', token);
+
       // Send properties to the client, like an access_token from a provider.
       // eslint-disable-next-line no-param-reassign
       // eslint-disable-next-line no-param-reassign
       session.infraToken = jwt.sign(
         { data: { _id: token.id, name: token.name, email: token.email } },
-        process.env.NEXTAUTH_SECRET || ''
+        process.env.NEXTAUTH_SECRET ||
+          'B9uFz8XL4HyGN3KySJM3JDY/3mh98bGLlQvSw5Jt'
       );
       // create user here.
       await createUserByFetchAPICall(
@@ -43,6 +50,11 @@ export const authOptions = {
       session.accessToken = token.accessToken;
       return session;
     },
+  },
+  pages: {
+    signIn: '/dashboard',
+    // signOut: '/signout',
+    error: '/error', // Error code passed in query string as ?error=
   },
 };
 

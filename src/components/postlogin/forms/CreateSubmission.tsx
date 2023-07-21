@@ -60,7 +60,7 @@ function CreateSubmission({
       const response = await submitAssginment({
         variables: {
           submission: {
-            contentId: submissionData.contentId,
+            contentId: submissionData.id,
             description: 'some',
             courseId,
             instructorId: submissionData.instructorId,

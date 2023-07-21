@@ -41,7 +41,7 @@ const Intro: React.FC = () => {
               </button>
             </div>
             <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-12">
-              {navigation.map((item) => (
+              {navigation?.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
@@ -89,7 +89,7 @@ const Intro: React.FC = () => {
               <div className="mt-6 flow-root">
                 <div className="-my-6 divide-y divide-gray-500/10">
                   <div className="space-y-2 py-6">
-                    {navigation.map((item) => (
+                    {navigation?.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}

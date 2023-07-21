@@ -124,7 +124,7 @@ function CreateQuiz(props: any) {
                 </div>
               </div>
               <div className="h-96 overflow-y-scroll">
-                {questions.map((question: any, index: any) => (
+                {questions?.map((question: any, index: any) => (
                   <div key={index}>
                     <label>
                       Question {index + 1}:

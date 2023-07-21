@@ -29,7 +29,12 @@ const EnrolledCoursesOverView = () => {
       </span>
       {!loading ? (
         <div className="flex flex-wrap">
-          {enrollments?.getStudentEnrollments?.enrollments.map(
+          {!enrollments?.getStudentEnrollments?.enrollments && (
+            <div className="text-center text-xl w-full">
+              No Courses Enrolled
+            </div>
+          )}
+          {enrollments?.getStudentEnrollments?.enrollments?.map(
             (enrollment: any, index: number) => (
               <div
                 key={index}

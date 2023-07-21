@@ -68,7 +68,7 @@ export const Sidebar = ({ sidebarItems }: { sidebarItems: ISideBarItem[] }) => {
           <div className=" h-10 m-2 text-center p-2"></div>
         )}
         <div className={' text-black'}>
-          {sidebarItems.map((item: ISideBarItem, index: number) => (
+          {sidebarItems?.map((item: ISideBarItem, index: number) => (
             <div key={index}>
               <Link href={item.href}>
                 <div

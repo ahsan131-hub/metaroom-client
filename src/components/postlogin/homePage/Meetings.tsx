@@ -31,13 +31,17 @@ const Meetings = () => {
       <span className="text-4xl md:text-3xl font-bold tracking-tight text-gray-900 leading-tight mb-4">
         Sessions
       </span>
+      <hr className="border-1 border-gray-300" />
+      {/* {JSON.stringify(meetings)} */}
+
       <div className="flex flex-wrap">
         {!meetings?.getStudentEnrollments?.enrollments && (
           <span className="text-xl m-2  ml-10 leading-7 text-gray-900">
             No Sessions available
           </span>
         )}
-        {meetings?.getStudentEnrollments?.enrollments.map(
+
+        {meetings?.getStudentEnrollments?.enrollments?.map(
           (meet: any, index: number) => (
             <div
               key={index}

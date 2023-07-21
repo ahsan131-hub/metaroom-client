@@ -12,7 +12,7 @@ import Loading from '../shared/Loading';
 function Homepagecontent() {
   const { data: session, status }: any = useSession();
   if (status === 'loading') return <Loading />;
-  if (status !== 'authenticated') <NotLoggedIn />;
+  if (status === 'uauthenticated') <NotLoggedIn />;
   const {
     data: courses,
     loading,

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useState } from 'react';
 
 const Inputs = () => {
@@ -55,9 +56,12 @@ const Inputs = () => {
               </button>
               <p className="mt-2 mb-0 pt-1 text-sm font-semibold">
                 Do not have an account?&nbsp;
-                <a href="#!" className="  transition duration-150 ease-in-out">
+                <Link
+                  href="/signup"
+                  className="  transition duration-150 ease-in-out"
+                >
                   Register
-                </a>
+                </Link>
               </p>
             </div>
           </form>
