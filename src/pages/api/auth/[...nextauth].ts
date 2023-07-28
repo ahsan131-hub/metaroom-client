@@ -15,9 +15,7 @@ export const authOptions = {
       checks: 'none', // <-- THIS LINE
     }),
   ],
-  secret:
-    process.env.NEXTAUTH_SECRET ||
-    'OSrZC9Vrgoaknp4D0fLMU8ao8mZCz4Xw57GPzFz8Tk4=',
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }: any) {
       // Persist the OAuth access_token to the token right after signin
@@ -36,8 +34,7 @@ export const authOptions = {
       // eslint-disable-next-line no-param-reassign
       session.infraToken = jwt.sign(
         { data: { _id: token.id, name: token.name, email: token.email } },
-        process.env.NEXTAUTH_SECRET ||
-          'B9uFz8XL4HyGN3KySJM3JDY/3mh98bGLlQvSw5Jt'
+        process.env.NEXTAUTH_SECRET
       );
       // create user here.
       await createUserByFetchAPICall(

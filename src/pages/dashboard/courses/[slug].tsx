@@ -4,17 +4,20 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 import Enrollments from '@/components/postlogin/enrollments/Enrollments';
-import AttemptQuiz from '@/components/postlogin/forms/AttemptQuiz';
 import CreateQuiz from '@/components/postlogin/forms/CreateQuiz';
 import Layout from '@/components/postlogin/Layouts/Layout';
 import Loading from '@/components/postlogin/shared/Loading';
+import SubmissionsTable from '@/components/postlogin/submissions/SubmissionsTable';
 import notify from '@/components/toasts/toast';
+import { useUser } from '@/context/UserDataProvider';
 import { GET_COURSE, GET_COURSE_CONTENTS } from '@/graphql/Queries/course';
+import { GET_COURSE_QUIZZES } from '@/graphql/Queries/quiz';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
 import CreateAssignment from '../../../components/postlogin/forms/CreateAssignment';
 import CourseContent from './courseContent';
 import CourseInfo from './courseInfo';
+import CourseQuizes from './courseQuizes';
 
 const CoursePage = () => {
   const { data: session } = useSession();
@@ -53,12 +56,31 @@ const CoursePage = () => {
     },
   });
 
+  const {
+    data: quizzes,
+    loading: quizLoading,
+    error: quizError,
+  } = useQuery(GET_COURSE_QUIZZES, {
+    variables: {
+      courseId: slug,
+    },
+    context: {
+      headers: {
+        Authorization:
+          session && (session as any).infraToken
+            ? (session as any).infraToken
+            : '',
+      },
+    },
+  });
+
   const [showQuizForm, setShowQuizForm] = useState(false);
   const [showEnrollments, setShowEnrollments] = useState(false);
   const [showAssignmentForm, setShowAssignmentForm] = useState(false);
-  const [showAttemptQuiz, setShowAttemptQuiz] = useState(false);
+  const [showSubmissions, setShowSubmissions] = useState(false);
   const [refetchContents, setRefetchContents] = useState(false);
-
+  const user = useUser();
+  const isStudent = user.role === 'STUDENT';
   useEffect(() => {
     refetch();
   }, [refetchContents]);
@@ -94,42 +116,45 @@ const CoursePage = () => {
                 </h3>
               </div>
               <div className="border-gray-200 p-6 border-t">
-                <button
-                  className={`${DEFAULT_BUTTON('w-40')}`}
-                  onClick={() => {
-                    setShowAssignmentForm(!showAssignmentForm);
-                  }}
-                >
-                  Create Assignment
-                </button>
-                <button
-                  className={`${DEFAULT_BUTTON('w-40')}`}
-                  onClick={() => {
-                    setShowQuizForm(!showQuizForm);
-                  }}
-                >
-                  Create Quiz
-                </button>
-                <button
-                  className={`${DEFAULT_BUTTON('w-40')}`}
-                  onClick={() => {
-                    setShowAttemptQuiz(!showAttemptQuiz);
-                  }}
-                >
-                  Attempt Quiz
-                </button>
-                <button
-                  className={`${DEFAULT_BUTTON('w-40')}`}
-                  onClick={() => {
-                    setShowEnrollments(!showEnrollments);
-                  }}
-                >
-                  Show Enrollments
-                </button>
+                {!isStudent && (
+                  <>
+                    <button
+                      className={`${DEFAULT_BUTTON('w-40')}`}
+                      onClick={() => {
+                        setShowAssignmentForm(!showAssignmentForm);
+                      }}
+                    >
+                      Create Assignment
+                    </button>
+                    <button
+                      className={`${DEFAULT_BUTTON('w-40')}`}
+                      onClick={() => {
+                        setShowQuizForm(!showQuizForm);
+                      }}
+                    >
+                      Create Quiz
+                    </button>
+                    <button
+                      className={`${DEFAULT_BUTTON('w-40')}`}
+                      onClick={() => {
+                        setShowEnrollments(!showEnrollments);
+                      }}
+                    >
+                      Show Enrollments
+                    </button>
+                    <button
+                      className={`${DEFAULT_BUTTON('w-40')}`}
+                      onClick={() => {
+                        setShowSubmissions(!showSubmissions);
+                      }}
+                    >
+                      Show Submissions
+                    </button>
+                  </>
+                )}
               </div>
 
               <div>
-                <AttemptQuiz showAnimation={showAttemptQuiz} />
                 <CreateAssignment
                   showAnimation={showAssignmentForm}
                   setX={setShowAssignmentForm}
@@ -138,6 +163,7 @@ const CoursePage = () => {
                   setRefetchContent={setRefetchContents}
                 />
                 <CreateQuiz
+                  courseId={data.getCourse.course?.id}
                   showAnimation={showQuizForm}
                   setX={setShowQuizForm}
                 />
@@ -145,6 +171,10 @@ const CoursePage = () => {
                   showAnimation={showEnrollments}
                   courseId={data.getCourse.course?.id}
                   // setX={setShowEnrollments}
+                />
+                <SubmissionsTable
+                  courseId={data.getCourse.course?.id}
+                  showAnimation={showSubmissions}
                 />
               </div>
 
@@ -160,7 +190,21 @@ const CoursePage = () => {
                     )
                   )
                 : ''}
+
               {contentError && <p>{contentError.message}</p>}
+              {/* QUIZ IMPLEMENTATION */}
+              {!quizLoading && !quizError
+                ? quizzes?.getQuizesByCourseId?.quizes?.map(
+                    (content: any, index: any) => (
+                      <CourseQuizes
+                        key={index}
+                        data={content}
+                        courseId={slug}
+                      />
+                    )
+                  )
+                : ''}
+              {quizError && <p>{quizError.message}</p>}
             </div>
           </div>
         </div>

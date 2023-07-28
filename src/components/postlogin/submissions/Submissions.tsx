@@ -73,6 +73,13 @@ export default function Submissions({
                       </p>
                     </div>
                   </div>
+                  <div className="hidden sm:flex sm:flex-col sm:items-end">
+                    <p className="text-sm leading-6 text-gray-900">
+                      <p className="mt-1 truncate text-xs leading-5 ">
+                        Assignment : {submission.description}
+                      </p>
+                    </p>
+                  </div>
                   <div className="ml-4 shrink-0">
                     <a
                       href={
@@ -85,9 +92,7 @@ export default function Submissions({
                       download[ {submission?.submissionFiles?.length} ]
                     </a>
                   </div>
-                  <div className="hidden sm:flex sm:flex-col sm:items-end">
-                    <p className="text-sm leading-6 text-gray-900"></p>
-                  </div>
+
                   {submission.checkedByInstructor ? (
                     <p>Evaluated</p>
                   ) : (

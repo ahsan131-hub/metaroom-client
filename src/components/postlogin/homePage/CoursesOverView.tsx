@@ -10,25 +10,27 @@ const CoursesOverView = ({ courses, label }: any) => {
         {label}
       </span>
 
-      <div className="flex flex-wrap">
+      <div className="h-3/4 m-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {courses?.map((course: any, index: number) => (
           <div
             key={index}
             onClick={() => router.replace(`/dashboard/courses/${course.id}`)}
-            className=" h-48 bg-indigo-50 w-60 justify-center text-center hover:bg-transparent rounded-md  m-3 "
+            className="bg-indigo-50 w-full h-56 hover:bg-indigo-100 p-4 rounded-md cursor-pointer flex flex-col justify-between"
           >
-            <Image
-              src={course.coverPhoto || '/assets/default-photos/cover.jpg'}
-              alt="profile"
-              className="h-36 rounded-t-md"
-              width={1000}
-              height={190}
-            />
-            <div className="text-center">
-              <div className="text-center mt-2">
-                <span className="text-xl">{course.name}</span>
-              </div>
-              <div className="text-start"></div>
+            <div className="h-36 relative rounded-t-md">
+              <Image
+                src={course.coverPhoto || '/assets/default-photos/cover.jpg'}
+                alt="Course Cover"
+                width={1000}
+                height={190}
+                className="h-36 rounded-t-md"
+              />
+            </div>
+            <div className="mt-4">
+              <h3 className="text-xl font-semibold text-gray-800 truncate">
+                {course.name}
+              </h3>
+              {/* Add other course details here if needed */}
             </div>
           </div>
         ))}

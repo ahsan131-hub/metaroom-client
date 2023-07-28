@@ -1,23 +1,62 @@
+import { useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
-import { PhotoIcon } from '@heroicons/react/24/solid';
 import dayjs from 'dayjs';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 
 import notify from '@/components/toasts/toast';
+import { CREATE_QUIZ } from '@/graphql/mutations/quiz';
 import { DEFAULT_BUTTON } from '@/styles/defaultStyleTailwindClass';
 
-import TimePicker from '../shared/TimePicker';
-import DateInput from './form-components/DateInput';
+import Loading from '../shared/Loading';
 
 function CreateQuiz(props: any) {
+  const [createQuiz, { data: quizData, loading }] = useMutation(CREATE_QUIZ);
+  const { data: session }: any = useSession();
   const [data, setData] = useState({
-    quizName: '',
+    title: '',
+    description: '',
+    startTime: '',
+    endTime: '',
   });
-  const [quizDate, setQuizDate] = useState(dayjs().format('YYYY-MM-DD'));
-  const [time, setTime] = useState('');
   const [questions, setQuestions] = useState<any>([
-    { question: '', options: ['', '', '', ''], answer: '' },
+    { question: '', options: ['', '', '', ''], correctAnswer: '' },
   ]);
+
+  const handleSubmitQuiz = async (event: any) => {
+    event.preventDefault();
+    console.log({ ...data, questions });
+    const quiz = await createQuiz({
+      variables: { input: { ...data, questions, courseId: props.courseId } },
+      context: {
+        headers: {
+          Authorization:
+            session && (session as any).infraToken
+              ? (session as any).infraToken
+              : '',
+        },
+      },
+    });
+    console.log('quiz created ', quiz);
+    if (quiz.data.createQuiz.response.status === 200) {
+      notify({
+        type: 'SUCCESS',
+        position: 'bottom-right',
+        message: 'Assignment Created',
+        description: 'Assignment has been created successfully',
+      });
+      setData({ title: '', description: '', startTime: '', endTime: '' });
+      props.setX(false);
+    } else {
+      notify({
+        type: 'ERROR',
+        position: 'bottom-right',
+        message: 'Quiz Creation Failed',
+        description: quiz.data.createQuiz.response.response,
+      });
+    }
+  };
+
   const handleQuestionChange = (
     event:
       | React.ChangeEvent<HTMLSelectElement>
@@ -27,6 +66,19 @@ function CreateQuiz(props: any) {
     const { name, value } = event.target;
     const newQuestions = [...questions];
     newQuestions[index][name] = value;
+    console.log('new', newQuestions);
+    setQuestions(newQuestions);
+  };
+  const handleCorrectAnswer = (
+    event:
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { value } = event.target;
+    const newQuestions = [...questions];
+    newQuestions[index].correctAnswer = value;
+
     setQuestions(newQuestions);
   };
 
@@ -44,7 +96,7 @@ function CreateQuiz(props: any) {
   const handleAddQuestion = () => {
     setQuestions([
       ...questions,
-      { question: '', options: ['', '', '', ''], answer: '' },
+      { question: '', options: ['', '', '', ''], correctAnswer: '' },
     ]);
   };
 
@@ -69,245 +121,242 @@ function CreateQuiz(props: any) {
           Create Quiz
         </h2>
       </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          notify({
-            type: 'SUCCESS',
-            position: 'bottom-right',
-            message: 'Assignment Created',
-            description: 'Assignment has been created successfully',
-          });
-        }}
-        className=" items-center pl-5 w-full justify-center align-middle"
-      >
-        <div className="scrollbar-hide overflow-y-scroll space-y-12 p-5">
-          <div className="border-b border-gray-900/10 pb-12">
-            <div className=" pb-6">
-              {/* assignment  */}
-              <div className="mt-10 grid  gap-x-6 gap-y-8 sm:grid-cols-6 ">
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="quiz-name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Quiz Name
-                  </label>
-                  <div className="mt-2 ">
-                    <input
-                      type="text"
-                      name="quiz-name"
-                      id="quiz-name"
-                      onChange={(e) => {
-                        setData({ ...data, quizName: e.target.value });
-                      }}
-                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className={'flex '}>
-                <div className="mt-2 mr-2 w-1/4 ">
-                  <DateInput
-                    classNames={'col-span-4'}
-                    selectedDate={quizDate}
-                    selectedDateChange={setQuizDate}
-                    label={'Quiz Date'}
-                  />
-                </div>
-                <div className="mt-2 w-1/4 ">
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    Quiz Time
-                  </label>
-                  <TimePicker value={time} setValue={setTime} />
-                </div>
-              </div>
-              <div className="h-96 overflow-y-scroll">
-                {questions?.map((question: any, index: any) => (
-                  <div key={index}>
-                    <label>
-                      Question {index + 1}:
+      {!loading ? (
+        <form
+          onSubmit={handleSubmitQuiz}
+          className=" items-center pl-5 w-full justify-center align-middle"
+        >
+          <div className="scrollbar-hide overflow-y-scroll space-y-12 p-5">
+            <div className="border-b border-gray-900/10 pb-12">
+              <div className=" pb-6">
+                {/* assignment  */}
+                <div className="gap-classx-6 mt-10  grid gap-y-8 sm:grid-cols-6 ">
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor="quiz-name"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Quiz Name
+                    </label>
+                    <div className="mt-2 ">
                       <input
                         type="text"
-                        name="question"
-                        value={question.question}
-                        onChange={(event) => handleQuestionChange(event, index)}
-                        required
-                        className="block w-3/5 rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        name="quiz-name"
+                        value={data.title}
+                        id="quiz-name"
+                        onChange={(e) => {
+                          setData({ ...data, title: e.target.value });
+                        }}
+                        className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
-                    </label>
-                    <br />
-                    <div className="flex flex-col">
-                      <div className="flex flex-row space-x-24">
-                        <label>
-                          Option 1:
-                          <input
-                            type="text"
-                            value={question.options[0]}
-                            onChange={(event) =>
-                              handleOptionChange(event, index, 0)
-                            }
-                            required
-                            className="block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                        </label>
-                        <br />
-                        <label>
-                          Option 2:
-                          <input
-                            type="text"
-                            value={question.options[1]}
-                            onChange={(event) =>
-                              handleOptionChange(event, index, 1)
-                            }
-                            required
-                            className="block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                        </label>
-                      </div>
                     </div>
-                    <div className="flex flex-col">
-                      <div className="flex flex-row space-x-24">
-                        <label>
-                          Option 3:
-                          <input
-                            type="text"
-                            value={question.options[2]}
-                            onChange={(event) =>
-                              handleOptionChange(event, index, 2)
-                            }
-                            required
-                            className="block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                        </label>
-                        <br />
-                        <label>
-                          Option 4:
-                          <input
-                            type="text"
-                            value={question.options[3]}
-                            onChange={(event) =>
-                              handleOptionChange(event, index, 3)
-                            }
-                            required
-                            className="block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                        </label>
-                      </div>
-                    </div>
-                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                      Answer:
-                      <select
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        onChange={(event) => handleQuestionChange(event, index)}
-                        required
-                      >
-                        <option value="">--Select Answer--</option>
-                        <option value={question.options[0]}>Option 1</option>
-                        <option value={question.options[1]}>Option 2</option>
-                        <option value={question.options[2]}>Option 3</option>
-                        <option value={question.options[3]}>Option 4</option>
-                      </select>
-                    </label>
-
-                    <br />
-                    {questions.length > 1 && (
-                      <button
-                        className={`${DEFAULT_BUTTON('w-40')}`}
-                        type="button"
-                        onClick={() => handleRemoveQuestion(index)}
-                      >
-                        Remove Question
-                      </button>
-                    )}
-                    <hr />
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  className={`${DEFAULT_BUTTON('w-40')}`}
-                  onClick={handleAddQuestion}
-                >
-                  Add Question
-                </button>
-                {/* attached file */}
-              </div>
-              <div className="col-span-full">
-                <label
-                  htmlFor="cover-photo"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Resources
-                </label>
-                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 ">
-                  <div className="text-center">
-                    <PhotoIcon
-                      className="mx-auto h-12 w-12 text-gray-300"
-                      aria-hidden="true"
-                    />
-                    <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                      <label
-                        htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                      >
-                        <span>Course Outline</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          className="sr-only"
-                        />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    <p className="text-xs leading-5 text-gray-600">
-                      Any file upto 10MB.
-                    </p>
                   </div>
                 </div>
-              </div>
+                <div className="mt-10 grid  gap-x-6 gap-y-8 sm:grid-cols-6 "></div>
+                <div className={'flex '}>
+                  <div className="mt-2 w-1/4 ">
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      Quiz Start Time
+                    </label>
+                    <input
+                      type="datetime-local"
+                      onChange={(e) => {
+                        console.log(
+                          dayjs(e.target.value).format('YYYY-MM-DDTHH:mm')
+                        );
+                        setData({
+                          ...data,
+                          startTime: dayjs(e.target.value).format(
+                            'YYYY-MM-DDTHH:mm'
+                          ),
+                        });
+                      }}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      placeholder="Select date and time"
+                    />
+                  </div>
+                  <div className="mt-2 ml-7 w-1/4 ">
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      Quiz End Time
+                    </label>
+                    <input
+                      type="datetime-local"
+                      onChange={(e) => {
+                        setData({
+                          ...data,
+                          endTime: dayjs(e.target.value).format(
+                            'YYYY-MM-DDTHH:mm'
+                          ),
+                        });
+                      }}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      placeholder="Select date and time"
+                    />
+                  </div>
+                </div>
 
-              {/* assignment description */}
-              <div className="col-span-full">
-                <label
-                  htmlFor="about"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Description
-                </label>
-                <div className="mt-2">
-                  <textarea
-                    id="about"
-                    name="about"
-                    placeholder="Guidelines for attempting (if any)."
-                    rows={3}
-                    className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                  />
+                <div className="h-96 overflow-y-scroll">
+                  {questions?.map((question: any, index: any) => (
+                    <div key={index}>
+                      <label>
+                        Question {index + 1}:
+                        <input
+                          type="text"
+                          name="question"
+                          value={question.question}
+                          onChange={(event) =>
+                            handleQuestionChange(event, index)
+                          }
+                          required
+                          className="block w-3/5 rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                      </label>
+                      <br />
+                      <div className="flex flex-col">
+                        <div className="flex flex-row space-x-24">
+                          <label>
+                            Option 1:
+                            <input
+                              type="text"
+                              value={question.options[0]}
+                              onChange={(event) =>
+                                handleOptionChange(event, index, 0)
+                              }
+                              required
+                              className="block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                          </label>
+                          <br />
+                          <label>
+                            Option 2:
+                            <input
+                              type="text"
+                              value={question.options[1]}
+                              onChange={(event) =>
+                                handleOptionChange(event, index, 1)
+                              }
+                              required
+                              className="block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                          </label>
+                        </div>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex flex-row space-x-24">
+                          <label>
+                            Option 3:
+                            <input
+                              type="text"
+                              value={question.options[2]}
+                              onChange={(event) =>
+                                handleOptionChange(event, index, 2)
+                              }
+                              required
+                              className="block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                          </label>
+                          <br />
+                          <label>
+                            Option 4:
+                            <input
+                              type="text"
+                              value={question.options[3]}
+                              onChange={(event) =>
+                                handleOptionChange(event, index, 3)
+                              }
+                              required
+                              className="block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                          </label>
+                        </div>
+                      </div>
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Answer:
+                        <select
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          onChange={(event) =>
+                            handleCorrectAnswer(event, index)
+                          }
+                          required
+                        >
+                          <option value="">--Select Answer--</option>
+                          <option value={question.options[0]}>Option 1</option>
+                          <option value={question.options[1]}>Option 2</option>
+                          <option value={question.options[2]}>Option 3</option>
+                          <option value={question.options[3]}>Option 4</option>
+                        </select>
+                      </label>
+
+                      <br />
+                      {questions.length > 1 && (
+                        <button
+                          className={`${DEFAULT_BUTTON('w-40')}`}
+                          type="button"
+                          onClick={() => handleRemoveQuestion(index)}
+                        >
+                          Remove Question
+                        </button>
+                      )}
+                      <hr />
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className={`${DEFAULT_BUTTON('w-40')}`}
+                    onClick={handleAddQuestion}
+                  >
+                    Add Question
+                  </button>
+                  {/* attached file */}
+                </div>
+
+                {/* assignment description */}
+                <div className="col-span-full">
+                  <label
+                    htmlFor="about"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Description
+                  </label>
+                  <div className="mt-2">
+                    <textarea
+                      id="about"
+                      name="about"
+                      onChange={(e) => {
+                        setData({ ...data, description: e.target.value });
+                      }}
+                      value={data.description}
+                      placeholder="Guidelines for attempting (if any)."
+                      rows={3}
+                      className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-6 flex items-center  justify-end gap-x-6 mr-10">
-          <button
-            type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
-            onClick={() => {
-              props.setX(false);
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Save
-          </button>
-        </div>
-      </form>
+          <div className="mt-6 flex items-center  justify-end gap-x-6 mr-10">
+            <button
+              type="button"
+              className="text-sm font-semibold leading-6 text-gray-900"
+              onClick={() => {
+                props.setX(false);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      ) : (
+        <Loading />
+      )}
     </Transition>
   );
 }

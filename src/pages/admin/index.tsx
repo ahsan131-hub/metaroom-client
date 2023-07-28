@@ -41,56 +41,68 @@ const Admin = () => {
               <div>Only Admin user can access this page</div>
             )}
             {user.role === 'ADMIN' && (
-              <div className="flex justify-between">
-                <div className="p-4 bg-white rounded-md shadow-md w-1/3">
-                  <p className="text-lg font-medium text-gray-600">
-                    Total Users
-                  </p>
-                  <p className="text-3xl font-bold text-blue-600">
-                    {data.getStatistics?.statistics?.totalUsers || 32}
-                  </p>
-                </div>
-                <div className="p-4 bg-white rounded-md shadow-md w-1/3">
-                  <p className="text-lg font-medium text-gray-600">
-                    Total Students
-                  </p>
-                  <p className="text-3xl font-bold text-green-600">
-                    {data.getStatistics?.statistics?.totalStudents || 44}
-                  </p>
-                </div>
-                <div className="p-4 bg-white rounded-md shadow-md w-1/3">
-                  <p className="text-lg font-medium text-gray-600">
-                    Total Instructors
-                  </p>
-                  <p className="text-3xl font-bold text-purple-600">
-                    {data.getStatistics?.statistics?.totalInstructor || 42}
-                  </p>
-                </div>
-                <div className="p-4 bg-white rounded-md shadow-md w-1/3">
-                  <p className="text-lg font-medium text-gray-600">
-                    Total Courses
-                  </p>
-                  <p className="text-3xl font-bold text-blue-600">
-                    {data.getStatistics?.statistics?.totalCourses || 22}
-                  </p>
-                </div>
-                <div className="p-4 bg-white rounded-md shadow-md w-1/3">
-                  <p className="text-lg font-medium text-gray-600">
-                    Total Enrollements
-                  </p>
-                  <p className="text-3xl font-bold text-green-600">
-                    {data.getStatistics?.statistics?.totalEnrollments || 11}
-                  </p>
-                </div>
-                <div className="p-4 bg-white rounded-md shadow-md w-1/3">
-                  <p className="text-lg font-medium text-gray-600">
-                    Total Revenue
-                  </p>
-                  <p className="text-3xl font-bold text-purple-600">
-                    {data.getStatistics?.statistics?.totalRevenue || 90}
-                  </p>
-                </div>
-              </div>
+              <table className="w-full mt-4">
+                <thead>
+                  <tr>
+                    <th className="p-4 bg-white rounded-tl-md text-lg font-medium text-gray-600">
+                      Category
+                    </th>
+                    <th className="p-4 bg-white text-lg font-medium text-gray-600">
+                      Count
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-4 bg-white text-lg font-medium text-gray-600">
+                      Total Users
+                    </td>
+                    <td className="p-4 bg-white text-3xl font-bold text-blue-600">
+                      {data.getStatistics?.statistics?.totalUsers || 32}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 bg-white text-lg font-medium text-gray-600">
+                      Total Students
+                    </td>
+                    <td className="p-4 bg-white text-3xl font-bold text-green-600">
+                      {data.getStatistics?.statistics?.totalStudents || 44}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 bg-white text-lg font-medium text-gray-600">
+                      Total Instructors
+                    </td>
+                    <td className="p-4 bg-white text-3xl font-bold text-purple-600">
+                      {data.getStatistics?.statistics?.totalInstructor || 42}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 bg-white text-lg font-medium text-gray-600">
+                      Total Courses
+                    </td>
+                    <td className="p-4 bg-white text-3xl font-bold text-blue-600">
+                      {data.getStatistics?.statistics?.totalCourses || 22}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 bg-white text-lg font-medium text-gray-600">
+                      Total Enrollments
+                    </td>
+                    <td className="p-4 bg-white text-3xl font-bold text-green-600">
+                      {data.getStatistics?.statistics?.totalEnrollments || 11}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 bg-white rounded-bl-md text-lg font-medium text-gray-600">
+                      Total Revenue
+                    </td>
+                    <td className="p-4 bg-white text-3xl font-bold text-purple-600">
+                      {data.getStatistics?.statistics?.totalRevenue || 90}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             )}
           </div>
         ) : (

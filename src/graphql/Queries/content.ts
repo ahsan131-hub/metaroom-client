@@ -42,4 +42,64 @@ const GET_SUBMISSION = gql`
     }
   }
 `;
-export { GET_SUBMISSION, GET_SUBMISSIONS };
+
+const GET_STUDENT_SUBMISSIONS = gql`
+  query GetStudentSubmissions($studentId: String, $courseId: String) {
+    getStudentSubmissions(studentId: $studentId, courseId: $courseId) {
+      response {
+        status
+        message
+      }
+      submissions {
+        id
+        studentId {
+          email
+        }
+        description
+        submissionType
+        instructorId
+        courseId
+        quizId
+        submissionFiles
+        contentId
+        score
+        checkedByInstructor
+        quizQuestions {
+          question
+          options
+          correctAnswer
+          studentAnswer
+        }
+      }
+    }
+  }
+`;
+
+const GET_SUBMISSIONS_BY_CONTENT_ID = gql`
+  query GetSubmissionByContentId($contentId: String) {
+    getSubmissionByContentId(contentId: $contentId) {
+      response {
+        status
+        message
+      }
+      submission {
+        id
+        description
+        submissionType
+        instructorId
+        courseId
+        quizId
+        submissionFiles
+        contentId
+        score
+        checkedByInstructor
+      }
+    }
+  }
+`;
+export {
+  GET_STUDENT_SUBMISSIONS,
+  GET_SUBMISSION,
+  GET_SUBMISSIONS,
+  GET_SUBMISSIONS_BY_CONTENT_ID,
+};

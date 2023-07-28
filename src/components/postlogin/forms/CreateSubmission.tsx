@@ -61,7 +61,7 @@ function CreateSubmission({
         variables: {
           submission: {
             contentId: submissionData.id,
-            description: 'some',
+            description: contentData.name,
             courseId,
             instructorId: submissionData.instructorId,
             studentId: user?.id,

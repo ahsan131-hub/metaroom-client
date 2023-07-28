@@ -2,6 +2,7 @@ import { PaperClipIcon } from '@heroicons/react/20/solid';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 
+import CopyToClipboardText from '@/components/utils/CopyToClipboardText';
 import { useUser } from '@/context/UserDataProvider';
 
 export default function CourseInfo({ data }: any) {
@@ -41,12 +42,11 @@ export default function CourseInfo({ data }: any) {
             <dt className="text-sm font-medium text-gray-500">Course key</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               {data.id}
+              <CopyToClipboardText textToCopy={data.id as string} />
             </dd>
           </div>
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">
-              Session Meeting Link
-            </dt>
+            <dt className="text-sm font-medium text-gray-500">Meeting Link</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               {data.sessionMeetingId}
             </dd>

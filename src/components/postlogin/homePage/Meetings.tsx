@@ -27,59 +27,52 @@ const Meetings = () => {
     return <Loading />;
   }
   return (
-    <div className="h-3/4 m-2 ">
+    <div className="h-3/4 m-2">
       <span className="text-4xl md:text-3xl font-bold tracking-tight text-gray-900 leading-tight mb-4">
         Sessions
       </span>
       <hr className="border border-gray-300" />
-      {/* {JSON.stringify(meetings)} */}
 
-      <div className="flex flex-wrap">
-        {!meetings?.getStudentEnrollments?.enrollments && (
-          <span className="text-xl m-2  ml-10 leading-7 text-gray-900">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {!meetings?.getStudentEnrollments?.enrollments ? (
+          <span className="text-xl m-2 leading-7 text-gray-900">
             No Sessions available
           </span>
-        )}
-
-        {meetings?.getStudentEnrollments?.enrollments?.map(
-          (meet: any, index: number) => (
-            <div
-              key={index}
-              className=" bg-indigo-50 w-60 justify-center text-center hover:bg-transparent rounded-md m-3"
-            >
-              <Image
-                src={
-                  meet.courseId?.coverPhoto ||
-                  '/assets/default-photos/cover.jpg'
-                }
-                alt="profile"
-                className="h-36 rounded-t-md"
-                width={1000}
-                height={190}
-              />
-              <div className="items-center">
-                <div className="">
-                  <h3 className="text-xl overflow-hidden">
-                    {`Course: ${meet.courseId?.name}`}
-                  </h3>
+        ) : (
+          meetings?.getStudentEnrollments?.enrollments?.map(
+            (meet: any, index: number) => (
+              <div
+                key={index}
+                className="bg-indigo-50 w-full rounded-md p-4 hover:bg-transparent"
+              >
+                <Image
+                  src={
+                    meet.courseId?.coverPhoto ||
+                    '/assets/default-photos/cover.jpg'
+                  }
+                  alt="profile"
+                  className="h-36 rounded-t-md"
+                  width={1000}
+                  height={190}
+                />
+                <div className="mt-4">
+                  <h3 className="text-xl overflow-hidden font-semibold">{`Course: ${meet.courseId?.name}`}</h3>
+                  <div className="mt-2 text-indigo-600 font-medium">
+                    Time: {meet.courseId?.sessionTime.substr(0, 5)}
+                  </div>
                 </div>
-
-                <div className="text-xl overflow-hidden items-center">
-                  Time:
-                  <span className="">{meet.courseId?.sessionTime}</span>
+                <div className="bg-indigo-100 rounded-md p-2 text-center mt-4 hover:bg-indigo-50">
+                  <button
+                    className="text-xl text-indigo-600 font-semibold"
+                    onClick={() => {
+                      router.push(`/meet/${meet.courseId?.sessionMeetingId}`);
+                    }}
+                  >
+                    Join Meeting
+                  </button>
                 </div>
               </div>
-              <div className="bg-indigo-100 rounded-md p-2 text-center hover:bg-indigo-50">
-                <button
-                  className="text-center text-xl"
-                  onClick={() => {
-                    router.push(`/meet/${meet.courseId?.sessionMeetingId}`);
-                  }}
-                >
-                  Join Meeting
-                </button>
-              </div>
-            </div>
+            )
           )
         )}
       </div>
