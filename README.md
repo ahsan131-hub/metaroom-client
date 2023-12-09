@@ -1,7 +1,7 @@
 # Metaroom
 ### Elearning platform
-CODE FOR APPLICATION BACKEND https://github.com/ahsan131-hub/metaroomb
-FINAL REPORT: https://github.com/ahsan131-hub/metaroom-client/blob/main/documentation/MetaRoom%20-external.pdf
+- CODE FOR APPLICATION BACKEND https://github.com/ahsan131-hub/metaroomb
+- FINAL REPORT: https://github.com/ahsan131-hub/metaroom-client/blob/main/documentation/MetaRoom%20-external.pdf
 ![UI](./documentation/1.png)
 ![UI](./documentation/2.png)
 ![UI](./documentation/3.png)
